@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,9 +17,15 @@ namespace examensArbete
         [STAThread]
         static void Main()
         {
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile(Path.Combine(Environment.CurrentDirectory, @"privateKey.json"))
+            });
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new LogIn());
         }
     }
 }
