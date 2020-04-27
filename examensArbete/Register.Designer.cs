@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbRepeatPasswordSignUp = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tbPasswordLogIn = new System.Windows.Forms.TextBox();
-            this.tbEmailLogIn = new System.Windows.Forms.TextBox();
+            this.btnSignup = new System.Windows.Forms.Button();
+            this.tbPasswordSignUp = new System.Windows.Forms.TextBox();
+            this.tbEmailSignup = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnLoginInRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox2
+            // tbRepeatPasswordSignUp
             // 
-            this.textBox2.Location = new System.Drawing.Point(137, 134);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 21;
+            this.tbRepeatPasswordSignUp.Location = new System.Drawing.Point(137, 134);
+            this.tbRepeatPasswordSignUp.Name = "tbRepeatPasswordSignUp";
+            this.tbRepeatPasswordSignUp.PasswordChar = '*';
+            this.tbRepeatPasswordSignUp.Size = new System.Drawing.Size(100, 20);
+            this.tbRepeatPasswordSignUp.TabIndex = 21;
             // 
             // label4
             // 
@@ -55,29 +55,30 @@
             this.label4.TabIndex = 20;
             this.label4.Text = "Repetera Lösenord";
             // 
-            // button2
+            // btnSignup
             // 
-            this.button2.Location = new System.Drawing.Point(106, 188);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Bli Medlem";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnSignup.Location = new System.Drawing.Point(106, 188);
+            this.btnSignup.Name = "btnSignup";
+            this.btnSignup.Size = new System.Drawing.Size(75, 23);
+            this.btnSignup.TabIndex = 19;
+            this.btnSignup.Text = "Bli Medlem";
+            this.btnSignup.UseVisualStyleBackColor = true;
+            this.btnSignup.Click += new System.EventHandler(this.btnSignup_Click);
             // 
-            // tbPasswordLogIn
+            // tbPasswordSignUp
             // 
-            this.tbPasswordLogIn.Location = new System.Drawing.Point(137, 96);
-            this.tbPasswordLogIn.Name = "tbPasswordLogIn";
-            this.tbPasswordLogIn.PasswordChar = '*';
-            this.tbPasswordLogIn.Size = new System.Drawing.Size(100, 20);
-            this.tbPasswordLogIn.TabIndex = 18;
+            this.tbPasswordSignUp.Location = new System.Drawing.Point(137, 96);
+            this.tbPasswordSignUp.Name = "tbPasswordSignUp";
+            this.tbPasswordSignUp.PasswordChar = '*';
+            this.tbPasswordSignUp.Size = new System.Drawing.Size(100, 20);
+            this.tbPasswordSignUp.TabIndex = 18;
             // 
-            // tbEmailLogIn
+            // tbEmailSignup
             // 
-            this.tbEmailLogIn.Location = new System.Drawing.Point(137, 65);
-            this.tbEmailLogIn.Name = "tbEmailLogIn";
-            this.tbEmailLogIn.Size = new System.Drawing.Size(100, 20);
-            this.tbEmailLogIn.TabIndex = 17;
+            this.tbEmailSignup.Location = new System.Drawing.Point(137, 65);
+            this.tbEmailSignup.Name = "tbEmailSignup";
+            this.tbEmailSignup.Size = new System.Drawing.Size(100, 20);
+            this.tbEmailSignup.TabIndex = 17;
             // 
             // label2
             // 
@@ -109,21 +110,20 @@
             // 
             // Register
             // 
-            this.FormClosing +=
-    new System.Windows.Forms.FormClosingEventHandler(this.Register_FormClosing);
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 357);
             this.Controls.Add(this.btnLoginInRegister);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbRepeatPasswordSignUp);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.tbPasswordLogIn);
-            this.Controls.Add(this.tbEmailLogIn);
+            this.Controls.Add(this.btnSignup);
+            this.Controls.Add(this.tbPasswordSignUp);
+            this.Controls.Add(this.tbEmailSignup);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Register";
             this.Text = "Bli Medlem";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Register_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,11 +131,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbRepeatPasswordSignUp;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox tbPasswordLogIn;
-        private System.Windows.Forms.TextBox tbEmailLogIn;
+        private System.Windows.Forms.Button btnSignup;
+        private System.Windows.Forms.TextBox tbPasswordSignUp;
+        private System.Windows.Forms.TextBox tbEmailSignup;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnLoginInRegister;

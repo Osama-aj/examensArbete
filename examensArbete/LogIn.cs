@@ -24,7 +24,7 @@ namespace examensArbete
 
         }
 
-        private static string apiKey = "<apiKey>";
+        private static string apiKey = "AIzaSyA5jFE8V7DgpWWP7HdP_JoR9lmnEveoSus";
         private static char separator = Path.DirectorySeparatorChar;
         private static string userDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + separator + "vinAppData";
         private static string userDataFile = userDataDirectory + separator + "data.txt";
@@ -63,8 +63,8 @@ namespace examensArbete
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            tbEmailLogin.Text = "mycoolemailname@blabla.com";
-            tbPasswordLogin.Text = "123456";
+            //tbEmailLogin.Text = "mycoolemailname@blabla.com";
+            //tbPasswordLogin.Text = "123456";
 
             if (string.IsNullOrWhiteSpace(tbEmailLogin.Text) || string.IsNullOrWhiteSpace(tbPasswordLogin.Text))
             {
