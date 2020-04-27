@@ -88,8 +88,9 @@ namespace examensArbete
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("=====>\nbtnLogin_Click func, ex : " + ex.Message + "\n<=======");
 
                 MessageBox.Show("E-postadress eller lösenord är felaktiga.", "Fel");
                 return;
@@ -99,8 +100,10 @@ namespace examensArbete
                 System.IO.File.WriteAllText(userDataFile, auth.User.LocalId);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("=====>\nbtnLogin_Click func, ex : " + ex.Message + "\n<=======");
+
 
                 MessageBox.Show("Kunde inte skriva till fil.", "Fel");
                 return;
@@ -131,8 +134,9 @@ namespace examensArbete
                 uId = System.IO.File.ReadAllText(userDataFile);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("=====>\nCheckSavedUserId func, ex : " + ex.Message + "\n<=======");
 
                 return uId;
             }
@@ -147,8 +151,9 @@ namespace examensArbete
                 var user = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.GetUserAsync(uId);
                 return user;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("=====>\nGetUser func, ex : " + ex.Message + "\n<=======");
                 return null;
             }
         }
