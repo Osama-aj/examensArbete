@@ -359,6 +359,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\RestVerbs.cs" />
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
