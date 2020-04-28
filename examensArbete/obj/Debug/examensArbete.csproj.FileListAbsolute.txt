@@ -127,3 +127,4 @@ C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\FirebaseAdmin.
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\LiteDB.xml
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\System.Reactive.xml
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.WineTicket.resources
