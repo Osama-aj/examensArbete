@@ -191,7 +191,11 @@
     <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
       <Private>True</Private>
@@ -362,7 +366,29 @@
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ExceptionFirebase.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Links.cs" />
+    <Compile Include="Models\PostModels\Grades\AddGradeModel.cs" />
+    <Compile Include="Models\PostModels\Grades\UpdateGrade.cs" />
+    <Compile Include="Models\PostModels\Inventories\AddInventoryModel.cs" />
+    <Compile Include="Models\PostModels\Inventories\UpdateInventoryModel.cs" />
+    <Compile Include="Models\PostModels\Shelves\AddShelfModel.cs" />
+    <Compile Include="Models\PostModels\Shelves\UpdateShelfModel.cs" />
+    <Compile Include="Models\PostModels\Users\AddUserModel.cs" />
+    <Compile Include="Models\PostModels\Users\UpdateUserModel.cs" />
+    <Compile Include="Models\PostModels\Vintages\AddVintageModel.cs" />
+    <Compile Include="Models\PostModels\Vintages\UpdateVintageModel.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\CountryResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\DistrictResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\GradeResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\GrapeResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\MetaDataResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\RegionResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\VintageResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\WineGrapeResponse.cs" />
+    <Compile Include="Models\ResponseModel\GeneralSectionResponse\WineResponse.cs" />
+    <Compile Include="Models\ResponseModel\UserSectionResponse\InventoryResponse.cs" />
+    <Compile Include="Models\ResponseModel\UserSectionResponse\ShelfResponse.cs" />
+    <Compile Include="Models\ResponseModel\UserSectionResponse\WineListResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs">
@@ -409,5 +435,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
