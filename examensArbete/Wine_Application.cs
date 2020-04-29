@@ -44,39 +44,11 @@ namespace examensArbete
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        ////////////////////
-        ////////////////////
-        ////////////////////
         ////////////////////
         /// before copy
         private async Task<string> GetToken()
         {
-           
+            
             return await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(_user.Uid);
 
         }
@@ -126,7 +98,7 @@ namespace examensArbete
         ////////////////////
         ////////////////////
         /// after copy
-        
+
 
         //winelist tab
 
@@ -137,8 +109,9 @@ namespace examensArbete
         }
         private async void GetUsersWineList()
         {
-            var getUsersWineListLink = Links.baseLink + Links.usersWineList + Links.userId;
-            var responseBody = await RestVerbs.Get(getUsersWineListLink);
+            var getUsersWineListLink = Links.baseLink + Links.usersWineList;
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Get(getUsersWineListLink,token);
             var responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
             //dataGridView1.DataSource = responseBodyJson;
             var wineTickets = new List<WineTicket>();
@@ -224,8 +197,11 @@ namespace examensArbete
             //comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
             if (comboBox1.Text.Length >= 3)
             {
-                var getAllWinelist = Links.baseLink + Links.allwineList + Links.userId + "&startswith=" + comboBox1.Text;
-                var responseBody = await RestVerbs.Get(getAllWinelist);
+                var token = await GetToken();
+                var allWinelistUrl = Links.baseLink + Links.allwineList;
+                if (comboBox1.Text != string.Empty)
+                    allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith="+ comboBox1.Text);
+                    var responseBody = await RestVerbs.Get(allWinelistUrl, token);
                 var responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
                 var dt = new DataTable();
 

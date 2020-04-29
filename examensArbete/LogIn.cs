@@ -63,8 +63,8 @@ namespace examensArbete
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            //tbEmailLogin.Text = "mycoolemailname@blabla.com";
-            //tbPasswordLogin.Text = "123456";
+            tbEmailLogin.Text = "mycoolemailname@blabla.com";
+            tbPasswordLogin.Text = "123456";
 
             if (string.IsNullOrWhiteSpace(tbEmailLogin.Text) || string.IsNullOrWhiteSpace(tbPasswordLogin.Text))
             {
@@ -80,7 +80,7 @@ namespace examensArbete
                 //TODO: try internet 
                 auth = await fbAuthProvider.SignInWithEmailAndPasswordAsync(tbEmailLogin.Text, tbPasswordLogin.Text);
 
-
+               
                 user = await GetUser(auth.User.LocalId);
                 if (user == null)
                     return;
@@ -108,6 +108,16 @@ namespace examensArbete
                 MessageBox.Show("Kunde inte skriva till fil.", "Fel");
                 return;
             }
+
+
+            var ct= await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(auth.User.LocalId);
+
+            auth = await fbAuthProvider.SignInWithCustomTokenAsync(ct);
+            var tt = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(ct);
+
+
+
+
 
             Wine_Application wineApp = new Wine_Application(user);
             wineApp.Show();

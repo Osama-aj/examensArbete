@@ -87,7 +87,7 @@ namespace examensArbete
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {
-            var url = Links.baseLink + Links.inventories + Links.userId;
+            var url = Links.baseLink + Links.inventories;
             var payload = new UpdateInventoryModel
             {
                 InventoryId = this.InventoryId,
@@ -111,7 +111,7 @@ namespace examensArbete
 
         private async void RemoveOneBottleButton_Click(object sender, EventArgs e)
         {
-            var url = Links.baseLink + Links.inventories + Links.userId;
+            var url = Links.baseLink + Links.inventories;
             var payload = new UpdateInventoryModel
             {
                 InventoryId = this.InventoryId,
@@ -133,7 +133,7 @@ namespace examensArbete
 
         private void lblGrade_Click(object sender, EventArgs e)
         {
-            var url = Links.baseLink + Links.grades + Links.userId;
+            var url = Links.baseLink + Links.grades;
             var payload = new AddGradeModel
             {
                 VintageId = this.VintageId,

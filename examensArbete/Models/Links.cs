@@ -10,12 +10,12 @@ namespace examensArbete.Models
     {
         public static string baseLink = @"http://54.72.51.80:5000/api/";
         //public static string baseLink = @"http://localhost:5000/api/";
-        public static string userId = @"";
+       // public static string userId = @"";
         //public static string userId = @"?userId=Av4ivM6LMlRVz7W5YbgilBXUK5d2";
 
 
-        public static string usersWineList = "userswinelist";
-        public static string allwineList = "allwinelist";
+        public static string usersWineList = "userswinelist?startswith=&countryid=-1&regionid=-1&districtid=-1&grapeid=-1";
+        public static string allwineList = "allwinelist?startswith=&countryid=-1&regionid=-1&districtid=-1&grapeid=-1";
 
         public static string shelves = @"shelves";
         public static string vintages = @"vintages";
