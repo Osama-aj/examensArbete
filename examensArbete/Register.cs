@@ -134,7 +134,7 @@ namespace examensArbete
                 return;
             }
 
-            Wine_Application wineApp = new Wine_Application(user);
+            Wine_Application wineApp = new Wine_Application(user, auth);
             wineApp.Show();
             this.Hide();
         }

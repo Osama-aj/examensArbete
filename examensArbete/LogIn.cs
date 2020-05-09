@@ -55,16 +55,18 @@ namespace examensArbete
                 System.IO.File.WriteAllText(userDataFile, string.Empty);
                 return;
             }
+            var customTokent = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(user.Uid);
 
-            Wine_Application wineApp = new Wine_Application(user);
+            FirebaseAuthLink auth = await fbAuthProvider.SignInWithCustomTokenAsync(customTokent);
+            Wine_Application wineApp = new Wine_Application(user, auth);
             wineApp.Show();
             this.Hide();
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            tbEmailLogin.Text = "mycoolemailname@blabla.com";
-            tbPasswordLogin.Text = "123456";
+            //tbEmailLogin.Text = "mycoolemailname@blabla.com";
+            //tbPasswordLogin.Text = "123456";
 
             if (string.IsNullOrWhiteSpace(tbEmailLogin.Text) || string.IsNullOrWhiteSpace(tbPasswordLogin.Text))
             {
@@ -80,7 +82,7 @@ namespace examensArbete
                 //TODO: try internet 
                 auth = await fbAuthProvider.SignInWithEmailAndPasswordAsync(tbEmailLogin.Text, tbPasswordLogin.Text);
 
-               
+
                 user = await GetUser(auth.User.LocalId);
                 if (user == null)
                     return;
@@ -110,16 +112,16 @@ namespace examensArbete
             }
 
 
-            var ct= await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(auth.User.LocalId);
+            var ct = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(auth.User.LocalId);
 
             auth = await fbAuthProvider.SignInWithCustomTokenAsync(ct);
-            var tt = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(ct);
+            var tt = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(auth.FirebaseToken);
 
 
 
 
 
-            Wine_Application wineApp = new Wine_Application(user);
+            Wine_Application wineApp = new Wine_Application(user, auth);
             wineApp.Show();
             this.Hide();
 

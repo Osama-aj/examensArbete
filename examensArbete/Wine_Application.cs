@@ -23,9 +23,11 @@ namespace examensArbete
     {
 
         public static UserRecord _user;
+        FirebaseAuthLink _auth;
 
-        public Wine_Application(UserRecord user)
+        public Wine_Application(UserRecord user, FirebaseAuthLink auth)
         {
+            _auth = auth;
             _user = user;
             InitializeComponent();
 
@@ -48,8 +50,9 @@ namespace examensArbete
         /// before copy
         private async Task<string> GetToken()
         {
-            
-            return await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(_user.Uid);
+            _auth = await _auth.GetFreshAuthAsync();
+            Console.WriteLine("Token : {0}", _auth.FirebaseToken);
+            return _auth.FirebaseToken;
 
         }
 
@@ -109,10 +112,14 @@ namespace examensArbete
         }
         private async void GetUsersWineList()
         {
+            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
             var getUsersWineListLink = Links.baseLink + Links.usersWineList;
             var token = await GetToken();
-            var responseBody = await RestVerbs.Get(getUsersWineListLink,token);
-            var responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
+            var responseBody = await RestVerbs.Get(getUsersWineListLink, token);
+            if (responseBody != null)
+                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
+            else
+                MessageBox.Show("The response is null, no internet connection or failed with authentication", "Error");
             //dataGridView1.DataSource = responseBodyJson;
             var wineTickets = new List<WineTicket>();
             flowLayoutPanel1.Controls.Clear();
@@ -200,8 +207,8 @@ namespace examensArbete
                 var token = await GetToken();
                 var allWinelistUrl = Links.baseLink + Links.allwineList;
                 if (comboBox1.Text != string.Empty)
-                    allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith="+ comboBox1.Text);
-                    var responseBody = await RestVerbs.Get(allWinelistUrl, token);
+                    allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith=" + comboBox1.Text);
+                var responseBody = await RestVerbs.Get(allWinelistUrl, token);
                 var responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
                 var dt = new DataTable();
 
