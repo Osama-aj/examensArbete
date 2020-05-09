@@ -360,6 +360,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\RestVerbs.cs" />
+    <Compile Include="frmWaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWaitForm.Designer.cs">
+      <DependentUpon>frmWaitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InventoryTicket.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -416,6 +422,9 @@
     <Compile Include="Wine_Application.Designer.cs">
       <DependentUpon>Wine_Application.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmWaitForm.resx">
+      <DependentUpon>frmWaitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>

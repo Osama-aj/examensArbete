@@ -43,7 +43,11 @@ namespace examensArbete
 
             var uId = CheckSavedUserId();
             if (string.IsNullOrEmpty(uId))
+            {
+                btnLogin.Enabled = true;
+                btnSignUpInLogin.Enabled = true;
                 return;
+            }
 
 
 

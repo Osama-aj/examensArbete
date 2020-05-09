@@ -123,6 +123,7 @@ namespace examensArbete
             //dataGridView1.DataSource = responseBodyJson;
             var wineTickets = new List<WineTicket>();
             flowLayoutPanel1.Controls.Clear();
+            responseBodyJson = responseBodyJson.Take(10).ToList();
             foreach (var wine in responseBodyJson)
             {
 
@@ -169,7 +170,7 @@ namespace examensArbete
             }
 
 
-            for (int i = 0; i < wineTickets.Count() - 1 && i < 5; i++)
+            for (int i = 0; i < wineTickets.Count() ; i++)
             {
                 //flowLayoutPanel1.Controls.AddRange(wineTickets.ToArray());
 

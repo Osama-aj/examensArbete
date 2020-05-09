@@ -40,6 +40,7 @@
             // 
             // btnSignUpInLogin
             // 
+            this.btnSignUpInLogin.Enabled = false;
             this.btnSignUpInLogin.Location = new System.Drawing.Point(99, 176);
             this.btnSignUpInLogin.Name = "btnSignUpInLogin";
             this.btnSignUpInLogin.Size = new System.Drawing.Size(75, 23);
@@ -50,6 +51,7 @@
             // 
             // btnLogin
             // 
+            this.btnLogin.Enabled = false;
             this.btnLogin.Location = new System.Drawing.Point(99, 125);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
