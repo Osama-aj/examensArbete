@@ -22,13 +22,13 @@ namespace examensArbete
     public partial class Wine_Application : Form
     {
 
-        public static UserRecord _user;
-        FirebaseAuthLink _auth;
+        //public static UserRecord _user;
+        //FirebaseAuthLink _auth;
 
-        public Wine_Application(UserRecord user, FirebaseAuthLink auth)
+        public Wine_Application()
         {
-            _auth = auth;
-            _user = user;
+           // _auth = auth;
+           // _user = user;
             InitializeComponent();
 
 
@@ -46,15 +46,8 @@ namespace examensArbete
         }
 
 
-        ////////////////////
-        /// before copy
-        private async Task<string> GetToken()
-        {
-            _auth = await _auth.GetFreshAuthAsync();
-            Console.WriteLine("Token : {0}", _auth.FirebaseToken);
-            return _auth.FirebaseToken;
-
-        }
+       
+        
 
         private void BtnLogout_Click(object sender, EventArgs e)
         {

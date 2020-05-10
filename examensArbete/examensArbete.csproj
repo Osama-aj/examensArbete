@@ -359,6 +359,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\Infrastructure.cs" />
     <Compile Include="BusinessLogic\RestVerbs.cs" />
     <Compile Include="frmWaitForm.cs">
       <SubType>Form</SubType>
@@ -366,6 +367,7 @@
     <Compile Include="frmWaitForm.Designer.cs">
       <DependentUpon>frmWaitForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IInfrastructure.cs" />
     <Compile Include="InventoryTicket.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -378,6 +380,7 @@
     <Compile Include="LogIn.Designer.cs">
       <DependentUpon>LogIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\ExceptionFirebase.cs" />
     <Compile Include="Models\Links.cs" />
     <Compile Include="Models\PostModels\Grades\AddGradeModel.cs" />
