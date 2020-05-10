@@ -94,7 +94,7 @@ namespace examensArbete
                 Amount = this.Amount + 1,
                 ShelfId = this.ShelfId
             };
-            var responseBody = await RestVerbs.Put(url, payload);
+            var responseBody = await RestVerbs.Put(url, payload,"");
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
@@ -118,7 +118,7 @@ namespace examensArbete
                 Amount = this.Amount - 1,
                 ShelfId = this.ShelfId
             };
-            var responseBody = await RestVerbs.Put(url, payload);
+            var responseBody = await RestVerbs.Put(url, payload,"");
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);

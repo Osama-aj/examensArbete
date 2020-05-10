@@ -41,7 +41,7 @@ namespace examensArbete
 
         private void Wine_Application_Load(object sender, EventArgs e)
         {
-
+            ShowUsersWinelist();
 
         }
 
@@ -87,79 +87,22 @@ namespace examensArbete
 
         //winelist tab
 
-        private void GetUsersWineListButton_Click(object sender, EventArgs e)
+        private async void ShowUsersWinelist()
         {
 
-            GetUsersWineList();
-        }
-        private async void GetUsersWineList()
-        {
-            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
-            var getUsersWineListLink = Links.baseLink + Links.usersWineList;
-            var token = await GetToken();
-            var responseBody = await RestVerbs.Get(getUsersWineListLink, token);
-            if (responseBody != null)
-                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
-            else
-                MessageBox.Show("The response is null, no internet connection or failed with authentication", "Error");
-            //dataGridView1.DataSource = responseBodyJson;
-            var wineTickets = new List<WineTicket>();
-            flowLayoutPanel1.Controls.Clear();
-            responseBodyJson = responseBodyJson.Take(10).ToList();
-            foreach (var wine in responseBodyJson)
+            var usersWinelistErrorModel = await Infrastructure.GetUsersWineList();
+
+            if (usersWinelistErrorModel.ErrorCode)
             {
-
-                var inves = new List<InventoryTicket>();
-                foreach (var inv in wine.Vintages)
+                flowLayoutPanel1.Controls.Clear();
+                List<WineTicket> wineTickets = (List<WineTicket>)usersWinelistErrorModel.Object;
+                foreach (Control wineticket in wineTickets)
                 {
-                    inves.Add(new InventoryTicket
-                    {
-                        Year = inv.Year,
-                        Amount = inv.Amount,
-                        Shelf = inv.ShelfName,
-                        Grade = inv.Grade != null ? inv.Grade.Grade : 0,
-                        InventoryId = inv.InventoryId,
-                        ShelfId = inv.ShelfId,
-
-                    });
-
-                    //wineTickets[wineTickets.Count() - 1].Bottles.Controls.Add(new InventoryTicket
-                    //{
-                    //    Year = inv.Year,
-                    //    Amount = inv.Amount,
-                    //    Shelf = inv.ShelfName,
-                    //    Grade = inv.Grade != null ? inv.Grade.Grade : 0,
-                    //    InventoryId = inv.InventoryId
-                    //});
+                    flowLayoutPanel1.Controls.Add(wineticket);
                 }
 
-
-
-
-                wineTickets.Add(new WineTicket
-                {
-                    WineId = wine.WineId,
-                    WineName = wine.WineName,
-                    District = wine.District.DistrictName,
-                    Alcohol = wine.Alcohol,
-                    Bottles = inves,
-                    WinePic = wine.ImageThumbnail,
-
-
-                });
-
-                // flowLayoutPanel1.Controls.Add(wineTickets.Last());
             }
 
-
-            for (int i = 0; i < wineTickets.Count(); i++)
-            {
-                //flowLayoutPanel1.Controls.AddRange(wineTickets.ToArray());
-
-                wineTickets[i].Region = i.ToString();
-                flowLayoutPanel1.Controls.Add(wineTickets[i]);
-
-            }
 
         }
 
@@ -187,7 +130,7 @@ namespace examensArbete
             //comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
             if (comboBox1.Text.Length >= 3)
             {
-                var token = await GetToken();
+                var token = /*await GetToken()*/"";
                 var allWinelistUrl = Links.baseLink + Links.allwineList;
                 if (comboBox1.Text != string.Empty)
                     allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith=" + comboBox1.Text);

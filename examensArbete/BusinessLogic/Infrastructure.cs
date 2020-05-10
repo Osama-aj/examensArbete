@@ -1,7 +1,9 @@
 ﻿using examensArbete.Models;
+using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
 using FirebaseAdmin.Auth;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto.Engines;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,17 +17,18 @@ namespace examensArbete.BusinessLogic
 
     public class Infrastructure
     {
-
-        private UserRecord _user;
-        private FirebaseAuthLink _auth;
+        #region global variables 
+        private static UserRecord _user;
+        private static FirebaseAuthLink _auth;
 
 
         private static string apiKey = "AIzaSyA5jFE8V7DgpWWP7HdP_JoR9lmnEveoSus";
         private static char separator = Path.DirectorySeparatorChar;
         private static string userDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + separator + "vinAppData";
         private static string userDataFile = userDataDirectory + separator + "data.txt";
+        #endregion
 
-
+        #region login,out and signup
         public static async Task<ErrorModel> CheckIfLoggedIn()
         {
             System.IO.Directory.CreateDirectory(userDataDirectory);
@@ -63,10 +66,11 @@ namespace examensArbete.BusinessLogic
             var customTokent = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(user.Uid);
 
             FirebaseAuthLink auth = await fbAuthProvider.SignInWithCustomTokenAsync(customTokent);
+            _auth = auth;
+            _user = user;
             return new ErrorModel { ErrorCode = true, Message = null };
 
         }
-
         public static async Task<ErrorModel> LogInWithEmailAndPassword(string email, string password)
         {
 
@@ -121,7 +125,8 @@ namespace examensArbete.BusinessLogic
 
             auth = await fbAuthProvider.SignInWithCustomTokenAsync(ct);
             var tt = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(auth.FirebaseToken);
-
+            _auth = auth;
+            _user = user;
             return new ErrorModel { ErrorCode = true, Message = null };
 
 
@@ -180,19 +185,63 @@ namespace examensArbete.BusinessLogic
 
             }
         }
+        #endregion
+
+        #region winelist 
+
+        public static async Task<ErrorModel> GetUsersWineList()
+        {
+
+            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
+            var url = Links.baseLink + Links.usersWineList;
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Get(url, token);
+            if (responseBody != null)
+                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
+            else
+            {
+                //MessageBox.Show("The response is null, no internet connection or failed with authentication", "Error");
+                return new ErrorModel { ErrorCode = false, Message = "The response is null, no internet connection or failed with authentication", Object = null };
+            }
+
+            var wineTickets = new List<WineTicket>();
+            responseBodyJson = responseBodyJson.Take(10).ToList();
+            foreach (var wine in responseBodyJson)
+            {
+
+                var inves = new List<InventoryTicket>();
+                foreach (var inv in wine.Vintages)
+                {
+                    inves.Add(new InventoryTicket
+                    {
+                        Year = inv.Year,
+                        Amount = inv.Amount,
+                        Shelf = inv.ShelfName,
+                        Grade = inv.Grade != null ? inv.Grade.Grade : 0,
+                        InventoryId = inv.InventoryId,
+                        ShelfId = inv.ShelfId,
+
+                    });
+                }
+
+                wineTickets.Add(new WineTicket
+                {
+                    WineId = wine.WineId,
+                    WineName = wine.WineName,
+                    Alcohol = wine.Alcohol,
+                    Bottles = inves,
+                    WinePic = wine.ImageThumbnail
+                });
+            }
+            return new ErrorModel { ErrorCode = true, Message = null, Object = wineTickets };
+        }
+
+        #endregion
 
 
 
 
-        ///////////////////
-        ///////////////////
-        ///////////////////
-        ///////////////////
-        ///////////////////
-        /// Helper Functions 
-        /// 
-
-        private async Task<string> GetToken()
+        private static async Task<string> GetToken()
         {
             _auth = await _auth.GetFreshAuthAsync();
             Console.WriteLine("Token : {0}", _auth.FirebaseToken);

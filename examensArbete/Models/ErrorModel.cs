@@ -10,5 +10,6 @@ namespace examensArbete.Models
     {
         public bool ErrorCode { get; set; }
         public string Message { get; set; }
+        public Object Object { get; set; }
     }
 }

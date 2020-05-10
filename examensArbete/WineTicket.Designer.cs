@@ -30,12 +30,10 @@
         {
             this.picWinePic = new System.Windows.Forms.PictureBox();
             this.lblWineName = new System.Windows.Forms.Label();
-            this.lblCountry = new System.Windows.Forms.Label();
+            this.lblOrigin = new System.Windows.Forms.Label();
             this.lblAlcohol = new System.Windows.Forms.Label();
             this.lblGrapes = new System.Windows.Forms.Label();
             this.lblWineId = new System.Windows.Forms.Label();
-            this.lblDistrict = new System.Windows.Forms.Label();
-            this.lblRegion = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BottlesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,14 +63,14 @@
             this.lblWineName.TabIndex = 1;
             this.lblWineName.Text = "Put here wine name";
             // 
-            // lblCountry
+            // lblOrigin
             // 
-            this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(22, 70);
-            this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(86, 13);
-            this.lblCountry.TabIndex = 2;
-            this.lblCountry.Text = "Put here Country";
+            this.lblOrigin.AutoSize = true;
+            this.lblOrigin.Location = new System.Drawing.Point(9, 116);
+            this.lblOrigin.Name = "lblOrigin";
+            this.lblOrigin.Size = new System.Drawing.Size(75, 13);
+            this.lblOrigin.TabIndex = 2;
+            this.lblOrigin.Text = "Put here origin";
             // 
             // lblAlcohol
             // 
@@ -102,25 +100,6 @@
             this.lblWineId.Size = new System.Drawing.Size(41, 13);
             this.lblWineId.TabIndex = 6;
             this.lblWineId.Text = "WineId";
-            // 
-            // lblDistrict
-            // 
-            this.lblDistrict.AutoSize = true;
-            this.lblDistrict.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDistrict.Location = new System.Drawing.Point(9, 116);
-            this.lblDistrict.Name = "lblDistrict";
-            this.lblDistrict.Size = new System.Drawing.Size(107, 17);
-            this.lblDistrict.TabIndex = 7;
-            this.lblDistrict.Text = "Put here district";
-            // 
-            // lblRegion
-            // 
-            this.lblRegion.AutoSize = true;
-            this.lblRegion.Location = new System.Drawing.Point(26, 83);
-            this.lblRegion.Name = "lblRegion";
-            this.lblRegion.Size = new System.Drawing.Size(84, 13);
-            this.lblRegion.TabIndex = 8;
-            this.lblRegion.Text = "Put here Region";
             // 
             // label1
             // 
@@ -191,14 +170,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BottlesPanel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblDistrict);
             this.Controls.Add(this.lblGrapes);
             this.Controls.Add(this.lblAlcohol);
             this.Controls.Add(this.lblWineName);
             this.Controls.Add(this.picWinePic);
             this.Controls.Add(this.lblWineId);
-            this.Controls.Add(this.lblCountry);
-            this.Controls.Add(this.lblRegion);
+            this.Controls.Add(this.lblOrigin);
             this.Name = "WineTicket";
             this.Size = new System.Drawing.Size(799, 316);
             ((System.ComponentModel.ISupportInitialize)(this.picWinePic)).EndInit();
@@ -211,12 +188,10 @@
 
         private System.Windows.Forms.PictureBox picWinePic;
         private System.Windows.Forms.Label lblWineName;
-        private System.Windows.Forms.Label lblCountry;
+        private System.Windows.Forms.Label lblOrigin;
         private System.Windows.Forms.Label lblAlcohol;
         private System.Windows.Forms.Label lblGrapes;
         private System.Windows.Forms.Label lblWineId;
-        private System.Windows.Forms.Label lblDistrict;
-        private System.Windows.Forms.Label lblRegion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel BottlesPanel;
         private System.Windows.Forms.Label label2;

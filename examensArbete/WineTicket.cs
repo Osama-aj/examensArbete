@@ -19,7 +19,7 @@ namespace examensArbete
 
         private long _wineId;
         private string _wineName;
-        private string _country;
+        private string _origin;
         private string _region;
         private string _district;
         private double _alcohol;
@@ -68,28 +68,16 @@ namespace examensArbete
         }
 
         [Category("Custom Props")]
-        public string Country
+        public string Origin
         {
-            get { return _country; }
-            set { _country = value; lblCountry.Text = value; }
+            get { return _origin; }
+            set { _origin = value; lblOrigin.Text = value; }
         }
 
 
-        [Category("Custom Props")]
-        public string Region
-        {
-            get { return _region; }
-            set { _region = value; lblRegion.Text = value; }
-        }
+     
 
 
-
-        [Category("Custom Props")]
-        public string District
-        {
-            get { return _district; }
-            set { _district = value; lblDistrict.Text = value; }
-        }
 
         [Category("Custom Props")]
         public double Alcohol
