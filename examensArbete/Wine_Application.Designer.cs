@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnLogout = new System.Windows.Forms.Button();
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.UsersWineList = new System.Windows.Forms.TabPage();
-            this.GetUsersWineListButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.Add = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -42,24 +40,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.AddShelfTab = new System.Windows.Forms.TabPage();
             this.AddVintageTab = new System.Windows.Forms.TabPage();
+            this.myPages = new System.Windows.Forms.TabPage();
             this.wineListResponseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblUserInfo = new System.Windows.Forms.Label();
+            this.btnLogOut = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.UsersWineList.SuspendLayout();
             this.Add.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.AddBottleTab.SuspendLayout();
+            this.myPages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.Location = new System.Drawing.Point(713, 415);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(75, 23);
-            this.btnLogout.TabIndex = 1;
-            this.btnLogout.Text = "Logga ut";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.BtnLogout_Click);
             // 
             // panel1
             // 
@@ -72,6 +64,7 @@
             // 
             this.tabControl1.Controls.Add(this.UsersWineList);
             this.tabControl1.Controls.Add(this.Add);
+            this.tabControl1.Controls.Add(this.myPages);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -81,7 +74,6 @@
             // 
             // UsersWineList
             // 
-            this.UsersWineList.Controls.Add(this.GetUsersWineListButton);
             this.UsersWineList.Controls.Add(this.flowLayoutPanel1);
             this.UsersWineList.Location = new System.Drawing.Point(4, 22);
             this.UsersWineList.Name = "UsersWineList";
@@ -90,16 +82,6 @@
             this.UsersWineList.TabIndex = 0;
             this.UsersWineList.Text = "vin lista";
             this.UsersWineList.UseVisualStyleBackColor = true;
-            // 
-            // GetUsersWineListButton
-            // 
-            this.GetUsersWineListButton.Location = new System.Drawing.Point(8, 0);
-            this.GetUsersWineListButton.Name = "GetUsersWineListButton";
-            this.GetUsersWineListButton.Size = new System.Drawing.Size(99, 28);
-            this.GetUsersWineListButton.TabIndex = 1;
-            this.GetUsersWineListButton.Text = "Hämta";
-            this.GetUsersWineListButton.UseVisualStyleBackColor = true;
-            this.GetUsersWineListButton.Click += new System.EventHandler(this.GetUsersWineListButton_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -186,15 +168,43 @@
             this.AddVintageTab.Text = "Årgång";
             this.AddVintageTab.UseVisualStyleBackColor = true;
             // 
+            // myPages
+            // 
+            this.myPages.Controls.Add(this.btnLogOut);
+            this.myPages.Controls.Add(this.lblUserInfo);
+            this.myPages.Location = new System.Drawing.Point(4, 22);
+            this.myPages.Name = "myPages";
+            this.myPages.Padding = new System.Windows.Forms.Padding(3);
+            this.myPages.Size = new System.Drawing.Size(834, 459);
+            this.myPages.TabIndex = 2;
+            this.myPages.Text = "mina sidor";
+            this.myPages.UseVisualStyleBackColor = true;
+            // 
             // wineListResponseBindingSource
             // 
             this.wineListResponseBindingSource.DataSource = typeof(examensArbete.Models.ResponseModel.UserSectionResponse.WineListResponse);
             // 
+            // lblUserInfo
+            // 
+            this.lblUserInfo.AutoSize = true;
+            this.lblUserInfo.Location = new System.Drawing.Point(119, 47);
+            this.lblUserInfo.Name = "lblUserInfo";
+            this.lblUserInfo.Size = new System.Drawing.Size(35, 13);
+            this.lblUserInfo.TabIndex = 0;
+            this.lblUserInfo.Text = "label2";
+            // 
+            // btnLogOut
+            // 
+            this.btnLogOut.Location = new System.Drawing.Point(109, 244);
+            this.btnLogOut.Name = "btnLogOut";
+            this.btnLogOut.Size = new System.Drawing.Size(83, 38);
+            this.btnLogOut.TabIndex = 1;
+            this.btnLogOut.Text = "Logga ut";
+            this.btnLogOut.UseVisualStyleBackColor = true;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click_1);
+            // 
             // Wine_Application
             // 
-            this.Controls.Add(this.btnLogout);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Wine_Application_FormClosing);
-            this.AcceptButton = this.GetUsersWineListButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(842, 485);
@@ -203,6 +213,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Wine_Application";
             this.Text = "Vinn App";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Wine_Application_FormClosing);
             this.Load += new System.EventHandler(this.Wine_Application_Load);
             this.tabControl1.ResumeLayout(false);
             this.UsersWineList.ResumeLayout(false);
@@ -210,8 +221,11 @@
             this.tabControl2.ResumeLayout(false);
             this.AddBottleTab.ResumeLayout(false);
             this.AddBottleTab.PerformLayout();
+            this.myPages.ResumeLayout(false);
+            this.myPages.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -277,14 +291,11 @@
 
 
 
-
-        private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage Add;
         private System.Windows.Forms.BindingSource wineListResponseBindingSource;
         private System.Windows.Forms.TabPage UsersWineList;
-        private System.Windows.Forms.Button GetUsersWineListButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage AddBottleTab;
@@ -292,5 +303,8 @@
         private System.Windows.Forms.TabPage AddVintageTab;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage myPages;
+        private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.Label lblUserInfo;
     }
 }

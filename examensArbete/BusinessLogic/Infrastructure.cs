@@ -122,7 +122,7 @@ namespace examensArbete.BusinessLogic
             auth = await fbAuthProvider.SignInWithCustomTokenAsync(ct);
             var tt = await FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(auth.FirebaseToken);
 
-            return new ErrorModel { ErrorCode = true,Message=null };
+            return new ErrorModel { ErrorCode = true, Message = null };
 
 
         }
@@ -167,7 +167,19 @@ namespace examensArbete.BusinessLogic
 
         }
 
+        public static ErrorModel Logout()
+        {
+            try
+            {
+                System.IO.File.WriteAllText(userDataFile, string.Empty);
+                return new ErrorModel { ErrorCode = true, Message = null };
+            }
+            catch (Exception)
+            {
+                return new ErrorModel { ErrorCode = false, Message = "Nnting gick fel medan loggning ut!" };
 
+            }
+        }
 
 
 
@@ -203,6 +215,6 @@ namespace examensArbete.BusinessLogic
             }
         }
 
-        
+
     }
 }

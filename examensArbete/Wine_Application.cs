@@ -27,8 +27,8 @@ namespace examensArbete
 
         public Wine_Application()
         {
-           // _auth = auth;
-           // _user = user;
+            // _auth = auth;
+            // _user = user;
             InitializeComponent();
 
 
@@ -46,17 +46,6 @@ namespace examensArbete
         }
 
 
-       
-        
-
-        private void BtnLogout_Click(object sender, EventArgs e)
-        {
-            System.IO.File.WriteAllText(userDataFile, string.Empty);
-
-            LogIn login = new LogIn();
-            login.Show();
-            Hide();
-        }
 
 
 
@@ -163,7 +152,7 @@ namespace examensArbete
             }
 
 
-            for (int i = 0; i < wineTickets.Count() ; i++)
+            for (int i = 0; i < wineTickets.Count(); i++)
             {
                 //flowLayoutPanel1.Controls.AddRange(wineTickets.ToArray());
 
@@ -222,6 +211,18 @@ namespace examensArbete
         private void loginPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnLogOut_Click_1(object sender, EventArgs e)
+        {
+            var isSuccess = Infrastructure.Logout();
+
+            if (!string.IsNullOrEmpty(isSuccess.Message))
+                MessageBox.Show(isSuccess.Message, "fel");
+
+            LogIn login = new LogIn();
+            login.Show();
+            Hide();
         }
 
 
