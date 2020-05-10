@@ -10,6 +10,6 @@ namespace examensArbete.Models.ResponseModel.GeneralSectionResponse
     {
         public long CountryId { get; set; }
         public string CountryName { get; set; }
-        public virtual ICollection<RegionResponse> Regions { get; set; }
+        public virtual IList<RegionResponse> Regions { get; set; }
     }
 }

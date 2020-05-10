@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using examensArbete.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +15,17 @@ namespace examensArbete.BusinessLogic
 
 
 
-        public static async Task<string> Get(string url, string accessToken)
+        public static async Task<ErrorModel> Get(string url, string accessToken)
         {
 
             var responseBody = "";
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
 
-
-
-
-
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-
                 if (response != null)
                 {
                     responseBody = await response.Content.ReadAsStringAsync();
@@ -39,12 +35,14 @@ namespace examensArbete.BusinessLogic
             }
             catch (HttpRequestException e)
             {
+
                 Console.WriteLine("\nException Caught!");
                 Console.WriteLine("Message :{0} ", e.Message);
-                return null;
+                return new ErrorModel { ErrorCode = false, Message = e.Message, Object = null };
+
             }
 
-            return responseBody;
+            return new ErrorModel { ErrorCode = true, Message = null, Object = responseBody };
         }
 
 

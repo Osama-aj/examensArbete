@@ -8,7 +8,7 @@ namespace examensArbete.Models.ResponseModel.GeneralSectionResponse
 {
     public class MetaDataResponse
     {
-        public IEnumerable<GrapeResponse> Grapes { get; set; }
-        public IEnumerable<CountryResponse> Countries { get; set; }
+        public IList<GrapeResponse> Grapes { get; set; }
+        public IList<CountryResponse> Countries { get; set; }
     }
 }

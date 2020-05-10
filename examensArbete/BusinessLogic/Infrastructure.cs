@@ -1,8 +1,10 @@
 ﻿using examensArbete.Models;
+using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
 using FirebaseAdmin.Auth;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Crypto.Engines;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace examensArbete.BusinessLogic
 {
@@ -188,21 +191,58 @@ namespace examensArbete.BusinessLogic
         #endregion
 
         #region winelist 
-
-        public static async Task<ErrorModel> GetUsersWineList()
+        public static async Task<ErrorModel> GetMetadata()
         {
+            MetaDataResponse responseBodyJson = new MetaDataResponse();
 
-            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
-            var url = Links.baseLink + Links.usersWineList;
+            var url = Links.baseLink + Links.metadata;
             var token = await GetToken();
-            var responseBody = await RestVerbs.Get(url, token);
-            if (responseBody != null)
-                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
+            var responseErrorModel = await RestVerbs.Get(url, token);
+
+            if (responseErrorModel.ErrorCode)
+            {
+                responseBodyJson = JsonConvert.DeserializeObject<MetaDataResponse>((string)responseErrorModel.Object);
+
+            }
             else
             {
-                //MessageBox.Show("The response is null, no internet connection or failed with authentication", "Error");
-                return new ErrorModel { ErrorCode = false, Message = "The response is null, no internet connection or failed with authentication", Object = null };
+                return responseErrorModel;
+
             }
+
+            return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+
+
+
+
+        }
+        public static async Task<ErrorModel> GetUsersWineList(string startsWith, long countryId, long regionId)
+        {
+
+            var url = Links.baseLink + Links.usersWineList;
+            if (!string.IsNullOrEmpty(startsWith))
+                url = url.Replace("startswith=", "startswith=" + startsWith);
+            if (countryId > 0)
+                url = url.Replace("countryid=-1", "countryid=" + countryId);
+            if (regionId > 0)
+                url = url.Replace("regionid=-1", "regionid=" + regionId);
+
+            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
+            var token = await GetToken();
+            var responseErrorModel = await RestVerbs.Get(url, token);
+            if (responseErrorModel.ErrorCode)
+            {
+                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>((string)responseErrorModel.Object);
+
+            }
+            else
+            {
+                return responseErrorModel;
+
+            }
+
+
+
 
             var wineTickets = new List<WineTicket>();
             responseBodyJson = responseBodyJson.Take(10).ToList();

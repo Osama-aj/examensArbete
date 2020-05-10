@@ -32,6 +32,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.UsersWineList = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbRegionWineList = new System.Windows.Forms.ComboBox();
+            this.cbCountryWineList = new System.Windows.Forms.ComboBox();
+            this.tbWineNameWineList = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.Add = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -41,14 +46,8 @@
             this.AddShelfTab = new System.Windows.Forms.TabPage();
             this.AddVintageTab = new System.Windows.Forms.TabPage();
             this.myPages = new System.Windows.Forms.TabPage();
-            this.lblUserInfo = new System.Windows.Forms.Label();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbWineNameWineList = new System.Windows.Forms.TextBox();
-            this.cbCountryWineList = new System.Windows.Forms.ComboBox();
-            this.cbRegionWineList = new System.Windows.Forms.ComboBox();
-            this.cbDistrictWineList = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblUserInfo = new System.Windows.Forms.Label();
             this.wineListResponseBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.UsersWineList.SuspendLayout();
@@ -81,7 +80,6 @@
             // UsersWineList
             // 
             this.UsersWineList.Controls.Add(this.label3);
-            this.UsersWineList.Controls.Add(this.cbDistrictWineList);
             this.UsersWineList.Controls.Add(this.cbRegionWineList);
             this.UsersWineList.Controls.Add(this.cbCountryWineList);
             this.UsersWineList.Controls.Add(this.tbWineNameWineList);
@@ -95,6 +93,56 @@
             this.UsersWineList.Text = "vin lista";
             this.UsersWineList.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(248, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "extra filter";
+            // 
+            // cbRegionWineList
+            // 
+            this.cbRegionWineList.DisplayMember = "RegionName";
+            this.cbRegionWineList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRegionWineList.FormattingEnabled = true;
+            this.cbRegionWineList.Location = new System.Drawing.Point(450, 8);
+            this.cbRegionWineList.Name = "cbRegionWineList";
+            this.cbRegionWineList.Size = new System.Drawing.Size(121, 21);
+            this.cbRegionWineList.TabIndex = 8;
+            this.cbRegionWineList.ValueMember = "RegionId";
+            this.cbRegionWineList.SelectedIndexChanged += new System.EventHandler(this.cbRegionWineList_SelectedIndexChanged);
+            // 
+            // cbCountryWineList
+            // 
+            this.cbCountryWineList.DisplayMember = "CountryName";
+            this.cbCountryWineList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCountryWineList.FormattingEnabled = true;
+            this.cbCountryWineList.Location = new System.Drawing.Point(323, 8);
+            this.cbCountryWineList.Name = "cbCountryWineList";
+            this.cbCountryWineList.Size = new System.Drawing.Size(121, 21);
+            this.cbCountryWineList.TabIndex = 7;
+            this.cbCountryWineList.ValueMember = "CountryId";
+            this.cbCountryWineList.SelectedIndexChanged += new System.EventHandler(this.cbCountryWineList_SelectedIndexChanged);
+            // 
+            // tbWineNameWineList
+            // 
+            this.tbWineNameWineList.Location = new System.Drawing.Point(82, 9);
+            this.tbWineNameWineList.Name = "tbWineNameWineList";
+            this.tbWineNameWineList.Size = new System.Drawing.Size(142, 20);
+            this.tbWineNameWineList.TabIndex = 6;
+            this.tbWineNameWineList.TextChanged += new System.EventHandler(this.tbWineNameWineList_TextUpdate);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "vin namn";
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
@@ -103,7 +151,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(828, 421);
             this.flowLayoutPanel1.TabIndex = 4;
-            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // Add
             // 
@@ -192,15 +239,6 @@
             this.myPages.Text = "mina sidor";
             this.myPages.UseVisualStyleBackColor = true;
             // 
-            // lblUserInfo
-            // 
-            this.lblUserInfo.AutoSize = true;
-            this.lblUserInfo.Location = new System.Drawing.Point(119, 47);
-            this.lblUserInfo.Name = "lblUserInfo";
-            this.lblUserInfo.Size = new System.Drawing.Size(35, 13);
-            this.lblUserInfo.TabIndex = 0;
-            this.lblUserInfo.Text = "label2";
-            // 
             // btnLogOut
             // 
             this.btnLogOut.Location = new System.Drawing.Point(109, 244);
@@ -209,59 +247,16 @@
             this.btnLogOut.TabIndex = 1;
             this.btnLogOut.Text = "Logga ut";
             this.btnLogOut.UseVisualStyleBackColor = true;
-            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click_1);
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
-            // label2
+            // lblUserInfo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "vin namn";
-            // 
-            // tbWineNameWineList
-            // 
-            this.tbWineNameWineList.Location = new System.Drawing.Point(82, 9);
-            this.tbWineNameWineList.Name = "tbWineNameWineList";
-            this.tbWineNameWineList.Size = new System.Drawing.Size(142, 20);
-            this.tbWineNameWineList.TabIndex = 6;
-            // 
-            // cbCountryWineList
-            // 
-            this.cbCountryWineList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCountryWineList.FormattingEnabled = true;
-            this.cbCountryWineList.Location = new System.Drawing.Point(323, 8);
-            this.cbCountryWineList.Name = "cbCountryWineList";
-            this.cbCountryWineList.Size = new System.Drawing.Size(121, 21);
-            this.cbCountryWineList.TabIndex = 7;
-            // 
-            // cbRegionWineList
-            // 
-            this.cbRegionWineList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbRegionWineList.FormattingEnabled = true;
-            this.cbRegionWineList.Location = new System.Drawing.Point(450, 8);
-            this.cbRegionWineList.Name = "cbRegionWineList";
-            this.cbRegionWineList.Size = new System.Drawing.Size(121, 21);
-            this.cbRegionWineList.TabIndex = 8;
-            // 
-            // cbDistrictWineList
-            // 
-            this.cbDistrictWineList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDistrictWineList.FormattingEnabled = true;
-            this.cbDistrictWineList.Location = new System.Drawing.Point(577, 8);
-            this.cbDistrictWineList.Name = "cbDistrictWineList";
-            this.cbDistrictWineList.Size = new System.Drawing.Size(121, 21);
-            this.cbDistrictWineList.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "extra filter";
+            this.lblUserInfo.AutoSize = true;
+            this.lblUserInfo.Location = new System.Drawing.Point(119, 47);
+            this.lblUserInfo.Name = "lblUserInfo";
+            this.lblUserInfo.Size = new System.Drawing.Size(35, 13);
+            this.lblUserInfo.TabIndex = 0;
+            this.lblUserInfo.Text = "label2";
             // 
             // wineListResponseBindingSource
             // 
@@ -371,7 +366,6 @@
         private System.Windows.Forms.TabPage myPages;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Label lblUserInfo;
-        private System.Windows.Forms.ComboBox cbDistrictWineList;
         private System.Windows.Forms.ComboBox cbRegionWineList;
         private System.Windows.Forms.ComboBox cbCountryWineList;
         private System.Windows.Forms.TextBox tbWineNameWineList;

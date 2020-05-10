@@ -1,11 +1,13 @@
 ﻿using examensArbete.BusinessLogic;
 using examensArbete.Models;
+using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
 using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 using Google.Apis.Auth.OAuth2;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Cms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,38 +23,33 @@ namespace examensArbete
 {
     public partial class Wine_Application : Form
     {
+        private MetaDataResponse Metadata; /*{ get => Metadata; set => Metadata = value; }*/
+        private long SelectedCountryId = 0; /*{ get => SelectedCountryId; set => SelectedCountryId = value; }*/
+        private long SelectedRegionId = 0;/*{ get => SelectedRegionId; set => SelectedRegionId = value; }*/
+        private string WineNameFilterWIneList = null;/*{ get => SelectedRegionId; set => SelectedRegionId = value; }*/
 
-        //public static UserRecord _user;
-        //FirebaseAuthLink _auth;
+
 
         public Wine_Application()
         {
-            // _auth = auth;
-            // _user = user;
             InitializeComponent();
-
-
-
         }
-        private static readonly char separator = Path.DirectorySeparatorChar;
-        private static readonly string userDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + separator + "vinAppData";
-        private static readonly string userDataFile = userDataDirectory + separator + "data.txt";
 
 
-        private void Wine_Application_Load(object sender, EventArgs e)
+        private async void Wine_Application_Load(object sender, EventArgs e)
         {
+            var metadetaErrorModel = await Infrastructure.GetMetadata();
+            MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
+            Metadata = metadata;
+
+            ShowCountries();
             ShowUsersWinelist();
-
         }
-
-
 
 
 
         private void Wine_Application_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 if (MessageBox.Show("Are you sure want to exit?",
@@ -67,30 +64,18 @@ namespace examensArbete
 
 
 
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        /// winelist tab
 
-
-
-
-
-
-
-
-
-
-        ////////////////////
-        ////////////////////
-        ////////////////////
-        ////////////////////
-        ////////////////////
-        /// after copy
-
-
-        //winelist tab
 
         private async void ShowUsersWinelist()
         {
 
-            var usersWinelistErrorModel = await Infrastructure.GetUsersWineList();
+            var usersWinelistErrorModel = await Infrastructure.GetUsersWineList(WineNameFilterWIneList, SelectedCountryId, SelectedRegionId);
 
             if (usersWinelistErrorModel.ErrorCode)
             {
@@ -102,35 +87,75 @@ namespace examensArbete
                 }
 
             }
-
+            else if (!string.IsNullOrEmpty(usersWinelistErrorModel.Message))
+                MessageBox.Show(usersWinelistErrorModel.Message, "Fel");
 
         }
-
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void tbWineNameWineList_TextUpdate(Object sender, EventArgs e)
         {
+            WineNameFilterWIneList = tbWineNameWineList.Text;
+            ShowUsersWinelist();
 
-            //if (flowLayoutPanel1.CanSelect)
-            //    flowLayoutPanel1.Select();
-            //foreach (Control c in flowLayoutPanel1.Controls)
-            //{
-            //    if (c.CanSelect)
-            //    {
-            //        c.Select();
-
-            //    }
-            //}
         }
+        private void cbCountryWineList_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            CountryResponse selectedCountry = (CountryResponse)cbCountryWineList.SelectedItem;
+            SelectedCountryId = selectedCountry.CountryId;
+            ShowRegions();
+        }
+        private void cbRegionWineList_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            RegionResponse selectedRegion = (RegionResponse)cbRegionWineList.SelectedItem;
+            SelectedRegionId = selectedRegion.RegionId;
+            ShowUsersWinelist();
+
+        }
+
+        private void ShowCountries()
+        {
+            cbCountryWineList.Items.Clear();
+
+
+            CountryResponse firstObject = new CountryResponse { CountryId = -1, CountryName = "alla länder" };
+            cbCountryWineList.Items.Add(firstObject);
+
+            cbCountryWineList.Items.AddRange(Metadata.Countries.ToArray());
+
+
+            cbCountryWineList.SelectedIndex = 0;
+        }
+        private void ShowRegions()
+        {
+            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == SelectedCountryId);
+            cbRegionWineList.Items.Clear();
+
+            RegionResponse firstObject = new RegionResponse { RegionId = -1, CountryId = -1, RegionName = "alla regioner" };
+            cbRegionWineList.Items.Add(firstObject);
+            if (selectedCountry != null)
+                cbRegionWineList.Items.AddRange(selectedCountry.Regions.ToArray());
+            cbRegionWineList.SelectedIndex = 0;
+        }
+
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        /// someother tab
+
         int charChanged = 0;
         int currentCharLength = 0;
+
+
         private async void ComboBox1_TextUpdate(Object sender, EventArgs e)
         {
+            /*
             Console.WriteLine(comboBox1.Text);
             //comboBox1.AutoCompleteMode = AutoCompleteMode.None;
             //comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
             if (comboBox1.Text.Length >= 3)
             {
-                var token = /*await GetToken()*/"";
+                var token = "";
                 var allWinelistUrl = Links.baseLink + Links.allwineList;
                 if (comboBox1.Text != string.Empty)
                     allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith=" + comboBox1.Text);
@@ -148,15 +173,27 @@ namespace examensArbete
 
             }
             currentCharLength = comboBox1.Text.Length;
-
+            */
         }
 
-        private void loginPanel_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
-        private void btnLogOut_Click_1(object sender, EventArgs e)
+
+
+
+
+
+
+
+
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        /// mypages tab
+
+        private void btnLogOut_Click(object sender, EventArgs e)
         {
             var isSuccess = Infrastructure.Logout();
 
@@ -167,14 +204,6 @@ namespace examensArbete
             login.Show();
             Hide();
         }
-
-
-
-
-
-
-        //MessageBox.Show("You are in the ComboBox.TextUpdate event.");
-
     }
 }
 
