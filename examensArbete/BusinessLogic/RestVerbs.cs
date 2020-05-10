@@ -49,17 +49,6 @@ namespace examensArbete.BusinessLogic
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         public static async Task<string> Post(string url, object payload, string accessToken)
         {
             var client = new HttpClient();
@@ -101,14 +90,17 @@ namespace examensArbete.BusinessLogic
 
 
 
-        public static async Task<string> Put(string url, object payload)
+        public static async Task<string> Put(string url, object payload, string accessToken)
         {
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+
             var stringContent = new StringContent(JsonConvert.SerializeObject(payload));
             stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var responseBody = "";
 
 
-            var client = new HttpClient();
             try
             {
                 HttpResponseMessage response = await client.PutAsync(url, stringContent);
