@@ -428,6 +428,9 @@
     <EmbeddedResource Include="frmWaitForm.resx">
       <DependentUpon>frmWaitForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InventoryTicket.resx">
+      <DependentUpon>InventoryTicket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>

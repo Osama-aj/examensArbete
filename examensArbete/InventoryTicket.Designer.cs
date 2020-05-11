@@ -97,7 +97,7 @@
             // lblinventoryId
             // 
             this.lblinventoryId.AutoSize = true;
-            this.lblinventoryId.Location = new System.Drawing.Point(297, 4);
+            this.lblinventoryId.Location = new System.Drawing.Point(343, 4);
             this.lblinventoryId.Name = "lblinventoryId";
             this.lblinventoryId.Size = new System.Drawing.Size(30, 13);
             this.lblinventoryId.TabIndex = 6;

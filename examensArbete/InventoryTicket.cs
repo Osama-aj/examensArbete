@@ -87,49 +87,31 @@ namespace examensArbete
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {
-            var url = Links.baseLink + Links.inventories;
-            var payload = new UpdateInventoryModel
-            {
-                InventoryId = this.InventoryId,
-                Amount = this.Amount + 1,
-                ShelfId = this.ShelfId
-            };
-            var responseBody = await RestVerbs.Put(url, payload,"");
-            try
-            {
-                var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
-                this.Amount = responseBodyJson.Amount;
-            }
-            catch (Exception error)
-            {
+            var sendSuccessfully = await Infrastructure.EditBottlesAmount(this.InventoryId, this.Amount + 1, this.ShelfId);
 
-                Console.WriteLine(error);
+            if (sendSuccessfully.ErrorCode)
+            {
+                var responseObject = (InventoryResponse)sendSuccessfully.Object;
+                this.Amount = responseObject.Amount;
             }
-
+            else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
+                MessageBox.Show(sendSuccessfully.Message, "Fel");
 
         }
 
         private async void RemoveOneBottleButton_Click(object sender, EventArgs e)
         {
-            var url = Links.baseLink + Links.inventories;
-            var payload = new UpdateInventoryModel
-            {
-                InventoryId = this.InventoryId,
-                Amount = this.Amount - 1,
-                ShelfId = this.ShelfId
-            };
-            var responseBody = await RestVerbs.Put(url, payload,"");
-            try
-            {
-                var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
-                this.Amount = responseBodyJson.Amount;
-            }
-            catch (Exception error)
-            {
+            var sendSuccessfully = await Infrastructure.EditBottlesAmount(this.InventoryId, this.Amount - 1, this.ShelfId);
 
-                Console.WriteLine(error);
+            if (sendSuccessfully.ErrorCode)
+            {
+                var responseObject = (InventoryResponse)sendSuccessfully.Object;
+                this.Amount = responseObject.Amount;
             }
+            else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
+                MessageBox.Show(sendSuccessfully.Message, "Fel");
         }
+
 
         private void lblGrade_Click(object sender, EventArgs e)
         {

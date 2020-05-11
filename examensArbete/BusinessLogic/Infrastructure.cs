@@ -1,4 +1,5 @@
 ﻿using examensArbete.Models;
+using examensArbete.Models.PostModels.Inventories;
 using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
@@ -267,9 +268,9 @@ namespace examensArbete.BusinessLogic
                 }
                 string origin = wine.Country.CountryName;
                 if (wine.Region.RegionName != "Okänt region")
-                    origin += " >> " + wine.Region.RegionName;
+                    origin += " >> \r\n" + wine.Region.RegionName;
                 if (wine.District.DistrictName != "Okänt distrikt")
-                    origin += " >> " + wine.District.DistrictName;
+                    origin += " >> \r\n" + wine.District.DistrictName;
 
                 string grapes = "";
                 foreach (var grape in wine.WineGrapes)
@@ -292,6 +293,56 @@ namespace examensArbete.BusinessLogic
         }
 
         #endregion
+
+
+
+
+
+        #region inventoryTicket
+
+        public static async Task<ErrorModel> EditBottlesAmount(long inventoryId, int newAmount, long shelfId)
+        {
+
+            var url = Links.baseLink + Links.inventories;
+            var payload = new UpdateInventoryModel
+            {
+                InventoryId = inventoryId,
+                Amount = newAmount,
+                ShelfId = shelfId
+            };
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Put(url, payload, token);
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+                //this.Amount = responseBodyJson.Amount;
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+
+        }
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

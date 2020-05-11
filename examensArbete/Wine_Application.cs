@@ -143,12 +143,12 @@ namespace examensArbete
         ///////////////////
         /// someother tab
 
-        int charChanged = 0;
-        int currentCharLength = 0;
+       // int charChanged = 0;
+        //int currentCharLength = 0;
 
 
-        private async void ComboBox1_TextUpdate(Object sender, EventArgs e)
-        {
+        //private async void ComboBox1_TextUpdate(Object sender, EventArgs e)
+        //{
             /*
             Console.WriteLine(comboBox1.Text);
             //comboBox1.AutoCompleteMode = AutoCompleteMode.None;
@@ -174,7 +174,7 @@ namespace examensArbete
             }
             currentCharLength = comboBox1.Text.Length;
             */
-        }
+        //}
 
 
 
