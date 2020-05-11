@@ -230,86 +230,7 @@ namespace examensArbete.BusinessLogic
             return await GetWineList(url, startsWith, countryId, regionId);
         }
 
-        private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
-        {
-
-            if (!string.IsNullOrEmpty(startsWith))
-                url = url.Replace("startswith=", "startswith=" + startsWith);
-            if (countryId > 0)
-                url = url.Replace("countryid=-1", "countryid=" + countryId);
-            if (regionId > 0)
-                url = url.Replace("regionid=-1", "regionid=" + regionId);
-
-            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
-            var token = await GetToken();
-            var responseErrorModel = await RestVerbs.Get(url, token);
-            if (responseErrorModel.ErrorCode)
-            {
-                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>((string)responseErrorModel.Object);
-
-            }
-            else
-            {
-                return responseErrorModel;
-
-            }
-
-
-
-
-            var wineTickets = new List<WineTicket>();
-            responseBodyJson = responseBodyJson.Take(10).ToList();
-            foreach (var wine in responseBodyJson)
-            {
-
-                List<InventoryTicket> inves = new List<InventoryTicket>() ;
-                if (wine.Vintages != null)
-                    foreach (var inv in wine.Vintages)
-                    {
-                        inves.Add(new InventoryTicket
-                        {
-                            Year = inv.Year,
-                            Amount = inv.Amount,
-                            Shelf = inv.ShelfName,
-                            //Grade = (inv.Grade != null && inv.Grade.Grade >= 1 && inv.Grade.Grade <= 5) ? inv.Grade.Grade.ToString() : "-",
-                            Grade = "--",
-                            InventoryId = inv.InventoryId,
-                            ShelfId = inv.ShelfId,
-
-                        });
-                    }
-                string origin = wine.Country.CountryName;
-                if (wine.Region.RegionName != "Okänt region")
-                    origin += " >> \r\n" + wine.Region.RegionName;
-                if (wine.District.DistrictName != "Okänt distrikt")
-                    origin += " >> \r\n" + wine.District.DistrictName;
-
-                string grapes = "";
-                foreach (var grape in wine.WineGrapes)
-                {
-                    grapes += grape.GrapeName + ((grape.Percent > 0) ? " " + grape.Percent + "%" + "\r\n" : "\r\n");
-                }
-                wineTickets.Add(new WineTicket
-                {
-                    WineId = wine.WineId,
-                    WineName = wine.WineName,
-                    Alcohol = wine.Alcohol.ToString() + "%",
-                    Bottles = inves,
-                    Origin = origin,
-                    Producer = wine.Producer,
-                    Grapes = grapes,
-                    WinePic = wine.ImageThumbnail
-                });
-            }
-            return new ErrorModel { ErrorCode = true, Message = null, Object = wineTickets };
-        }
-
-
-
         #endregion
-
-
-
 
 
         #region inventoryTicket
@@ -358,7 +279,79 @@ namespace examensArbete.BusinessLogic
 
 
 
+        private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
+        {
 
+            if (!string.IsNullOrEmpty(startsWith))
+                url = url.Replace("startswith=", "startswith=" + startsWith);
+            if (countryId > 0)
+                url = url.Replace("countryid=-1", "countryid=" + countryId);
+            if (regionId > 0)
+                url = url.Replace("regionid=-1", "regionid=" + regionId);
+
+            ICollection<WineListResponse> responseBodyJson = new List<WineListResponse>();
+            var token = await GetToken();
+            var responseErrorModel = await RestVerbs.Get(url, token);
+            if (responseErrorModel.ErrorCode)
+            {
+                responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>((string)responseErrorModel.Object);
+
+            }
+            else
+            {
+                return responseErrorModel;
+
+            }
+
+
+
+
+            var wineTickets = new List<WineTicket>();
+            responseBodyJson = responseBodyJson.Take(10).ToList();
+            foreach (var wine in responseBodyJson)
+            {
+
+                List<InventoryTicket> inves = new List<InventoryTicket>();
+                if (wine.Vintages != null)
+                    foreach (var inv in wine.Vintages)
+                    {
+                        inves.Add(new InventoryTicket
+                        {
+                            Year = inv.Year,
+                            Amount = inv.Amount,
+                            Shelf = inv.ShelfName,
+                            //Grade = (inv.Grade != null && inv.Grade.Grade >= 1 && inv.Grade.Grade <= 5) ? inv.Grade.Grade.ToString() : "-",
+                            Grade = "--",
+                            InventoryId = inv.InventoryId,
+                            ShelfId = inv.ShelfId,
+
+                        });
+                    }
+                string origin = wine.Country.CountryName;
+                if (wine.Region.RegionName != "Okänt region")
+                    origin += " >> \r\n" + wine.Region.RegionName;
+                if (wine.District.DistrictName != "Okänt distrikt")
+                    origin += " >> \r\n" + wine.District.DistrictName;
+
+                string grapes = "";
+                foreach (var grape in wine.WineGrapes)
+                {
+                    grapes += grape.GrapeName + ((grape.Percent > 0) ? " " + grape.Percent + "%" + "\r\n" : "\r\n");
+                }
+                wineTickets.Add(new WineTicket
+                {
+                    WineId = wine.WineId,
+                    WineName = wine.WineName,
+                    Alcohol = wine.Alcohol.ToString() + "%",
+                    Bottles = inves,
+                    Origin = origin,
+                    Producer = wine.Producer,
+                    Grapes = grapes,
+                    WinePic = wine.ImageThumbnail
+                });
+            }
+            return new ErrorModel { ErrorCode = true, Message = null, Object = wineTickets };
+        }
 
 
         private static async Task<string> GetToken()
