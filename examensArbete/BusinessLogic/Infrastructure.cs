@@ -219,10 +219,20 @@ namespace examensArbete.BusinessLogic
 
 
         }
-        public static async Task<ErrorModel> GetUsersWineList(string startsWith, long countryId, long regionId)
+        public static async Task<ErrorModel> GetUsersWinelist(string startsWith, long countryId, long regionId)
+        {
+            var url = Links.baseLink + Links.usersWineList;
+            return await GetWineList(url, startsWith, countryId, regionId);
+        }
+        public static async Task<ErrorModel> GetAllWinelist(string startsWith, long countryId, long regionId)
+        {
+            var url = Links.baseLink + Links.allwineList;
+            return await GetWineList(url, startsWith, countryId, regionId);
+        }
+
+        private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {
 
-            var url = Links.baseLink + Links.usersWineList;
             if (!string.IsNullOrEmpty(startsWith))
                 url = url.Replace("startswith=", "startswith=" + startsWith);
             if (countryId > 0)
@@ -252,20 +262,22 @@ namespace examensArbete.BusinessLogic
             foreach (var wine in responseBodyJson)
             {
 
-                var inves = new List<InventoryTicket>();
-                foreach (var inv in wine.Vintages)
-                {
-                    inves.Add(new InventoryTicket
+                List<InventoryTicket> inves = new List<InventoryTicket>() ;
+                if (wine.Vintages != null)
+                    foreach (var inv in wine.Vintages)
                     {
-                        Year = inv.Year,
-                        Amount = inv.Amount,
-                        Shelf = inv.ShelfName,
-                        Grade = inv.Grade != null ? inv.Grade.Grade : 0,
-                        InventoryId = inv.InventoryId,
-                        ShelfId = inv.ShelfId,
+                        inves.Add(new InventoryTicket
+                        {
+                            Year = inv.Year,
+                            Amount = inv.Amount,
+                            Shelf = inv.ShelfName,
+                            //Grade = (inv.Grade != null && inv.Grade.Grade >= 1 && inv.Grade.Grade <= 5) ? inv.Grade.Grade.ToString() : "-",
+                            Grade = "--",
+                            InventoryId = inv.InventoryId,
+                            ShelfId = inv.ShelfId,
 
-                    });
-                }
+                        });
+                    }
                 string origin = wine.Country.CountryName;
                 if (wine.Region.RegionName != "Okänt region")
                     origin += " >> \r\n" + wine.Region.RegionName;
@@ -291,6 +303,8 @@ namespace examensArbete.BusinessLogic
             }
             return new ErrorModel { ErrorCode = true, Message = null, Object = wineTickets };
         }
+
+
 
         #endregion
 

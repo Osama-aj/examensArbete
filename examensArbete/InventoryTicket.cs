@@ -28,7 +28,7 @@ namespace examensArbete
         private long _vintageId;
         private int _year;
         private int _amount;
-        private int _grade;
+        private string _grade;
         private string _shelf;
 
         [Category("Custom Props")]
@@ -72,7 +72,7 @@ namespace examensArbete
         }
 
         [Category("Custom Props")]
-        public int Grade
+        public string Grade
         {
             get { return _grade; }
             set { _grade = value; lblGrade.Text = value.ToString(); }
@@ -115,12 +115,14 @@ namespace examensArbete
 
         private void lblGrade_Click(object sender, EventArgs e)
         {
-            var url = Links.baseLink + Links.grades;
-            var payload = new AddGradeModel
-            {
-                VintageId = this.VintageId,
+            // var sendSuccessfully = await Infrastructure.EditGradeForVintage(this.VintageId,);
 
-            };
+            //var url = Links.baseLink + Links.grades;
+            //var payload = new AddGradeModel
+            //{
+            //    VintageId = this.VintageId,
+
+            //};
 
         }
     }

@@ -23,11 +23,14 @@ namespace examensArbete
 {
     public partial class Wine_Application : Form
     {
-        private MetaDataResponse Metadata; /*{ get => Metadata; set => Metadata = value; }*/
-        private long SelectedCountryId = 0; /*{ get => SelectedCountryId; set => SelectedCountryId = value; }*/
-        private long SelectedRegionId = 0;/*{ get => SelectedRegionId; set => SelectedRegionId = value; }*/
-        private string WineNameFilterWIneList = null;/*{ get => SelectedRegionId; set => SelectedRegionId = value; }*/
+        private MetaDataResponse Metadata;
+        private long SelectedCountryId = 0;
+        private long SelectedRegionId = 0;
+        private string WineNameFilterWIneList = null;
 
+        private long SelectedCountryIdAllwinelist = 0;
+        private long SelectedRegionIdAllwinelist = 0;
+        private string WineNameFilterWIneListAllwinelist = null;
 
 
         public Wine_Application()
@@ -42,7 +45,8 @@ namespace examensArbete
             MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
             Metadata = metadata;
 
-            ShowCountries();
+            ShowCountriesWinelist();
+            ShowCountriesAllWinelist();
             ShowUsersWinelist();
         }
 
@@ -69,13 +73,13 @@ namespace examensArbete
         ///////////////////
         ///////////////////
         ///////////////////
-        /// winelist tab
+        /// users winelist tab
 
 
         private async void ShowUsersWinelist()
         {
 
-            var usersWinelistErrorModel = await Infrastructure.GetUsersWineList(WineNameFilterWIneList, SelectedCountryId, SelectedRegionId);
+            var usersWinelistErrorModel = await Infrastructure.GetUsersWinelist(WineNameFilterWIneList, SelectedCountryId, SelectedRegionId);
 
             if (usersWinelistErrorModel.ErrorCode)
             {
@@ -101,7 +105,7 @@ namespace examensArbete
         {
             CountryResponse selectedCountry = (CountryResponse)cbCountryWineList.SelectedItem;
             SelectedCountryId = selectedCountry.CountryId;
-            ShowRegions();
+            ShowRegionsWinelist();
         }
         private void cbRegionWineList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -111,7 +115,7 @@ namespace examensArbete
 
         }
 
-        private void ShowCountries()
+        private void ShowCountriesWinelist()
         {
             cbCountryWineList.Items.Clear();
 
@@ -124,7 +128,7 @@ namespace examensArbete
 
             cbCountryWineList.SelectedIndex = 0;
         }
-        private void ShowRegions()
+        private void ShowRegionsWinelist()
         {
             CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == SelectedCountryId);
             cbRegionWineList.Items.Clear();
@@ -141,39 +145,115 @@ namespace examensArbete
         ///////////////////
         ///////////////////
         ///////////////////
+        /// add bottle tab
+
+
+        private async void ShowAllWinelist()
+        {
+
+            var allWinelistErrorModel = await Infrastructure.GetAllWinelist(WineNameFilterWIneListAllwinelist, SelectedCountryIdAllwinelist, SelectedRegionIdAllwinelist);
+
+            if (allWinelistErrorModel.ErrorCode)
+            {
+                flowLayoutPanel2.Controls.Clear();
+                List<WineTicket> wineTickets = (List<WineTicket>)allWinelistErrorModel.Object;
+                foreach (Control wineticket in wineTickets)
+                {
+                    flowLayoutPanel2.Controls.Add(wineticket);
+                }
+
+            }
+            else if (!string.IsNullOrEmpty(allWinelistErrorModel.Message))
+                MessageBox.Show(allWinelistErrorModel.Message, "Fel");
+
+        }
+        private void tbWineNameAllWineList_TextUpdate(Object sender, EventArgs e)
+        {
+            WineNameFilterWIneListAllwinelist = tbWineNameAllWineList.Text;
+            ShowAllWinelist();
+
+        }
+        private void cbCountryAllWineList_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            CountryResponse selectedCountry = (CountryResponse)cbCountryAllWineList.SelectedItem;
+            if (selectedCountry != null)
+                SelectedCountryIdAllwinelist = selectedCountry.CountryId;
+            ShowRegionsAllWinelist();
+        }
+        private void cbRegionAllWineList_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            RegionResponse selectedRegion = (RegionResponse)cbRegionAllWineList.SelectedItem;
+            if (selectedRegion != null)
+                SelectedRegionIdAllwinelist = selectedRegion.RegionId;
+            ShowAllWinelist();
+
+        }
+
+        private void ShowCountriesAllWinelist()
+        {
+            cbCountryAllWineList.Items.Clear();
+
+
+            CountryResponse firstObject = new CountryResponse { CountryId = -1, CountryName = "alla länder" };
+            cbCountryAllWineList.Items.Add(firstObject);
+
+            cbCountryAllWineList.Items.AddRange(Metadata.Countries.ToArray());
+
+
+            cbCountryAllWineList.SelectedIndex = 0;
+        }
+        private void ShowRegionsAllWinelist()
+        {
+            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == SelectedCountryIdAllwinelist);
+            cbRegionAllWineList.Items.Clear();
+
+            RegionResponse firstObject = new RegionResponse { RegionId = -1, CountryId = -1, RegionName = "alla regioner" };
+            cbRegionAllWineList.Items.Add(firstObject);
+            if (selectedCountry != null)
+                cbRegionAllWineList.Items.AddRange(selectedCountry.Regions.ToArray());
+            cbRegionAllWineList.SelectedIndex = 0;
+        }
+
+
+
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
+        ///////////////////
         /// someother tab
 
-       // int charChanged = 0;
+        // int charChanged = 0;
         //int currentCharLength = 0;
 
 
         //private async void ComboBox1_TextUpdate(Object sender, EventArgs e)
         //{
-            /*
-            Console.WriteLine(comboBox1.Text);
-            //comboBox1.AutoCompleteMode = AutoCompleteMode.None;
-            //comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
-            if (comboBox1.Text.Length >= 3)
+        /*
+        Console.WriteLine(comboBox1.Text);
+        //comboBox1.AutoCompleteMode = AutoCompleteMode.None;
+        //comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+        if (comboBox1.Text.Length >= 3)
+        {
+            var token = "";
+            var allWinelistUrl = Links.baseLink + Links.allwineList;
+            if (comboBox1.Text != string.Empty)
+                allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith=" + comboBox1.Text);
+            var responseBody = await RestVerbs.Get(allWinelistUrl, token);
+            var responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
+            var dt = new DataTable();
+
+
+            // comboBox1.DisplayMember = "WineName";
+            // comboBox1.DataSource = responseBodyJson;
+            foreach (var wine in responseBodyJson)
             {
-                var token = "";
-                var allWinelistUrl = Links.baseLink + Links.allwineList;
-                if (comboBox1.Text != string.Empty)
-                    allWinelistUrl = allWinelistUrl.Replace("startswith=", "startswith=" + comboBox1.Text);
-                var responseBody = await RestVerbs.Get(allWinelistUrl, token);
-                var responseBodyJson = JsonConvert.DeserializeObject<ICollection<WineListResponse>>(responseBody);
-                var dt = new DataTable();
-
-
-                // comboBox1.DisplayMember = "WineName";
-                // comboBox1.DataSource = responseBodyJson;
-                foreach (var wine in responseBodyJson)
-                {
-                    comboBox1.Items.Add(wine.WineName);
-                }
-
+                comboBox1.Items.Add(wine.WineName);
             }
-            currentCharLength = comboBox1.Text.Length;
-            */
+
+        }
+        currentCharLength = comboBox1.Text.Length;
+        */
         //}
 
 
