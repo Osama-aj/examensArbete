@@ -41,8 +41,6 @@
             this.Add = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.AddBottleTab = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.AddShelfTab = new System.Windows.Forms.TabPage();
             this.AddVintageTab = new System.Windows.Forms.TabPage();
             this.myPages = new System.Windows.Forms.TabPage();
@@ -53,7 +51,6 @@
             this.UsersWineList.SuspendLayout();
             this.Add.SuspendLayout();
             this.tabControl2.SuspendLayout();
-            this.AddBottleTab.SuspendLayout();
             this.myPages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -177,8 +174,6 @@
             // 
             // AddBottleTab
             // 
-            this.AddBottleTab.Controls.Add(this.comboBox1);
-            this.AddBottleTab.Controls.Add(this.label1);
             this.AddBottleTab.Location = new System.Drawing.Point(4, 22);
             this.AddBottleTab.Name = "AddBottleTab";
             this.AddBottleTab.Padding = new System.Windows.Forms.Padding(3);
@@ -186,27 +181,6 @@
             this.AddBottleTab.TabIndex = 0;
             this.AddBottleTab.Text = "Flaska";
             this.AddBottleTab.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(106, 18);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(263, 21);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.TextChanged += new System.EventHandler(this.ComboBox1_TextUpdate);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "wine name";
             // 
             // AddShelfTab
             // 
@@ -279,8 +253,6 @@
             this.UsersWineList.PerformLayout();
             this.Add.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
-            this.AddBottleTab.ResumeLayout(false);
-            this.AddBottleTab.PerformLayout();
             this.myPages.ResumeLayout(false);
             this.myPages.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).EndInit();
@@ -361,8 +333,6 @@
         private System.Windows.Forms.TabPage AddBottleTab;
         private System.Windows.Forms.TabPage AddShelfTab;
         private System.Windows.Forms.TabPage AddVintageTab;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage myPages;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Label lblUserInfo;

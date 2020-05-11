@@ -16,7 +16,9 @@ using System.Windows.Forms;
 
 namespace examensArbete.BusinessLogic
 {
-
+    //TODO: fix all info in wine and inventory ticket 
+    //make exact same for allwinelist but change the url 
+    //two tabs add ,, flaska och vin i wine tab you can add shelf or vintage 
 
     public class Infrastructure
     {
@@ -263,13 +265,26 @@ namespace examensArbete.BusinessLogic
 
                     });
                 }
+                string origin = wine.Country.CountryName;
+                if (wine.Region.RegionName != "Okänt region")
+                    origin += " >> " + wine.Region.RegionName;
+                if (wine.District.DistrictName != "Okänt distrikt")
+                    origin += " >> " + wine.District.DistrictName;
 
+                string grapes = "";
+                foreach (var grape in wine.WineGrapes)
+                {
+                    grapes += grape.GrapeName + ((grape.Percent > 0) ? " " + grape.Percent + "%" + "\r\n" : "\r\n");
+                }
                 wineTickets.Add(new WineTicket
                 {
                     WineId = wine.WineId,
                     WineName = wine.WineName,
-                    Alcohol = wine.Alcohol,
+                    Alcohol = wine.Alcohol.ToString() + "%",
                     Bottles = inves,
+                    Origin = origin,
+                    Producer = wine.Producer,
+                    Grapes = grapes,
                     WinePic = wine.ImageThumbnail
                 });
             }

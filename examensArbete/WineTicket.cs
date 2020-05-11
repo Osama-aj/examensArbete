@@ -20,9 +20,9 @@ namespace examensArbete
         private long _wineId;
         private string _wineName;
         private string _origin;
-        private string _region;
-        private string _district;
-        private double _alcohol;
+        private string _producer;
+        private string _grapes;
+        private string _alcohol;
         private List<InventoryTicket> _bottlePanel;
 
 
@@ -74,13 +74,25 @@ namespace examensArbete
             set { _origin = value; lblOrigin.Text = value; }
         }
 
+        [Category("Custom Props")]
+        public string Producer
+        {
+            get { return _producer; }
+            set { _producer = value; lblProducer.Text = value; }
+        }
 
 
+        [Category("Custom Props")]
+        public string Grapes
+        {
+            get { return _grapes; }
+            set { _grapes = value; lblGrapes.Text = value; }
+        }
 
 
 
         [Category("Custom Props")]
-        public double Alcohol
+        public string Alcohol
         {
             get { return _alcohol; }
             set { _alcohol = value; lblAlcohol.Text = value.ToString(); }

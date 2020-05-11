@@ -13,11 +13,13 @@ namespace examensArbete.Models.ResponseModel.UserSectionResponse
         public string WineName { get; set; }
         public string ImageOriginal { get; set; }
         public string ImageThumbnail { get; set; }
+        public string Producer { get; set; }
         public double Alcohol { get; set; }
         public DistrictResponse District { get; set; }
+        public RegionResponse Region { get; set; }
+        public CountryResponse Country { get; set; }
+
         public ICollection<WineGrapeResponse> WineGrapes { get; set; }
-
-
 
         public ICollection<WineListVintagesResponse> Vintages { get; set; }
     }
