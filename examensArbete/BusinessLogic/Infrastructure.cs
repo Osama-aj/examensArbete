@@ -375,6 +375,7 @@ namespace examensArbete.BusinessLogic
         private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {
             var shelves = await GetShelves();
+            shelves.Add(new ShelfResponse { ShelfId = -1, Name = "lägg till" });
 
 
             if (!string.IsNullOrEmpty(startsWith))

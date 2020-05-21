@@ -218,7 +218,11 @@ namespace examensArbete
 
                     }
                     else if (!string.IsNullOrEmpty(updateShelfResponse.Message))
+                    {
+                        var previosShelf = Shelves.First(s=>s.ShelfId ==_shelfId);
+                        cbShelves.SelectedIndex = cbShelves.FindStringExact(previosShelf.Name);
                         MessageBox.Show(updateShelfResponse.Message, "Fel");
+                    }
                 }
             }
             firstShelfIndexChange = false;
