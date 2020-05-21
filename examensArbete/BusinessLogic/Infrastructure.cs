@@ -17,9 +17,14 @@ using System.Windows.Forms;
 
 namespace examensArbete.BusinessLogic
 {
-    //TODO: fix all info in wine and inventory ticket 
-    //make exact same for allwinelist but change the url 
-    //two tabs add ,, flaska och vin i wine tab you can add shelf or vintage 
+    //TODO: add alwayes new line to inventories there I can choose vintage, shelf and amount 
+    // vintage can be disabled list in all inventories but enabled in the last one
+    //add "lägg till vintage" in the corner 
+    // four  tabs "min vin lista;; alla viner ;;lägg till;; mina sidor"
+    // in "lägg till" tab will be add shelf, country, region, district
+
+    //add addCountry, region and district to the backend
+
 
     public class Infrastructure
     {
@@ -235,18 +240,69 @@ namespace examensArbete.BusinessLogic
 
         #region inventoryTicket
 
-        public static async Task<ErrorModel> EditBottlesAmount(long inventoryId, int newAmount, long shelfId)
+        public static async Task<ErrorModel> GetShelves()
+        {
+            Console.WriteLine("ooooooooooooooooooooooooooooooooooooooo");
+            var url = Links.baseLink + Links.shelves;
+            var token = await GetToken();
+            var responseErrorModel = await RestVerbs.Get(url, token);
+            if (responseErrorModel.ErrorCode)
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<ICollection<ShelfResponse>>((string)responseErrorModel.Object);
+                responseErrorModel.Object = responseBodyJson;
+                return responseErrorModel;
+            }
+            else
+            {
+                return responseErrorModel;
+
+            }
+
+        }
+        public static async Task<ErrorModel> AddBottles(long inventoryId, string currentAmount, int amount, long shelfId)
+        {
+            if (char.IsDigit(currentAmount[0]))
+            {
+                return await Infrastructure.UpdateInventory(inventoryId, shelfId, int.Parse(currentAmount) + amount);
+
+            }
+            else if (!char.IsDigit(currentAmount[0]))
+            {
+                // return await Infrastructure.AddNewInventory(int.Parse(amount) + 1, shelfId);
+
+            }
+            return new ErrorModel { ErrorCode = false, Message = "Någonting gick fel!", Object = null };
+        }
+        public static async Task<ErrorModel> RemoveBottles(long inventoryId, string currentAmount, int amount, long shelfId)
+        {
+            if (inventoryId == 0 || string.Equals(currentAmount, "-") || shelfId == 0)
+                return new ErrorModel { ErrorCode = false, Message = "Inga flaskor att ta bort!", Object = null };
+            var newAmount = int.Parse(currentAmount) - amount;
+            if (newAmount < 0)
+                return new ErrorModel { ErrorCode = false, Message = "summan blir mindre än noll!", Object = null };
+
+            return await Infrastructure.UpdateInventory(inventoryId, shelfId, newAmount);
+        }
+        public static async Task<ErrorModel> UpdateInventory(long inventoryId, long shelfId, int newAmount = -1)
         {
 
             var url = Links.baseLink + Links.inventories;
             var payload = new UpdateInventoryModel
             {
                 InventoryId = inventoryId,
-                Amount = newAmount,
                 ShelfId = shelfId
             };
+
+            if (newAmount != -1)
+                payload.Amount = newAmount;
+
             var token = await GetToken();
             var responseBody = await RestVerbs.Put(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody) && newAmount == 0)
+            {
+                return new ErrorModel { ErrorCode = true, Message = null, Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
+
+            }
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
@@ -271,7 +327,20 @@ namespace examensArbete.BusinessLogic
 
 
 
+        private static async Task<List<ShelfResponse>> GetUsersShelves()
+        {
+            var shelfResponse = await Infrastructure.GetShelves();
+            List<ShelfResponse> shelves = new List<ShelfResponse>();
+            if (shelfResponse.ErrorCode)
+            {
+                shelves = (List<ShelfResponse>)shelfResponse.Object;
+            }
+            else if (!string.IsNullOrEmpty(shelfResponse.Message))
+                MessageBox.Show(shelfResponse.Message, "Fel");
 
+            return shelves;
+
+        }
 
 
 
@@ -281,7 +350,7 @@ namespace examensArbete.BusinessLogic
 
         private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {
-
+            var shelves = await GetUsersShelves();
             if (!string.IsNullOrEmpty(startsWith))
                 url = url.Replace("startswith=", "startswith=" + startsWith);
             if (countryId > 0)
@@ -313,12 +382,13 @@ namespace examensArbete.BusinessLogic
 
                 List<InventoryTicket> inves = new List<InventoryTicket>();
                 if (wine.Vintages != null)
+                {
                     foreach (var inv in wine.Vintages)
                     {
-                        inves.Add(new InventoryTicket
+                        inves.Add(new InventoryTicket(shelves)
                         {
-                            Year = inv.Year,
-                            Amount = inv.Amount,
+                            Year = inv != null ? inv.Year.ToString() : "",
+                            CurrentAmount = inv != null ? inv.Amount.ToString() : "",
                             Shelf = inv.ShelfName,
                             //Grade = (inv.Grade != null && inv.Grade.Grade >= 1 && inv.Grade.Grade <= 5) ? inv.Grade.Grade.ToString() : "-",
                             Grade = "--",
@@ -327,6 +397,11 @@ namespace examensArbete.BusinessLogic
 
                         });
                     }
+                }
+                else
+                {
+                    inves.Add(new InventoryTicket(shelves) { CurrentAmount = "-", Year = "-", Grade = "-", Shelf = "-" });
+                }
                 string origin = wine.Country.CountryName;
                 if (wine.Region.RegionName != "Okänt region")
                     origin += " >> \r\n" + wine.Region.RegionName;

@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.lblYear = new System.Windows.Forms.Label();
-            this.lblAmount = new System.Windows.Forms.Label();
+            this.lblCurrentAmount = new System.Windows.Forms.Label();
             this.lblShelf = new System.Windows.Forms.Label();
             this.lblGrade = new System.Windows.Forms.Label();
             this.AddOneBottleButton = new System.Windows.Forms.Button();
             this.RemoveOneBottleButton = new System.Windows.Forms.Button();
             this.lblinventoryId = new System.Windows.Forms.Label();
+            this.tbamount = new System.Windows.Forms.TextBox();
+            this.cbShelves = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblYear
@@ -46,23 +48,23 @@
             this.lblYear.TabIndex = 0;
             this.lblYear.Text = "put year";
             // 
-            // lblAmount
+            // lblCurrentAmount
             // 
-            this.lblAmount.AutoSize = true;
-            this.lblAmount.Location = new System.Drawing.Point(77, 4);
-            this.lblAmount.Name = "lblAmount";
-            this.lblAmount.Size = new System.Drawing.Size(60, 13);
-            this.lblAmount.TabIndex = 1;
-            this.lblAmount.Text = "put amount";
+            this.lblCurrentAmount.AutoSize = true;
+            this.lblCurrentAmount.Location = new System.Drawing.Point(77, 4);
+            this.lblCurrentAmount.Name = "lblCurrentAmount";
+            this.lblCurrentAmount.Size = new System.Drawing.Size(60, 13);
+            this.lblCurrentAmount.TabIndex = 1;
+            this.lblCurrentAmount.Text = "put amount";
             // 
             // lblShelf
             // 
             this.lblShelf.AutoSize = true;
             this.lblShelf.Location = new System.Drawing.Point(222, 3);
             this.lblShelf.Name = "lblShelf";
-            this.lblShelf.Size = new System.Drawing.Size(47, 13);
+            this.lblShelf.Size = new System.Drawing.Size(29, 13);
             this.lblShelf.TabIndex = 2;
-            this.lblShelf.Text = "put shelf";
+            this.lblShelf.Text = "shelf";
             // 
             // lblGrade
             // 
@@ -76,9 +78,9 @@
             // 
             // AddOneBottleButton
             // 
-            this.AddOneBottleButton.Location = new System.Drawing.Point(331, -1);
+            this.AddOneBottleButton.Location = new System.Drawing.Point(420, -1);
             this.AddOneBottleButton.Name = "AddOneBottleButton";
-            this.AddOneBottleButton.Size = new System.Drawing.Size(62, 23);
+            this.AddOneBottleButton.Size = new System.Drawing.Size(56, 23);
             this.AddOneBottleButton.TabIndex = 4;
             this.AddOneBottleButton.Text = "Lägg till";
             this.AddOneBottleButton.UseVisualStyleBackColor = true;
@@ -86,7 +88,7 @@
             // 
             // RemoveOneBottleButton
             // 
-            this.RemoveOneBottleButton.Location = new System.Drawing.Point(397, -1);
+            this.RemoveOneBottleButton.Location = new System.Drawing.Point(479, -1);
             this.RemoveOneBottleButton.Name = "RemoveOneBottleButton";
             this.RemoveOneBottleButton.Size = new System.Drawing.Size(56, 23);
             this.RemoveOneBottleButton.TabIndex = 5;
@@ -97,25 +99,48 @@
             // lblinventoryId
             // 
             this.lblinventoryId.AutoSize = true;
-            this.lblinventoryId.Location = new System.Drawing.Point(343, 4);
+            this.lblinventoryId.Location = new System.Drawing.Point(432, 4);
             this.lblinventoryId.Name = "lblinventoryId";
             this.lblinventoryId.Size = new System.Drawing.Size(30, 13);
             this.lblinventoryId.TabIndex = 6;
             this.lblinventoryId.Text = "invId";
             // 
+            // tbamount
+            // 
+            this.tbamount.Location = new System.Drawing.Point(375, 0);
+            this.tbamount.Name = "tbamount";
+            this.tbamount.Size = new System.Drawing.Size(40, 20);
+            this.tbamount.TabIndex = 7;
+            // 
+            // cbShelves
+            // 
+            this.cbShelves.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbShelves.DisplayMember = "Name";
+            this.cbShelves.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbShelves.FormattingEnabled = true;
+            this.cbShelves.Location = new System.Drawing.Point(217, 0);
+            this.cbShelves.Name = "cbShelves";
+            this.cbShelves.Size = new System.Drawing.Size(112, 21);
+            this.cbShelves.TabIndex = 7;
+            this.cbShelves.ValueMember = "ShelfId";
+            this.cbShelves.SelectedIndexChanged += new System.EventHandler(this.cbShelves_SelectedIndexChanged);
+            // 
             // InventoryTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbShelves);
+            this.Controls.Add(this.tbamount);
             this.Controls.Add(this.RemoveOneBottleButton);
             this.Controls.Add(this.AddOneBottleButton);
             this.Controls.Add(this.lblGrade);
             this.Controls.Add(this.lblShelf);
-            this.Controls.Add(this.lblAmount);
+            this.Controls.Add(this.lblCurrentAmount);
             this.Controls.Add(this.lblYear);
             this.Controls.Add(this.lblinventoryId);
             this.Name = "InventoryTicket";
-            this.Size = new System.Drawing.Size(457, 20);
+            this.Size = new System.Drawing.Size(539, 20);
+            this.Load += new System.EventHandler(this.InventoryTicket_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,11 +149,13 @@
         #endregion
 
         private System.Windows.Forms.Label lblYear;
-        private System.Windows.Forms.Label lblAmount;
+        private System.Windows.Forms.Label lblCurrentAmount;
         private System.Windows.Forms.Label lblShelf;
         private System.Windows.Forms.Label lblGrade;
         private System.Windows.Forms.Button AddOneBottleButton;
         private System.Windows.Forms.Button RemoveOneBottleButton;
         private System.Windows.Forms.Label lblinventoryId;
+        private System.Windows.Forms.TextBox tbamount;
+        private System.Windows.Forms.ComboBox cbShelves;
     }
 }

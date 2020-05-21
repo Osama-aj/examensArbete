@@ -18,18 +18,33 @@ namespace examensArbete
 {
     public partial class InventoryTicket : UserControl
     {
-        public InventoryTicket()
+        private readonly List<ShelfResponse> Shelves = new List<ShelfResponse>();
+        bool firstShelfIndexChange = true;
+
+        public InventoryTicket(List<ShelfResponse> _shelves)
         {
+            Shelves = _shelves;
             InitializeComponent();
         }
+        private void InventoryTicket_Load(object sender, EventArgs e)
+        {
 
+            cbShelves.Items.AddRange(Shelves.ToArray());
+            cbShelves.SelectedIndex = cbShelves.FindStringExact(_shelf);
+
+
+            this.tbamount.Text = "1";
+            if (string.Equals(_currentAmount, "-"))
+                RemoveOneBottleButton.Enabled = false;
+        }
         private long _inventoryId;
         private long _shelfId;
         private long _vintageId;
-        private int _year;
-        private int _amount;
+        private string _year;
+        private string _currentAmount;
         private string _grade;
         private string _shelf;
+
 
         [Category("Custom Props")]
         public long InventoryId
@@ -57,7 +72,7 @@ namespace examensArbete
         }
 
         [Category("Custom Props")]
-        public int Year
+        public string Year
         {
             get { return _year; }
             set { _year = value; lblYear.Text = value.ToString(); }
@@ -65,10 +80,10 @@ namespace examensArbete
 
 
         [Category("Custom Props")]
-        public int Amount
+        public string CurrentAmount
         {
-            get { return _amount; }
-            set { _amount = value; lblAmount.Text = value.ToString(); }
+            get { return _currentAmount; }
+            set { _currentAmount = value; lblCurrentAmount.Text = value.ToString(); }
         }
 
         [Category("Custom Props")]
@@ -87,12 +102,12 @@ namespace examensArbete
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {
-            var sendSuccessfully = await Infrastructure.EditBottlesAmount(this.InventoryId, this.Amount + 1, this.ShelfId);
+            var sendSuccessfully = await Infrastructure.AddBottles(this.InventoryId, this.CurrentAmount, int.Parse(this.tbamount.Text), this.ShelfId);
 
             if (sendSuccessfully.ErrorCode)
             {
                 var responseObject = (InventoryResponse)sendSuccessfully.Object;
-                this.Amount = responseObject.Amount;
+                this.CurrentAmount = responseObject.Amount.ToString();
             }
             else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
                 MessageBox.Show(sendSuccessfully.Message, "Fel");
@@ -101,12 +116,20 @@ namespace examensArbete
 
         private async void RemoveOneBottleButton_Click(object sender, EventArgs e)
         {
-            var sendSuccessfully = await Infrastructure.EditBottlesAmount(this.InventoryId, this.Amount - 1, this.ShelfId);
+            ErrorModel sendSuccessfully;
 
-            if (sendSuccessfully.ErrorCode)
+
+            sendSuccessfully = await Infrastructure.RemoveBottles(this.InventoryId, this.CurrentAmount, int.Parse(this.tbamount.Text), this.ShelfId);
+            if (sendSuccessfully.ErrorCode && sendSuccessfully.Object != null)
             {
                 var responseObject = (InventoryResponse)sendSuccessfully.Object;
-                this.Amount = responseObject.Amount;
+                this.CurrentAmount = responseObject.Amount.ToString();
+                if (responseObject.Amount <= 0)
+                {
+                    this.AddOneBottleButton.Enabled = false;
+                    this.RemoveOneBottleButton.Enabled = false;
+                }
+
             }
             else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
                 MessageBox.Show(sendSuccessfully.Message, "Fel");
@@ -124,6 +147,31 @@ namespace examensArbete
 
             //};
 
+        }
+
+
+        private async void cbShelves_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (!firstShelfIndexChange)
+            {
+                ShelfResponse selectedShelf = (ShelfResponse)cbShelves.SelectedItem;
+                if (selectedShelf.ShelfId != _shelfId)
+                {
+                    var updateShelfResponse = await Infrastructure.UpdateInventory(this._inventoryId, selectedShelf.ShelfId);
+
+                    if (updateShelfResponse.ErrorCode)
+                    {
+                        var updatedInventory = (InventoryResponse)updateShelfResponse.Object;
+                        var shelf = Shelves.First(s=>s.ShelfId == updatedInventory.ShelfId);
+                        var index = cbShelves.FindStringExact(shelf.Name);
+                        cbShelves.SelectedIndex = index;
+
+                    }
+                    else if (!string.IsNullOrEmpty(updateShelfResponse.Message))
+                        MessageBox.Show(updateShelfResponse.Message, "Fel");
+                }
+            }
+            firstShelfIndexChange = false;
         }
     }
 }
