@@ -118,7 +118,7 @@
             // BottlesPanel
             // 
             this.BottlesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BottlesPanel.Location = new System.Drawing.Point(217, 116);
+            this.BottlesPanel.Location = new System.Drawing.Point(218, 115);
             this.BottlesPanel.Name = "BottlesPanel";
             this.BottlesPanel.Size = new System.Drawing.Size(584, 200);
             this.BottlesPanel.TabIndex = 10;
@@ -226,7 +226,7 @@
             this.Controls.Add(this.lblWineId);
             this.Controls.Add(this.lblOrigin);
             this.Name = "WineTicket";
-            this.Size = new System.Drawing.Size(799, 316);
+            this.Size = new System.Drawing.Size(800, 315);
             ((System.ComponentModel.ISupportInitialize)(this.picWinePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

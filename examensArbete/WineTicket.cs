@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace examensArbete
 {
@@ -24,8 +25,7 @@ namespace examensArbete
         private string _grapes;
         private string _alcohol;
         private List<InventoryTicket> _bottlePanel;
-
-
+       
         [Category("Custom Props")]
         public string WinePic
         {
@@ -35,10 +35,6 @@ namespace examensArbete
                 picWinePic.ImageLocation = value;
                 picWinePic.SizeMode = PictureBoxSizeMode.CenterImage;
                 picWinePic.SizeMode = PictureBoxSizeMode.StretchImage;
-
-
-                //picWinePic.Size.Height=15;
-                //  picWinePic.BorderStyle = BorderStyle.Fixed3D;
             }
         }
 

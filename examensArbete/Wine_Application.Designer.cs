@@ -52,14 +52,18 @@
             this.myPages = new System.Windows.Forms.TabPage();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.lblUserInfo = new System.Windows.Forms.Label();
+            this.pbNoWine = new System.Windows.Forms.PictureBox();
             this.wineListResponseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pbNoWine2 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.UsersWineList.SuspendLayout();
             this.Add.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.AddBottleTab.SuspendLayout();
             this.myPages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -83,6 +87,7 @@
             // 
             // UsersWineList
             // 
+            this.UsersWineList.Controls.Add(this.pbNoWine);
             this.UsersWineList.Controls.Add(this.label3);
             this.UsersWineList.Controls.Add(this.cbRegionWineList);
             this.UsersWineList.Controls.Add(this.cbCountryWineList);
@@ -181,6 +186,7 @@
             // 
             // AddBottleTab
             // 
+            this.AddBottleTab.Controls.Add(this.pbNoWine2);
             this.AddBottleTab.Controls.Add(this.label1);
             this.AddBottleTab.Controls.Add(this.cbRegionAllWineList);
             this.AddBottleTab.Controls.Add(this.cbCountryAllWineList);
@@ -304,9 +310,27 @@
             this.lblUserInfo.TabIndex = 0;
             this.lblUserInfo.Text = "label2";
             // 
+            // pbNoWine
+            // 
+            this.pbNoWine.Location = new System.Drawing.Point(82, 91);
+            this.pbNoWine.Name = "pbNoWine";
+            this.pbNoWine.Size = new System.Drawing.Size(648, 279);
+            this.pbNoWine.TabIndex = 11;
+            this.pbNoWine.TabStop = false;
+            this.pbNoWine.Visible = false;
+            // 
             // wineListResponseBindingSource
             // 
             this.wineListResponseBindingSource.DataSource = typeof(examensArbete.Models.ResponseModel.UserSectionResponse.WineListResponse);
+            // 
+            // pbNoWine2
+            // 
+            this.pbNoWine2.Location = new System.Drawing.Point(86, 74);
+            this.pbNoWine2.Name = "pbNoWine2";
+            this.pbNoWine2.Size = new System.Drawing.Size(648, 279);
+            this.pbNoWine2.TabIndex = 17;
+            this.pbNoWine2.TabStop = false;
+            this.pbNoWine2.Visible = false;
             // 
             // Wine_Application
             // 
@@ -329,7 +353,9 @@
             this.AddBottleTab.PerformLayout();
             this.myPages.ResumeLayout(false);
             this.myPages.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -421,5 +447,7 @@
         private System.Windows.Forms.TextBox tbWineNameAllWineList;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.PictureBox pbNoWine;
+        private System.Windows.Forms.PictureBox pbNoWine2;
     }
 }

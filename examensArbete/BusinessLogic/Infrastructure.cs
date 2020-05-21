@@ -240,25 +240,9 @@ namespace examensArbete.BusinessLogic
 
         #region inventoryTicket
 
-        public static async Task<ErrorModel> GetShelves()
-        {
-            Console.WriteLine("ooooooooooooooooooooooooooooooooooooooo");
-            var url = Links.baseLink + Links.shelves;
-            var token = await GetToken();
-            var responseErrorModel = await RestVerbs.Get(url, token);
-            if (responseErrorModel.ErrorCode)
-            {
-                var responseBodyJson = JsonConvert.DeserializeObject<ICollection<ShelfResponse>>((string)responseErrorModel.Object);
-                responseErrorModel.Object = responseBodyJson;
-                return responseErrorModel;
-            }
-            else
-            {
-                return responseErrorModel;
 
-            }
 
-        }
+
         public static async Task<ErrorModel> AddBottles(long inventoryId, string currentAmount, int amount, long shelfId)
         {
             if (char.IsDigit(currentAmount[0]))
@@ -315,7 +299,30 @@ namespace examensArbete.BusinessLogic
             }
 
         }
+        public static async Task<ErrorModel> AddInventory(long vintageId, long shelfId, int amount)
+        {
+            var url = Links.baseLink + Links.inventories;
+            var payload = new AddInventoryModel
+            {
+                VintageId = vintageId,
+                ShelfId = shelfId,
+                Amount = amount
+            };
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = true, Message = null, Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
 
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+        }
 
         #endregion
 
@@ -327,30 +334,49 @@ namespace examensArbete.BusinessLogic
 
 
 
-        private static async Task<List<ShelfResponse>> GetUsersShelves()
-        {
-            var shelfResponse = await Infrastructure.GetShelves();
-            List<ShelfResponse> shelves = new List<ShelfResponse>();
-            if (shelfResponse.ErrorCode)
-            {
-                shelves = (List<ShelfResponse>)shelfResponse.Object;
-            }
-            else if (!string.IsNullOrEmpty(shelfResponse.Message))
-                MessageBox.Show(shelfResponse.Message, "Fel");
 
-            return shelves;
+        private static async Task<List<ShelfResponse>> GetShelves()
+        {
+            var url = Links.baseLink + Links.shelves;
+            var token = await GetToken();
+            var responseErrorModel = await RestVerbs.Get(url, token);
+            if (responseErrorModel.ErrorCode)
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<List<ShelfResponse>>((string)responseErrorModel.Object);
+                return responseBodyJson;
+            }
+            else if (!string.IsNullOrEmpty(responseErrorModel.Message))
+                MessageBox.Show(responseErrorModel.Message, "Fel");
+
+            return null;
+
+        }
+
+        private static async Task<List<VintageResponse>> GetVintages(long wineId)
+        {
+            var url = Links.baseLink + Links.vintages + "?wineid=" + wineId;
+            var token = await GetToken();
+            var responseErrorModel = await RestVerbs.Get(url, token);
+            if (responseErrorModel.ErrorCode)
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<List<VintageResponse>>((string)responseErrorModel.Object);
+                return responseBodyJson;
+            }
+            else if (!string.IsNullOrEmpty(responseErrorModel.Message))
+                MessageBox.Show(responseErrorModel.Message, "Fel");
+
+            return null;
 
         }
 
 
 
 
-
-
-
         private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {
-            var shelves = await GetUsersShelves();
+            var shelves = await GetShelves();
+
+
             if (!string.IsNullOrEmpty(startsWith))
                 url = url.Replace("startswith=", "startswith=" + startsWith);
             if (countryId > 0)
@@ -380,12 +406,15 @@ namespace examensArbete.BusinessLogic
             foreach (var wine in responseBodyJson)
             {
 
+                List<VintageResponse> vintages = await GetVintages(wine.WineId);
+
+
                 List<InventoryTicket> inves = new List<InventoryTicket>();
                 if (wine.Vintages != null)
                 {
                     foreach (var inv in wine.Vintages)
                     {
-                        inves.Add(new InventoryTicket(shelves)
+                        inves.Add(new InventoryTicket(shelves, vintages)
                         {
                             Year = inv != null ? inv.Year.ToString() : "",
                             CurrentAmount = inv != null ? inv.Amount.ToString() : "",
@@ -398,10 +427,9 @@ namespace examensArbete.BusinessLogic
                         });
                     }
                 }
-                else
-                {
-                    inves.Add(new InventoryTicket(shelves) { CurrentAmount = "-", Year = "-", Grade = "-", Shelf = "-" });
-                }
+
+                inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
+
                 string origin = wine.Country.CountryName;
                 if (wine.Region.RegionName != "Okänt region")
                     origin += " >> \r\n" + wine.Region.RegionName;

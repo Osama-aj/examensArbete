@@ -13,17 +13,20 @@ using examensArbete.BusinessLogic;
 using Newtonsoft.Json;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using examensArbete.Models.PostModels.Grades;
+using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 
 namespace examensArbete
 {
     public partial class InventoryTicket : UserControl
     {
         private readonly List<ShelfResponse> Shelves = new List<ShelfResponse>();
+        private readonly List<VintageResponse> Vintages = new List<VintageResponse>();
         bool firstShelfIndexChange = true;
 
-        public InventoryTicket(List<ShelfResponse> _shelves)
+        public InventoryTicket(List<ShelfResponse> _shelves, List<VintageResponse> _vintages)
         {
             Shelves = _shelves;
+            Vintages = _vintages;
             InitializeComponent();
         }
         private void InventoryTicket_Load(object sender, EventArgs e)
@@ -31,6 +34,28 @@ namespace examensArbete
 
             cbShelves.Items.AddRange(Shelves.ToArray());
             cbShelves.SelectedIndex = cbShelves.FindStringExact(_shelf);
+
+            cbVintages.Items.AddRange(Vintages.ToArray());
+
+
+            if (_inventoryId > 0 && !string.Equals(_currentAmount, "-"))
+            {
+                cbVintages.Visible = false;
+                lblYear.Visible = true;
+            }
+            else
+            {
+                cbVintages.Visible = true;
+                lblYear.Visible = false;
+                if (cbShelves.Items.Count >0)
+                    cbShelves.SelectedIndex = 0;
+                if (cbVintages.Items.Count > 0)
+                    cbVintages.SelectedIndex = 0;
+
+            }
+
+
+
 
 
             this.tbamount.Text = "1";
@@ -102,16 +127,41 @@ namespace examensArbete
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {
-            var sendSuccessfully = await Infrastructure.AddBottles(this.InventoryId, this.CurrentAmount, int.Parse(this.tbamount.Text), this.ShelfId);
-
-            if (sendSuccessfully.ErrorCode)
+            if (InventoryId <= 0 || _shelfId <= 0 || _currentAmount == "-")
             {
-                var responseObject = (InventoryResponse)sendSuccessfully.Object;
-                this.CurrentAmount = responseObject.Amount.ToString();
+                var selectedVintage = (VintageResponse)cbVintages.SelectedItem;
+                var selectedShelf = (ShelfResponse)cbShelves.SelectedItem;
+                var sendSuccessfully = await Infrastructure.AddInventory(selectedVintage.VintageId, selectedShelf.ShelfId, int.Parse(this.tbamount.Text));
+                if (sendSuccessfully.ErrorCode)
+                {
+                    var responseObject = (InventoryResponse)sendSuccessfully.Object;
+                    if (responseObject.Amount.ToString() != this.tbamount.Text)
+                        MessageBox.Show("Flaskorna har lagts till i en befintlig inventering\r\nDu kan behöva uppdatera listan", "Information");
+                    else
+                    {
+                        this.CurrentAmount = responseObject.Amount.ToString();
+                        this.VintageId = responseObject.VintageId;
+                        this.InventoryId = responseObject.InventoryId;
+                        this.Year = responseObject.Vintage.Year.ToString();
+                        lblYear.Visible = true;
+                        cbVintages.Visible = false;
+                    }
+                }
+                else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
+                    MessageBox.Show(sendSuccessfully.Message, "Fel");
             }
-            else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
-                MessageBox.Show(sendSuccessfully.Message, "Fel");
+            else
+            {
+                var sendSuccessfully = await Infrastructure.AddBottles(this._inventoryId, this._currentAmount, int.Parse(this.tbamount.Text), this._shelfId);
 
+                if (sendSuccessfully.ErrorCode)
+                {
+                    var responseObject = (InventoryResponse)sendSuccessfully.Object;
+                    this.CurrentAmount = responseObject.Amount.ToString();
+                }
+                else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
+                    MessageBox.Show(sendSuccessfully.Message, "Fel");
+            }
         }
 
         private async void RemoveOneBottleButton_Click(object sender, EventArgs e)
@@ -119,7 +169,7 @@ namespace examensArbete
             ErrorModel sendSuccessfully;
 
 
-            sendSuccessfully = await Infrastructure.RemoveBottles(this.InventoryId, this.CurrentAmount, int.Parse(this.tbamount.Text), this.ShelfId);
+            sendSuccessfully = await Infrastructure.RemoveBottles(this._inventoryId, this._currentAmount, int.Parse(this.tbamount.Text), this._shelfId);
             if (sendSuccessfully.ErrorCode && sendSuccessfully.Object != null)
             {
                 var responseObject = (InventoryResponse)sendSuccessfully.Object;
@@ -152,7 +202,7 @@ namespace examensArbete
 
         private async void cbShelves_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (!firstShelfIndexChange)
+            if (!firstShelfIndexChange && _inventoryId > 0)
             {
                 ShelfResponse selectedShelf = (ShelfResponse)cbShelves.SelectedItem;
                 if (selectedShelf.ShelfId != _shelfId)
@@ -162,7 +212,7 @@ namespace examensArbete
                     if (updateShelfResponse.ErrorCode)
                     {
                         var updatedInventory = (InventoryResponse)updateShelfResponse.Object;
-                        var shelf = Shelves.First(s=>s.ShelfId == updatedInventory.ShelfId);
+                        var shelf = Shelves.First(s => s.ShelfId == updatedInventory.ShelfId);
                         var index = cbShelves.FindStringExact(shelf.Name);
                         cbShelves.SelectedIndex = index;
 
@@ -173,5 +223,10 @@ namespace examensArbete
             }
             firstShelfIndexChange = false;
         }
+
+
+
+
+
     }
 }

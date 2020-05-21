@@ -41,6 +41,8 @@ namespace examensArbete
 
         private async void Wine_Application_Load(object sender, EventArgs e)
         {
+
+
             var metadetaErrorModel = await Infrastructure.GetMetadata();
             MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
             Metadata = metadata;
@@ -83,18 +85,34 @@ namespace examensArbete
 
             if (usersWinelistErrorModel.ErrorCode)
             {
-                flowLayoutPanel1.Controls.Clear();
-                List<WineTicket> wineTickets = (List<WineTicket>)usersWinelistErrorModel.Object;
-                foreach (Control wineticket in wineTickets)
-                {
-                    flowLayoutPanel1.Controls.Add(wineticket);
-                }
 
+                flowLayoutPanel1.Controls.Clear();
+                if (((List<WineTicket>)usersWinelistErrorModel.Object).Count == 0)
+                {
+                    var imagePath = Path.Combine(Environment.CurrentDirectory, @"noWInes.jpg");
+                    pbNoWine.Visible = true;
+                    pbNoWine.Image = new Bitmap(imagePath);
+
+                }
+                else
+                {
+
+
+                    pbNoWine.Visible = false;
+
+
+                    List<WineTicket> wineTickets = (List<WineTicket>)usersWinelistErrorModel.Object;
+                    foreach (Control wineticket in wineTickets)
+                    {
+                        flowLayoutPanel1.Controls.Add(wineticket);
+                    }
+                }
             }
             else if (!string.IsNullOrEmpty(usersWinelistErrorModel.Message))
                 MessageBox.Show(usersWinelistErrorModel.Message, "Fel");
 
         }
+
         private void tbWineNameWineList_TextUpdate(Object sender, EventArgs e)
         {
             WineNameFilterWIneList = tbWineNameWineList.Text;
@@ -155,11 +173,22 @@ namespace examensArbete
 
             if (allWinelistErrorModel.ErrorCode)
             {
-                flowLayoutPanel2.Controls.Clear();
-                List<WineTicket> wineTickets = (List<WineTicket>)allWinelistErrorModel.Object;
-                foreach (Control wineticket in wineTickets)
+                if (((List<WineTicket>)allWinelistErrorModel.Object).Count == 0)
                 {
-                    flowLayoutPanel2.Controls.Add(wineticket);
+                    var imagePath = Path.Combine(Environment.CurrentDirectory, @"noWInes.jpg");
+                    pbNoWine2.Visible = true;
+                    pbNoWine2.Image = new Bitmap(imagePath);
+                }
+                else
+                {
+                    pbNoWine2.Visible = false;
+
+                    flowLayoutPanel2.Controls.Clear();
+                    List<WineTicket> wineTickets = (List<WineTicket>)allWinelistErrorModel.Object;
+                    foreach (Control wineticket in wineTickets)
+                    {
+                        flowLayoutPanel2.Controls.Add(wineticket);
+                    }
                 }
 
             }
