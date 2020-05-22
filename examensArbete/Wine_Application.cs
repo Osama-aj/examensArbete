@@ -52,8 +52,15 @@ namespace examensArbete
             ShowCountriesWinelist();
             ShowCountriesAllWinelist();
             ShowUsersWinelist();
+            ShowUseInfo();
         }
-
+        private void ShowUseInfo()
+        {
+            var userInfo = Infrastructure.GetUserInfo();
+            lblUserEmail.Text = string.IsNullOrEmpty(userInfo.Email) ? "-" : userInfo.Email;
+            lblUserName.Text =  string.IsNullOrEmpty(userInfo.DisplayName) ? "-" : userInfo.DisplayName;
+            lblUserPhoneNumber.Text = string.IsNullOrEmpty(userInfo.PhoneNumber) ? "-" : userInfo.PhoneNumber;
+        }
 
 
         private void Wine_Application_FormClosing(object sender, FormClosingEventArgs e)
@@ -467,9 +474,13 @@ namespace examensArbete
 
 
 
+
         #endregion
 
-
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This button is not functional yet!!","Info");
+        }
     }
 }
 

@@ -82,8 +82,14 @@
             this.btnGetImage = new System.Windows.Forms.Button();
             this.myPages = new System.Windows.Forms.TabPage();
             this.btnLogOut = new System.Windows.Forms.Button();
-            this.lblUserInfo = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
+            this.lblUserPhoneNumber = new System.Windows.Forms.Label();
+            this.lblUserEmail = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.wineListResponseBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.UsersWineList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).BeginInit();
@@ -619,8 +625,14 @@
             // 
             // myPages
             // 
+            this.myPages.Controls.Add(this.btnChangePassword);
+            this.myPages.Controls.Add(this.label17);
+            this.myPages.Controls.Add(this.label16);
+            this.myPages.Controls.Add(this.label15);
+            this.myPages.Controls.Add(this.lblUserEmail);
+            this.myPages.Controls.Add(this.lblUserPhoneNumber);
             this.myPages.Controls.Add(this.btnLogOut);
-            this.myPages.Controls.Add(this.lblUserInfo);
+            this.myPages.Controls.Add(this.lblUserName);
             this.myPages.Location = new System.Drawing.Point(4, 22);
             this.myPages.Name = "myPages";
             this.myPages.Padding = new System.Windows.Forms.Padding(3);
@@ -631,7 +643,7 @@
             // 
             // btnLogOut
             // 
-            this.btnLogOut.Location = new System.Drawing.Point(109, 244);
+            this.btnLogOut.Location = new System.Drawing.Point(50, 305);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Size = new System.Drawing.Size(83, 38);
             this.btnLogOut.TabIndex = 1;
@@ -639,18 +651,73 @@
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
-            // lblUserInfo
+            // lblUserName
             // 
-            this.lblUserInfo.AutoSize = true;
-            this.lblUserInfo.Location = new System.Drawing.Point(119, 47);
-            this.lblUserInfo.Name = "lblUserInfo";
-            this.lblUserInfo.Size = new System.Drawing.Size(35, 13);
-            this.lblUserInfo.TabIndex = 0;
-            this.lblUserInfo.Text = "label2";
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.Location = new System.Drawing.Point(155, 48);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(35, 13);
+            this.lblUserName.TabIndex = 0;
+            this.lblUserName.Text = "Namn";
+            // 
+            // lblUserPhoneNumber
+            // 
+            this.lblUserPhoneNumber.AutoSize = true;
+            this.lblUserPhoneNumber.Location = new System.Drawing.Point(155, 126);
+            this.lblUserPhoneNumber.Name = "lblUserPhoneNumber";
+            this.lblUserPhoneNumber.Size = new System.Drawing.Size(72, 13);
+            this.lblUserPhoneNumber.TabIndex = 2;
+            this.lblUserPhoneNumber.Text = "Mobil nummer";
+            // 
+            // lblUserEmail
+            // 
+            this.lblUserEmail.AutoSize = true;
+            this.lblUserEmail.Location = new System.Drawing.Point(155, 86);
+            this.lblUserEmail.Name = "lblUserEmail";
+            this.lblUserEmail.Size = new System.Drawing.Size(68, 13);
+            this.lblUserEmail.TabIndex = 3;
+            this.lblUserEmail.Text = "E-postadress";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(47, 48);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(35, 13);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Namn";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(47, 86);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(68, 13);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "E-postadress";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(47, 126);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(72, 13);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Mobil nummer";
             // 
             // wineListResponseBindingSource
             // 
             this.wineListResponseBindingSource.DataSource = typeof(examensArbete.Models.ResponseModel.UserSectionResponse.WineListResponse);
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Location = new System.Drawing.Point(50, 177);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(140, 23);
+            this.btnChangePassword.TabIndex = 7;
+            this.btnChangePassword.Text = "byta lösenordet";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // Wine_Application
             // 
@@ -757,7 +824,7 @@
         private System.Windows.Forms.TabPage AddNewWine;
         private System.Windows.Forms.TabPage myPages;
         private System.Windows.Forms.Button btnLogOut;
-        private System.Windows.Forms.Label lblUserInfo;
+        private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.ComboBox cbRegionWineList;
         private System.Windows.Forms.ComboBox cbCountryWineList;
         private System.Windows.Forms.TextBox tbWineNameWineList;
@@ -801,5 +868,11 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnRemoveGrape;
         private System.Windows.Forms.Button btnAddGrape;
+        private System.Windows.Forms.Label lblUserEmail;
+        private System.Windows.Forms.Label lblUserPhoneNumber;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button btnChangePassword;
     }
 }

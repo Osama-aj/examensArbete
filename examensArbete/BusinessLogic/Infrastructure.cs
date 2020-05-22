@@ -23,12 +23,7 @@ using System.Windows.Forms;
 
 namespace examensArbete.BusinessLogic
 {
-    //TODO: add alwayes new line to inventories there I can choose vintage, shelf and amount 
-    // vintage can be disabled list in all inventories but enabled in the last one
-    //add "lägg till vintage" in the corner 
-    // four  tabs "min vin lista;; alla viner ;;lägg till;; mina sidor"
-    // in "lägg till" tab will be add shelf, country, region, district
-
+ 
     //add addCountry, region and district to the backend
 
 
@@ -46,6 +41,10 @@ namespace examensArbete.BusinessLogic
         #endregion
 
         #region login,out and signup
+        public static  UserRecord GetUserInfo()
+        {
+            return _user;
+        }
         public static async Task<ErrorModel> CheckIfLoggedIn()
         {
             System.IO.Directory.CreateDirectory(userDataDirectory);
