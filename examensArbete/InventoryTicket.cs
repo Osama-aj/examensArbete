@@ -37,10 +37,6 @@ namespace examensArbete
 
 
 
-            if (cbShelves.Items.Count > 0)
-                cbShelves.SelectedIndex = 0;
-
-
             this.tbamount.Text = "1";
             if (string.Equals(_currentAmount, "-"))
                 RemoveOneBottleButton.Enabled = false;
