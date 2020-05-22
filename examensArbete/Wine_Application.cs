@@ -353,37 +353,7 @@ namespace examensArbete
         }
 
         //add new wine tab load 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 0)
-            {
-                ShowUsersWinelist();
-            }
-            else if (tabControl1.SelectedIndex == 1)
-            {
-                if (tabControl2.SelectedIndex == 0)
-                {
-                    ShowAllWinelist();
-                }
-                else if (tabControl2.SelectedIndex == 1)
-                {
-                    ShowCountriesAddNewWine();
-                    ShowGrapes();
-                }
-            }
-        }
-        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl2.SelectedIndex == 0)
-            {
-                ShowAllWinelist();
-            }
-            else if (tabControl2.SelectedIndex == 1)
-            {
-                ShowCountriesAddNewWine();
-                ShowGrapes();
-            }
-        }
+        
 
 
         private void btnAddGrape_Click(object sender, EventArgs e)
@@ -503,6 +473,45 @@ namespace examensArbete
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This button is not functional yet!!", "Info");
+        }
+
+
+
+
+
+
+
+        //common
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                ShowUsersWinelist();
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                if (tabControl2.SelectedIndex == 0)
+                {
+                    ShowAllWinelist();
+                }
+                else if (tabControl2.SelectedIndex == 1)
+                {
+                    ShowCountriesAddNewWine();
+                    ShowGrapes();
+                }
+            }
+        }
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl2.SelectedIndex == 0)
+            {
+                ShowAllWinelist();
+            }
+            else if (tabControl2.SelectedIndex == 1)
+            {
+                ShowCountriesAddNewWine();
+                ShowGrapes();
+            }
         }
     }
 }

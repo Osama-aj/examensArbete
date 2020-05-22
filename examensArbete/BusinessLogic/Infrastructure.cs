@@ -294,14 +294,13 @@ namespace examensArbete.BusinessLogic
             var responseBody = await RestVerbs.Put(url, payload, token);
             if (string.IsNullOrEmpty(responseBody) && newAmount == 0)
             {
-                return new ErrorModel { ErrorCode = false, Message = "Information har inte updateras", Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
+                return new ErrorModel { ErrorCode = true, Message = null, Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
 
             }
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<InventoryResponse>(responseBody);
                 return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
-                //this.Amount = responseBodyJson.Amount;
             }
             catch (Exception error)
             {
@@ -540,9 +539,9 @@ namespace examensArbete.BusinessLogic
                     inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
 
                 string origin = wine.Country.CountryName;
-                if (wine.Region.RegionName != "Okänt region")
+               // if (wine.Region.RegionName != "Okänt region")
                     origin += " >> \r\n" + wine.Region.RegionName;
-                if (wine.District.DistrictName != "Okänt distrikt")
+              //  if (wine.District.DistrictName != "Okänt distrikt")
                     origin += " >> \r\n" + wine.District.DistrictName;
 
                 string grapes = "";

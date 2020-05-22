@@ -140,6 +140,8 @@ namespace examensArbete
                 {
                     this.AddOneBottleButton.Enabled = false;
                     this.RemoveOneBottleButton.Enabled = false;
+                    this.cbShelves.Enabled = false;
+                    this.tbamount.Enabled = false;
                 }
 
             }
