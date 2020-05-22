@@ -14,8 +14,8 @@ namespace examensArbete.Models
         //public static string userId = @"?userId=Av4ivM6LMlRVz7W5YbgilBXUK5d2";
 
 
-        public static string usersWineList = "userswinelist?startswith=&countryid=-1&regionid=-1&districtid=-1&grapeid=-1";
-        public static string allwineList = "allwinelist?startswith=&countryid=-1&regionid=-1&districtid=-1&grapeid=-1";
+        public static string usersWineList = "userswinelist?startswith=&countryid=-1&regionid=-1&districtid=-1&grapeid=-1&wineId=-1";
+        public static string allwineList = "allwinelist?startswith=&countryid=-1&regionid=-1&districtid=-1&grapeid=-1&wineId=-1";
 
         public static string shelves = @"shelves";
         public static string vintages = @"vintages";

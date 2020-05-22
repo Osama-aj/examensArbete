@@ -44,6 +44,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnAddThings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picWinePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,7 +121,7 @@
             this.BottlesPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BottlesPanel.Location = new System.Drawing.Point(218, 115);
             this.BottlesPanel.Name = "BottlesPanel";
-            this.BottlesPanel.Size = new System.Drawing.Size(584, 200);
+            this.BottlesPanel.Size = new System.Drawing.Size(584, 167);
             this.BottlesPanel.TabIndex = 10;
             // 
             // label2
@@ -203,12 +204,23 @@
             this.label8.TabIndex = 19;
             this.label8.Text = "Alkoholhalt";
             // 
+            // btnAddThings
+            // 
+            this.btnAddThings.Location = new System.Drawing.Point(710, 288);
+            this.btnAddThings.Name = "btnAddThings";
+            this.btnAddThings.Size = new System.Drawing.Size(75, 23);
+            this.btnAddThings.TabIndex = 20;
+            this.btnAddThings.Text = "Lägg till";
+            this.btnAddThings.UseVisualStyleBackColor = true;
+            this.btnAddThings.Click += new System.EventHandler(this.btnAddThings_Click);
+            // 
             // WineTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.btnAddThings);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -251,5 +263,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnAddThings;
     }
 }

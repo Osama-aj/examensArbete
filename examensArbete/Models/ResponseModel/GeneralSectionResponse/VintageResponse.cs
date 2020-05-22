@@ -9,7 +9,7 @@ namespace examensArbete.Models.ResponseModel.GeneralSectionResponse
     public class VintageResponse
     {
         public long VintageId { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public string EAN { get; set; }
 
         public long WineId { get; set; }

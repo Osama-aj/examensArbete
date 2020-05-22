@@ -359,11 +359,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLogic\Infrastructure.cs" />
-    <Compile Include="BusinessLogic\RestVerbs.cs" />
-    <Compile Include="frmWaitForm.cs">
+    <Compile Include="AddShelfVintageInventory.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AddShelfVintageInventory.Designer.cs">
+      <DependentUpon>AddShelfVintageInventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessLogic\Infrastructure.cs" />
+    <Compile Include="BusinessLogic\RestVerbs.cs" />
+    <Compile Include="frmWaitForm.cs" />
     <Compile Include="frmWaitForm.Designer.cs">
       <DependentUpon>frmWaitForm.cs</DependentUpon>
     </Compile>
@@ -425,6 +429,9 @@
     <Compile Include="Wine_Application.Designer.cs">
       <DependentUpon>Wine_Application.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddShelfVintageInventory.resx">
+      <DependentUpon>AddShelfVintageInventory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmWaitForm.resx">
       <DependentUpon>frmWaitForm.cs</DependentUpon>
     </EmbeddedResource>

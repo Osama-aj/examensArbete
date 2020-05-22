@@ -130,3 +130,4 @@ C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\System.Compone
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.WineTicket.resources
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.frmWaitForm.resources
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.InventoryTicket.resources
+C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.AddShelfVintageInventory.resources

@@ -1,9 +1,12 @@
 ﻿using examensArbete.Models;
 using examensArbete.Models.PostModels.Inventories;
+using examensArbete.Models.PostModels.Shelves;
+using examensArbete.Models.PostModels.Vintages;
 using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
 using FirebaseAdmin.Auth;
+using Google.Apis.Upload;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Crypto.Engines;
@@ -11,6 +14,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -224,6 +229,13 @@ namespace examensArbete.BusinessLogic
 
 
         }
+        public static async Task<ErrorModel> GetOneWine(long wineid)
+        {
+            var url = Links.baseLink + Links.allwineList;
+            url = url.Replace("wineId=-1", "wineId=" + wineid.ToString());
+            var res = await GetWineList(url, "", -1, -1);
+            return res;
+        }
         public static async Task<ErrorModel> GetUsersWinelist(string startsWith, long countryId, long regionId)
         {
             var url = Links.baseLink + Links.usersWineList;
@@ -326,6 +338,62 @@ namespace examensArbete.BusinessLogic
 
         #endregion
 
+        #region addVintageShelfInventory
+        public static async Task<ErrorModel> AddShelf(string shelfName)
+        {
+            var url = Links.baseLink + Links.shelves;
+            var payload = new AddShelfModel
+            {
+                ShelfName = shelfName
+            };
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = true, Message = null, Object = new ShelfResponse { ShelfId = 0, Name = null } };
+
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<ShelfResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+
+        }
+        public static async Task<ErrorModel> AddVintage(long wineId, string year)
+        {
+
+            var isNumber = int.TryParse(year, out int yearInt);
+            if (!isNumber)
+                return new ErrorModel { ErrorCode = false, Message = "Du får skriva bara siffror", Object = null };
+
+            var url = Links.baseLink + Links.vintages;
+            var payload = new AddVintageModel
+            {
+                WineId = wineId,
+                Year = yearInt
+            };
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = true, Message = null, Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
+
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<VintageResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+
+
+        }
+
+        #endregion
 
 
 
@@ -334,8 +402,7 @@ namespace examensArbete.BusinessLogic
 
 
 
-
-        private static async Task<List<ShelfResponse>> GetShelves()
+        public static async Task<List<ShelfResponse>> GetUsersShelves()
         {
             var url = Links.baseLink + Links.shelves;
             var token = await GetToken();
@@ -352,7 +419,7 @@ namespace examensArbete.BusinessLogic
 
         }
 
-        private static async Task<List<VintageResponse>> GetVintages(long wineId)
+        public static async Task<List<VintageResponse>> GetVintages(long wineId)
         {
             var url = Links.baseLink + Links.vintages + "?wineid=" + wineId;
             var token = await GetToken();
@@ -374,8 +441,7 @@ namespace examensArbete.BusinessLogic
 
         private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {
-            var shelves = await GetShelves();
-            shelves.Add(new ShelfResponse { ShelfId = -1, Name = "lägg till" });
+            var shelves = await GetUsersShelves();
 
 
             if (!string.IsNullOrEmpty(startsWith))
@@ -409,7 +475,6 @@ namespace examensArbete.BusinessLogic
 
                 List<VintageResponse> vintages = await GetVintages(wine.WineId);
 
-
                 List<InventoryTicket> inves = new List<InventoryTicket>();
                 if (wine.Vintages != null)
                 {
@@ -417,7 +482,7 @@ namespace examensArbete.BusinessLogic
                     {
                         inves.Add(new InventoryTicket(shelves, vintages)
                         {
-                            Year = inv != null ? inv.Year.ToString() : "",
+                            Year = inv != null ? inv.Year : "",
                             CurrentAmount = inv != null ? inv.Amount.ToString() : "",
                             Shelf = inv.ShelfName,
                             //Grade = (inv.Grade != null && inv.Grade.Grade >= 1 && inv.Grade.Grade <= 5) ? inv.Grade.Grade.ToString() : "-",
@@ -428,8 +493,8 @@ namespace examensArbete.BusinessLogic
                         });
                     }
                 }
-
-                inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
+                else
+                    inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
 
                 string origin = wine.Country.CountryName;
                 if (wine.Region.RegionName != "Okänt region")

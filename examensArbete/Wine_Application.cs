@@ -78,7 +78,7 @@ namespace examensArbete
         /// users winelist tab
 
 
-        private async void ShowUsersWinelist()
+        public async void ShowUsersWinelist()
         {
 
             var usersWinelistErrorModel = await Infrastructure.GetUsersWinelist(WineNameFilterWIneList, SelectedCountryId, SelectedRegionId);

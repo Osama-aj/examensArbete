@@ -37,7 +37,6 @@
             this.lblinventoryId = new System.Windows.Forms.Label();
             this.tbamount = new System.Windows.Forms.TextBox();
             this.cbShelves = new System.Windows.Forms.ComboBox();
-            this.cbVintages = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblYear
@@ -125,22 +124,10 @@
             this.cbShelves.ValueMember = "ShelfId";
             this.cbShelves.SelectedIndexChanged += new System.EventHandler(this.cbShelves_SelectedIndexChanged);
             // 
-            // cbVintages
-            // 
-            this.cbVintages.DisplayMember = "Year";
-            this.cbVintages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVintages.FormattingEnabled = true;
-            this.cbVintages.Location = new System.Drawing.Point(10, 0);
-            this.cbVintages.Name = "cbVintages";
-            this.cbVintages.Size = new System.Drawing.Size(61, 21);
-            this.cbVintages.TabIndex = 8;
-            this.cbVintages.ValueMember = "VintageId";
-            // 
             // InventoryTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cbVintages);
             this.Controls.Add(this.cbShelves);
             this.Controls.Add(this.tbamount);
             this.Controls.Add(this.RemoveOneBottleButton);
@@ -169,6 +156,5 @@
         private System.Windows.Forms.Label lblinventoryId;
         private System.Windows.Forms.TextBox tbamount;
         private System.Windows.Forms.ComboBox cbShelves;
-        private System.Windows.Forms.ComboBox cbVintages;
     }
 }

@@ -35,27 +35,10 @@ namespace examensArbete
             cbShelves.Items.AddRange(Shelves.ToArray());
             cbShelves.SelectedIndex = cbShelves.FindStringExact(_shelf);
 
-            cbVintages.Items.AddRange(Vintages.ToArray());
 
 
-            if (_inventoryId > 0 && !string.Equals(_currentAmount, "-"))
-            {
-                cbVintages.Visible = false;
-                lblYear.Visible = true;
-            }
-            else
-            {
-                cbVintages.Visible = true;
-                lblYear.Visible = false;
-                if (cbShelves.Items.Count >0)
-                    cbShelves.SelectedIndex = 0;
-                if (cbVintages.Items.Count > 0)
-                    cbVintages.SelectedIndex = 0;
-
-            }
-
-
-
+            if (cbShelves.Items.Count > 0)
+                cbShelves.SelectedIndex = 0;
 
 
             this.tbamount.Text = "1";
@@ -127,31 +110,8 @@ namespace examensArbete
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {
-            if (InventoryId <= 0 || _shelfId <= 0 || _currentAmount == "-")
-            {
-                var selectedVintage = (VintageResponse)cbVintages.SelectedItem;
-                var selectedShelf = (ShelfResponse)cbShelves.SelectedItem;
-                var sendSuccessfully = await Infrastructure.AddInventory(selectedVintage.VintageId, selectedShelf.ShelfId, int.Parse(this.tbamount.Text));
-                if (sendSuccessfully.ErrorCode)
-                {
-                    var responseObject = (InventoryResponse)sendSuccessfully.Object;
-                    if (responseObject.Amount.ToString() != this.tbamount.Text)
-                        MessageBox.Show("Flaskorna har lagts till i en befintlig inventering\r\nDu kan behöva uppdatera listan", "Information");
-                    else
-                    {
-                        this.CurrentAmount = responseObject.Amount.ToString();
-                        this.VintageId = responseObject.VintageId;
-                        this.InventoryId = responseObject.InventoryId;
-                        this.Year = responseObject.Vintage.Year.ToString();
-                        lblYear.Visible = true;
-                        cbVintages.Visible = false;
-                    }
-                }
-                else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
-                    MessageBox.Show(sendSuccessfully.Message, "Fel");
-            }
-            else
-            {
+          
+           
                 var sendSuccessfully = await Infrastructure.AddBottles(this._inventoryId, this._currentAmount, int.Parse(this.tbamount.Text), this._shelfId);
 
                 if (sendSuccessfully.ErrorCode)
@@ -161,7 +121,7 @@ namespace examensArbete
                 }
                 else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
                     MessageBox.Show(sendSuccessfully.Message, "Fel");
-            }
+            
         }
 
         private async void RemoveOneBottleButton_Click(object sender, EventArgs e)
@@ -202,9 +162,9 @@ namespace examensArbete
 
         private async void cbShelves_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (!firstShelfIndexChange && _inventoryId > 0)
+            ShelfResponse selectedShelf = (ShelfResponse)cbShelves.SelectedItem;
+            if (!firstShelfIndexChange && _inventoryId > 0 && selectedShelf.ShelfId > 0)
             {
-                ShelfResponse selectedShelf = (ShelfResponse)cbShelves.SelectedItem;
                 if (selectedShelf.ShelfId != _shelfId)
                 {
                     var updateShelfResponse = await Infrastructure.UpdateInventory(this._inventoryId, selectedShelf.ShelfId);
@@ -219,12 +179,22 @@ namespace examensArbete
                     }
                     else if (!string.IsNullOrEmpty(updateShelfResponse.Message))
                     {
-                        var previosShelf = Shelves.First(s=>s.ShelfId ==_shelfId);
+                        var previosShelf = Shelves.First(s => s.ShelfId == _shelfId);
                         cbShelves.SelectedIndex = cbShelves.FindStringExact(previosShelf.Name);
                         MessageBox.Show(updateShelfResponse.Message, "Fel");
                     }
                 }
             }
+            //else if (selectedShelf.ShelfId == -1 && selectedShelf.Name == "lägg till")
+            //{
+            //    var previosShelf = Shelves.FirstOrDefault(s => s.ShelfId == _shelfId);
+            //    if (previosShelf != null)
+            //        cbShelves.SelectedIndex = cbShelves.FindStringExact(previosShelf.Name);
+
+            //    AddShelf asDialog = new AddShelf();
+            //    asDialog.ShowDialog();
+
+            //}
             firstShelfIndexChange = false;
         }
 
