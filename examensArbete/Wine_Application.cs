@@ -175,6 +175,7 @@ namespace examensArbete
 
             if (allWinelistErrorModel.ErrorCode)
             {
+                flowLayoutPanel2.Controls.Clear();
                 if (((List<WineTicket>)allWinelistErrorModel.Object).Count == 0)
                 {
                     var imagePath = Path.Combine(Environment.CurrentDirectory, @"noWInes.jpg");
@@ -185,7 +186,6 @@ namespace examensArbete
                 {
                     pbNoWine2.Visible = false;
 
-                    flowLayoutPanel2.Controls.Clear();
                     List<WineTicket> wineTickets = (List<WineTicket>)allWinelistErrorModel.Object;
                     foreach (Control wineticket in wineTickets)
                     {
@@ -327,9 +327,22 @@ namespace examensArbete
 
 
 
-        private void btnAddWine_Click(object sender, EventArgs e)
+        private async void btnAddWine_Click(object sender, EventArgs e)
         {
+            var winName = tbWineName.Text;
+            var producer = tbProducer.Text;
+            var selectedDistrict = (DistrictResponse)cbOriginDistrict.SelectedItem;
+            var alcohol = tbAlcohol.Text;
+            if (string.IsNullOrEmpty(winName) || selectedDistrict == null || selectedDistrict.DistrictId <= 0)
+            {
+                MessageBox.Show("vinnamnet och distrikt är oligatoriska!", "Fel");
+                return;
+            }
 
+            var addWineResponse = await Infrastructure.AddWine(winName, producer, selectedDistrict.DistrictId, alcohol, AddedGrapes);
+
+            if (!addWineResponse.ErrorCode && !string.IsNullOrEmpty(addWineResponse.Message))
+                MessageBox.Show(addWineResponse.Message, "Fel");
         }
 
         //add new wine tab load 
@@ -380,7 +393,7 @@ namespace examensArbete
             if (lbGrapes.SelectedItem != null)
             {
                 var selectedItem = lbGrapes.SelectedItem.ToString();
-                string selectedGrape = selectedItem.Split(separator,  StringSplitOptions.None)[0];
+                string selectedGrape = selectedItem.Split(separator, StringSplitOptions.None)[0];
                 for (int i = 0; i < AddedGrapes.Count(); i++)
                 {
                     if (!string.Equals(selectedGrape, AddedGrapes[i].Grape.GrapeName, StringComparison.OrdinalIgnoreCase)) continue;
@@ -407,58 +420,58 @@ namespace examensArbete
 
 
 
-            //all drop down for origin and getting its IDs
-            private void ShowCountriesAddNewWine()
-            {
-                cbOriginCountry.Items.Clear();
-                cbOriginCountry.Items.AddRange(Metadata.Countries.ToArray());
-                cbOriginCountry.SelectedIndex = 0;
-            }
-            private void cbOriginCountry_SelectedIndexChanged(object sender, System.EventArgs e)
-            {
-                CountryResponse selectedCountry = (CountryResponse)cbOriginCountry.SelectedItem;
-                ShowRegionsAddNewWine(selectedCountry.CountryId);
-            }
-            private void ShowRegionsAddNewWine(long selectedCountryId)
-            {
-                CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
-                cbOriginRegion.Items.Clear();
-                if (selectedCountry != null)
-                    cbOriginRegion.Items.AddRange(selectedCountry.Regions.ToArray());
-                cbOriginRegion.SelectedIndex = 0;
-            }
-            private void cbOriginRegion_SelectedIndexChanged(object sender, System.EventArgs e)
-            {
-                RegionResponse selectedRegion = (RegionResponse)cbOriginRegion.SelectedItem;
-                ShowDistrictAddNewWine(selectedRegion.CountryId, selectedRegion.RegionId);
-            }
-            private void ShowDistrictAddNewWine(long selectedCountryId, long selectedRegionId)
-            {
-                CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
-                RegionResponse selectedRegion = selectedCountry.Regions.First(r => r.RegionId == selectedRegionId);
-                cbOriginDistrict.Items.Clear();
-
-                if (selectedRegion != null)
-                    cbOriginDistrict.Items.AddRange(selectedRegion.Districts.ToArray());
-                cbOriginDistrict.SelectedIndex = 0;
-            }
-            private void ShowGrapes()
-            {
-                cbGrapes.Items.Clear();
-                cbGrapes.Items.AddRange(Metadata.Grapes.ToArray());
-                cbGrapes.SelectedIndex = 0;
-            }
-
-
-
-
-
-
-            #endregion
-
-
+        //all drop down for origin and getting its IDs
+        private void ShowCountriesAddNewWine()
+        {
+            cbOriginCountry.Items.Clear();
+            cbOriginCountry.Items.AddRange(Metadata.Countries.ToArray());
+            cbOriginCountry.SelectedIndex = 0;
         }
+        private void cbOriginCountry_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            CountryResponse selectedCountry = (CountryResponse)cbOriginCountry.SelectedItem;
+            ShowRegionsAddNewWine(selectedCountry.CountryId);
+        }
+        private void ShowRegionsAddNewWine(long selectedCountryId)
+        {
+            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
+            cbOriginRegion.Items.Clear();
+            if (selectedCountry != null)
+                cbOriginRegion.Items.AddRange(selectedCountry.Regions.ToArray());
+            cbOriginRegion.SelectedIndex = 0;
+        }
+        private void cbOriginRegion_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            RegionResponse selectedRegion = (RegionResponse)cbOriginRegion.SelectedItem;
+            ShowDistrictAddNewWine(selectedRegion.CountryId, selectedRegion.RegionId);
+        }
+        private void ShowDistrictAddNewWine(long selectedCountryId, long selectedRegionId)
+        {
+            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
+            RegionResponse selectedRegion = selectedCountry.Regions.First(r => r.RegionId == selectedRegionId);
+            cbOriginDistrict.Items.Clear();
+
+            if (selectedRegion != null)
+                cbOriginDistrict.Items.AddRange(selectedRegion.Districts.ToArray());
+            cbOriginDistrict.SelectedIndex = 0;
+        }
+        private void ShowGrapes()
+        {
+            cbGrapes.Items.Clear();
+            cbGrapes.Items.AddRange(Metadata.Grapes.ToArray());
+            cbGrapes.SelectedIndex = 0;
+        }
+
+
+
+
+
+
+        #endregion
+
+
     }
+}
 
 
 

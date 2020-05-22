@@ -2,6 +2,7 @@
 using examensArbete.Models.PostModels.Inventories;
 using examensArbete.Models.PostModels.Shelves;
 using examensArbete.Models.PostModels.Vintages;
+using examensArbete.Models.PostModels.Wines;
 using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
@@ -383,7 +384,7 @@ namespace examensArbete.BusinessLogic
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<VintageResponse>(responseBody);
-                if ( responseBodyJson.WineId == 0 || responseBodyJson.VintageId == 0)
+                if (responseBodyJson.WineId == 0 || responseBodyJson.VintageId == 0)
                     return new ErrorModel { ErrorCode = false, Message = "Årgangen har inte lagts till", Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
 
                 return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
@@ -439,8 +440,50 @@ namespace examensArbete.BusinessLogic
 
         }
 
+        public static async Task<ErrorModel> AddWine(string winName, string producer, long districtId, string alcohol, List<WineGrape> AddedGrapes)
+        {
+            double alcoholDouble = 0;
+            if (!string.IsNullOrEmpty(alcohol))
+            {
+                var isNumber = double.TryParse(alcohol, out alcoholDouble);
+                if (!isNumber)
+                    return new ErrorModel { ErrorCode = false, Message = "alkoholhalt måste vara en siffra!", Object = null };
+                if (alcoholDouble < 0 || alcoholDouble > 50)
+                    return new ErrorModel { ErrorCode = false, Message = "alkoholhalt värde är inte rimligt!", Object = null };
+            }
+            var url = Links.baseLink + Links.wines;
+            for (int i = 0; i < AddedGrapes.Count(); i++)
+                AddedGrapes[i].Grape = null;
 
+            var payload = new AddWine
+            {
+                Name = winName,
+                DistrictId = districtId,
+                Producer = producer,
+                Alcohol = alcoholDouble,
+                WineGrapes = AddedGrapes
+            };
+            var token = await GetToken();
 
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = false, Message = "Vinet har inte lagts till", Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
+
+            return new ErrorModel { ErrorCode = true, Message = null, Object = null };
+
+            //try
+            //{
+            //    var responseBodyJson = JsonConvert.DeserializeObject<VintageResponse>(responseBody);
+            //    if (responseBodyJson.WineId == 0 || responseBodyJson.VintageId == 0)
+            //        return new ErrorModel { ErrorCode = false, Message = "Årgangen har inte lagts till", Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
+
+            //    return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            //}
+            //catch (Exception error)
+            //{
+            //    return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            //}
+        }
 
         private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {

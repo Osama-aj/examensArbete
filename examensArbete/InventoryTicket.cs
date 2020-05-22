@@ -39,7 +39,12 @@ namespace examensArbete
 
             this.tbamount.Text = "1";
             if (string.Equals(_currentAmount, "-"))
+            {
                 RemoveOneBottleButton.Enabled = false;
+                AddOneBottleButton.Enabled = false;
+                cbShelves.Enabled = false;
+                tbamount.Enabled = false;
+            }
         }
         private long _inventoryId;
         private long _shelfId;
@@ -106,18 +111,18 @@ namespace examensArbete
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {
-          
-           
-                var sendSuccessfully = await Infrastructure.AddBottles(this._inventoryId, this._currentAmount, int.Parse(this.tbamount.Text), this._shelfId);
 
-                if (sendSuccessfully.ErrorCode)
-                {
-                    var responseObject = (InventoryResponse)sendSuccessfully.Object;
-                    this.CurrentAmount = responseObject.Amount.ToString();
-                }
-                else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
-                    MessageBox.Show(sendSuccessfully.Message, "Fel");
-            
+
+            var sendSuccessfully = await Infrastructure.AddBottles(this._inventoryId, this._currentAmount, int.Parse(this.tbamount.Text), this._shelfId);
+
+            if (sendSuccessfully.ErrorCode)
+            {
+                var responseObject = (InventoryResponse)sendSuccessfully.Object;
+                this.CurrentAmount = responseObject.Amount.ToString();
+            }
+            else if (!string.IsNullOrEmpty(sendSuccessfully.Message))
+                MessageBox.Show(sendSuccessfully.Message, "Fel");
+
         }
 
         private async void RemoveOneBottleButton_Click(object sender, EventArgs e)
