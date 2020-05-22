@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace examensArbete.BusinessLogic
 {
- 
+
     //add addCountry, region and district to the backend
 
 
@@ -41,7 +41,7 @@ namespace examensArbete.BusinessLogic
         #endregion
 
         #region login,out and signup
-        public static  UserRecord GetUserInfo()
+        public static UserRecord GetUserInfo()
         {
             return _user;
         }
@@ -147,16 +147,14 @@ namespace examensArbete.BusinessLogic
 
 
         }
-        public static async Task<ErrorModel> SignUp(string email, string password, string repeatPassword)
+        public static async Task<ErrorModel> SignUp(string email, string displayName, string password, string repeatPassword)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(displayName))
             {
-                //MessageBox.Show("E-postadress och lösenord är obligatoriska.", "Fel");
-                return new ErrorModel { ErrorCode = false, Message = "E-postadress och lösenord är obligatoriska." };
+                return new ErrorModel { ErrorCode = false, Message = "Alla fälte är obligatoriska." };
             }
             if (!string.Equals(password, repeatPassword))
             {
-                // MessageBox.Show("Båda lösenorden matchar inte.", "Fel");
                 return new ErrorModel { ErrorCode = false, Message = "Båda lösenorden matchar inte." };
 
             }
@@ -166,7 +164,7 @@ namespace examensArbete.BusinessLogic
 
             try
             {
-                await fbAuthProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+                await fbAuthProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName);
                 await LogInWithEmailAndPassword(email, password);
             }
             catch (Exception ex)
@@ -571,7 +569,7 @@ namespace examensArbete.BusinessLogic
         private static async Task<string> GetToken()
         {
             _auth = await _auth.GetFreshAuthAsync();
-            Console.WriteLine("Token : {0}", _auth.FirebaseToken);
+           // Console.WriteLine("Token : {0}", _auth.FirebaseToken);
             return _auth.FirebaseToken;
 
         }

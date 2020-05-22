@@ -44,7 +44,7 @@ namespace examensArbete
 
         private async void btnSignup_Click(object sender, EventArgs e)
         {
-            var isSignedUp = await Infrastructure.SignUp(tbEmailSignup.Text, tbPasswordSignUp.Text, tbRepeatPasswordSignUp.Text);
+            var isSignedUp = await Infrastructure.SignUp(tbEmailSignup.Text,tbDisplayName.Text, tbPasswordSignUp.Text, tbRepeatPasswordSignUp.Text);
 
             if (isSignedUp.ErrorCode)
             {

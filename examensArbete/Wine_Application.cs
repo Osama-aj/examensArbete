@@ -58,7 +58,7 @@ namespace examensArbete
         {
             var userInfo = Infrastructure.GetUserInfo();
             lblUserEmail.Text = string.IsNullOrEmpty(userInfo.Email) ? "-" : userInfo.Email;
-            lblUserName.Text =  string.IsNullOrEmpty(userInfo.DisplayName) ? "-" : userInfo.DisplayName;
+            lblUserName.Text = string.IsNullOrEmpty(userInfo.DisplayName) ? "-" : userInfo.DisplayName;
             lblUserPhoneNumber.Text = string.IsNullOrEmpty(userInfo.PhoneNumber) ? "-" : userInfo.PhoneNumber;
         }
 
@@ -353,9 +353,32 @@ namespace examensArbete
         }
 
         //add new wine tab load 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                ShowUsersWinelist();
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                if (tabControl2.SelectedIndex == 0)
+                {
+                    ShowAllWinelist();
+                }
+                else if (tabControl2.SelectedIndex == 1)
+                {
+                    ShowCountriesAddNewWine();
+                    ShowGrapes();
+                }
+            }
+        }
         private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl2.SelectedIndex == 1)
+            if (tabControl2.SelectedIndex == 0)
+            {
+                ShowAllWinelist();
+            }
+            else if (tabControl2.SelectedIndex == 1)
             {
                 ShowCountriesAddNewWine();
                 ShowGrapes();
@@ -479,7 +502,7 @@ namespace examensArbete
 
         private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This button is not functional yet!!","Info");
+            MessageBox.Show("This button is not functional yet!!", "Info");
         }
     }
 }

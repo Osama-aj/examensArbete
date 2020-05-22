@@ -31,10 +31,11 @@ namespace examensArbete
         }
         private void InventoryTicket_Load(object sender, EventArgs e)
         {
-
-            cbShelves.Items.AddRange(Shelves.ToArray());
-            cbShelves.SelectedIndex = cbShelves.FindStringExact(_shelf);
-
+            if (Shelves != null && Shelves.Count() > 0)
+            {
+                cbShelves.Items.AddRange(Shelves.ToArray());
+                cbShelves.SelectedIndex = cbShelves.FindStringExact(_shelf);
+            }
 
 
             this.tbamount.Text = "1";

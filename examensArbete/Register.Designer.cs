@@ -37,12 +37,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnLoginInRegister = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbDisplayName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbRepeatPasswordSignUp
             // 
-            this.tbRepeatPasswordSignUp.Location = new System.Drawing.Point(114, 92);
+            this.tbRepeatPasswordSignUp.Location = new System.Drawing.Point(114, 129);
             this.tbRepeatPasswordSignUp.Name = "tbRepeatPasswordSignUp";
             this.tbRepeatPasswordSignUp.PasswordChar = '*';
             this.tbRepeatPasswordSignUp.Size = new System.Drawing.Size(100, 20);
@@ -51,7 +53,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 95);
+            this.label4.Location = new System.Drawing.Point(10, 132);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(98, 13);
             this.label4.TabIndex = 20;
@@ -59,7 +61,7 @@
             // 
             // btnSignup
             // 
-            this.btnSignup.Location = new System.Drawing.Point(79, 139);
+            this.btnSignup.Location = new System.Drawing.Point(79, 168);
             this.btnSignup.Name = "btnSignup";
             this.btnSignup.Size = new System.Drawing.Size(75, 23);
             this.btnSignup.TabIndex = 19;
@@ -69,7 +71,7 @@
             // 
             // tbPasswordSignUp
             // 
-            this.tbPasswordSignUp.Location = new System.Drawing.Point(114, 57);
+            this.tbPasswordSignUp.Location = new System.Drawing.Point(114, 94);
             this.tbPasswordSignUp.Name = "tbPasswordSignUp";
             this.tbPasswordSignUp.PasswordChar = '*';
             this.tbPasswordSignUp.Size = new System.Drawing.Size(100, 20);
@@ -85,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 60);
+            this.label2.Location = new System.Drawing.Point(10, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 16;
@@ -102,7 +104,7 @@
             // 
             // btnLoginInRegister
             // 
-            this.btnLoginInRegister.Location = new System.Drawing.Point(79, 184);
+            this.btnLoginInRegister.Location = new System.Drawing.Point(79, 213);
             this.btnLoginInRegister.Name = "btnLoginInRegister";
             this.btnLoginInRegister.Size = new System.Drawing.Size(75, 23);
             this.btnLoginInRegister.TabIndex = 22;
@@ -112,6 +114,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbDisplayName);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnLoginInRegister);
             this.groupBox1.Controls.Add(this.tbRepeatPasswordSignUp);
             this.groupBox1.Controls.Add(this.label4);
@@ -122,9 +126,25 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(31, 39);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(234, 240);
+            this.groupBox1.Size = new System.Drawing.Size(234, 267);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
+            // 
+            // tbDisplayName
+            // 
+            this.tbDisplayName.Location = new System.Drawing.Point(114, 59);
+            this.tbDisplayName.Name = "tbDisplayName";
+            this.tbDisplayName.Size = new System.Drawing.Size(100, 20);
+            this.tbDisplayName.TabIndex = 24;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Namn";
             // 
             // Register
             // 
@@ -152,5 +172,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnLoginInRegister;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tbDisplayName;
+        private System.Windows.Forms.Label label3;
     }
 }

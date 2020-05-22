@@ -37,6 +37,7 @@ namespace examensArbete.BusinessLogic
             {
 
                 Console.WriteLine("\nException Caught!");
+                Console.WriteLine("URL in GET: " + url);
                 Console.WriteLine("Message :{0} ", e.Message);
                 return new ErrorModel { ErrorCode = false, Message = e.Message, Object = null };
 
@@ -72,6 +73,8 @@ namespace examensArbete.BusinessLogic
             catch (HttpRequestException e)
             {
                 Console.WriteLine("\nException Caught!");
+                Console.WriteLine("URL in POST: " + url);
+
                 Console.WriteLine("Message :{0} ", e.Message);
                 return null;
             }
@@ -114,6 +117,8 @@ namespace examensArbete.BusinessLogic
             catch (HttpRequestException e)
             {
                 Console.WriteLine("\nException Caught!");
+                Console.WriteLine("URL in PUT: " + url);
+
                 Console.WriteLine("Message :{0} ", e.Message);
                 return null;
             }
