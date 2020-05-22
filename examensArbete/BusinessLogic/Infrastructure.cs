@@ -296,7 +296,7 @@ namespace examensArbete.BusinessLogic
             var responseBody = await RestVerbs.Put(url, payload, token);
             if (string.IsNullOrEmpty(responseBody) && newAmount == 0)
             {
-                return new ErrorModel { ErrorCode = true, Message = null, Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
+                return new ErrorModel { ErrorCode = false, Message = "Information har inte updateras", Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
 
             }
             try
@@ -323,7 +323,7 @@ namespace examensArbete.BusinessLogic
             var token = await GetToken();
             var responseBody = await RestVerbs.Post(url, payload, token);
             if (string.IsNullOrEmpty(responseBody))
-                return new ErrorModel { ErrorCode = true, Message = null, Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
+                return new ErrorModel { ErrorCode = false, Message = "Inventeringen har inte lagts till", Object = new InventoryResponse { InventoryId = 0, ShelfId = 0, Amount = 0 } };
 
             try
             {
@@ -349,7 +349,7 @@ namespace examensArbete.BusinessLogic
             var token = await GetToken();
             var responseBody = await RestVerbs.Post(url, payload, token);
             if (string.IsNullOrEmpty(responseBody))
-                return new ErrorModel { ErrorCode = true, Message = null, Object = new ShelfResponse { ShelfId = 0, Name = null } };
+                return new ErrorModel { ErrorCode = false, Message = "Hyllan har inte lagts till", Object = new ShelfResponse { ShelfId = 0, Name = null } };
 
             try
             {
@@ -378,11 +378,14 @@ namespace examensArbete.BusinessLogic
             var token = await GetToken();
             var responseBody = await RestVerbs.Post(url, payload, token);
             if (string.IsNullOrEmpty(responseBody))
-                return new ErrorModel { ErrorCode = true, Message = null, Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
+                return new ErrorModel { ErrorCode = false, Message = "Årgangen har inte lagts till", Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
 
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<VintageResponse>(responseBody);
+                if ( responseBodyJson.WineId == 0 || responseBodyJson.VintageId == 0)
+                    return new ErrorModel { ErrorCode = false, Message = "Årgangen har inte lagts till", Object = new VintageResponse { VintageId = 0, WineId = 0, Year = "0" } };
+
                 return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
             }
             catch (Exception error)

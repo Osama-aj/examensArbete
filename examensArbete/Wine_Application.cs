@@ -1,5 +1,6 @@
 ﻿using examensArbete.BusinessLogic;
 using examensArbete.Models;
+using examensArbete.Models.PostModels.Wines;
 using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using examensArbete.Models.ResponseModel.UserSectionResponse;
 using Firebase.Auth;
@@ -32,6 +33,9 @@ namespace examensArbete
         private long SelectedRegionIdAllwinelist = 0;
         private string WineNameFilterWIneListAllwinelist = null;
 
+        private List<WineGrape> AddedGrapes = new List<WineGrape>();
+
+
 
         public Wine_Application()
         {
@@ -41,8 +45,6 @@ namespace examensArbete
 
         private async void Wine_Application_Load(object sender, EventArgs e)
         {
-
-
             var metadetaErrorModel = await Infrastructure.GetMetadata();
             MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
             Metadata = metadata;
@@ -313,8 +315,150 @@ namespace examensArbete
             login.Show();
             Hide();
         }
+
+
+        #region add new wine 
+
+
+        private void btnGetImage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void btnAddWine_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //add new wine tab load 
+        private void tabControl2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl2.SelectedIndex == 1)
+            {
+                ShowCountriesAddNewWine();
+                ShowGrapes();
+            }
+        }
+
+
+        private void btnAddGrape_Click(object sender, EventArgs e)
+        {
+            var selectedGrape = (GrapeResponse)cbGrapes.SelectedItem;
+            var isNumber = double.TryParse(tbGrapePercent.Text, out double percent);
+            if (!isNumber)
+            {
+                MessageBox.Show("procent måste vara en siffra!", "Fel");
+                return;
+            }
+            if (percent < 0 || percent > 100)
+            {
+                MessageBox.Show("procent är inte rimligt!", "Fel");
+                return;
+            }
+            if (AddedGrapes.Any(g => g.GrapeId == selectedGrape.GrapeId))
+            {
+                MessageBox.Show("Druvan finns redan!", "Fel");
+                return;
+            }
+            AddedGrapes.Add(new WineGrape { GrapeId = selectedGrape.GrapeId, Percent = percent, Grape = new Grape { GrapeId = selectedGrape.GrapeId, GrapeName = selectedGrape.GrapeName } });
+            refreshGrapesListBox();
+        }
+        private void refreshGrapesListBox()
+        {
+            lbGrapes.Items.Clear();
+            if (AddedGrapes != null)
+                foreach (var grape in AddedGrapes)
+                {
+                    lbGrapes.Items.Add(grape.Grape.GrapeName + " => " + grape.Percent.ToString() + '%');
+                }
+        }
+        private void btnRemoveGrape_Click(object sender, EventArgs e)
+        {
+            string[] separator = { " => " };
+            if (lbGrapes.SelectedItem != null)
+            {
+                var selectedItem = lbGrapes.SelectedItem.ToString();
+                string selectedGrape = selectedItem.Split(separator,  StringSplitOptions.None)[0];
+                for (int i = 0; i < AddedGrapes.Count(); i++)
+                {
+                    if (!string.Equals(selectedGrape, AddedGrapes[i].Grape.GrapeName, StringComparison.OrdinalIgnoreCase)) continue;
+                    AddedGrapes.RemoveAt(i);
+                    break;
+                }
+
+            }
+            refreshGrapesListBox();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //all drop down for origin and getting its IDs
+            private void ShowCountriesAddNewWine()
+            {
+                cbOriginCountry.Items.Clear();
+                cbOriginCountry.Items.AddRange(Metadata.Countries.ToArray());
+                cbOriginCountry.SelectedIndex = 0;
+            }
+            private void cbOriginCountry_SelectedIndexChanged(object sender, System.EventArgs e)
+            {
+                CountryResponse selectedCountry = (CountryResponse)cbOriginCountry.SelectedItem;
+                ShowRegionsAddNewWine(selectedCountry.CountryId);
+            }
+            private void ShowRegionsAddNewWine(long selectedCountryId)
+            {
+                CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
+                cbOriginRegion.Items.Clear();
+                if (selectedCountry != null)
+                    cbOriginRegion.Items.AddRange(selectedCountry.Regions.ToArray());
+                cbOriginRegion.SelectedIndex = 0;
+            }
+            private void cbOriginRegion_SelectedIndexChanged(object sender, System.EventArgs e)
+            {
+                RegionResponse selectedRegion = (RegionResponse)cbOriginRegion.SelectedItem;
+                ShowDistrictAddNewWine(selectedRegion.CountryId, selectedRegion.RegionId);
+            }
+            private void ShowDistrictAddNewWine(long selectedCountryId, long selectedRegionId)
+            {
+                CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
+                RegionResponse selectedRegion = selectedCountry.Regions.First(r => r.RegionId == selectedRegionId);
+                cbOriginDistrict.Items.Clear();
+
+                if (selectedRegion != null)
+                    cbOriginDistrict.Items.AddRange(selectedRegion.Districts.ToArray());
+                cbOriginDistrict.SelectedIndex = 0;
+            }
+            private void ShowGrapes()
+            {
+                cbGrapes.Items.Clear();
+                cbGrapes.Items.AddRange(Metadata.Grapes.ToArray());
+                cbGrapes.SelectedIndex = 0;
+            }
+
+
+
+
+
+
+            #endregion
+
+
+        }
     }
-}
 
 
 

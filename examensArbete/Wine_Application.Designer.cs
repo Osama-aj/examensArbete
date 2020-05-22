@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.UsersWineList = new System.Windows.Forms.TabPage();
+            this.pbNoWine = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbRegionWineList = new System.Windows.Forms.ComboBox();
             this.cbCountryWineList = new System.Windows.Forms.ComboBox();
@@ -40,30 +41,60 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.Add = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.AddBottleTab = new System.Windows.Forms.TabPage();
+            this.AddExistWine = new System.Windows.Forms.TabPage();
+            this.pbNoWine2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbRegionAllWineList = new System.Windows.Forms.ComboBox();
             this.cbCountryAllWineList = new System.Windows.Forms.ComboBox();
             this.tbWineNameAllWineList = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.AddShelfTab = new System.Windows.Forms.TabPage();
-            this.AddVintageTab = new System.Windows.Forms.TabPage();
+            this.AddNewWine = new System.Windows.Forms.TabPage();
+            this.btnRemoveGrape = new System.Windows.Forms.Button();
+            this.btnAddGrape = new System.Windows.Forms.Button();
+            this.tbGrapePercent = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnAddWine = new System.Windows.Forms.Button();
+            this.lbGrapes = new System.Windows.Forms.ListBox();
+            this.cbGrapes = new System.Windows.Forms.ComboBox();
+            this.pbWineImage = new System.Windows.Forms.PictureBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbAlcohol = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnAddCountry = new System.Windows.Forms.Button();
+            this.btnAddRegion = new System.Windows.Forms.Button();
+            this.btnAddDistrict = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbNewDistrict = new System.Windows.Forms.TextBox();
+            this.tbNewRegion = new System.Windows.Forms.TextBox();
+            this.tbNewCountry = new System.Windows.Forms.TextBox();
+            this.cbOriginDistrict = new System.Windows.Forms.ComboBox();
+            this.cbOriginRegion = new System.Windows.Forms.ComboBox();
+            this.tbProducer = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbWineName = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbOriginCountry = new System.Windows.Forms.ComboBox();
+            this.btnGetImage = new System.Windows.Forms.Button();
             this.myPages = new System.Windows.Forms.TabPage();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.lblUserInfo = new System.Windows.Forms.Label();
-            this.pbNoWine = new System.Windows.Forms.PictureBox();
             this.wineListResponseBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pbNoWine2 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.UsersWineList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).BeginInit();
             this.Add.SuspendLayout();
             this.tabControl2.SuspendLayout();
-            this.AddBottleTab.SuspendLayout();
-            this.myPages.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).BeginInit();
+            this.AddExistWine.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbNoWine2)).BeginInit();
+            this.AddNewWine.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWineImage)).BeginInit();
+            this.myPages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -101,6 +132,15 @@
             this.UsersWineList.TabIndex = 0;
             this.UsersWineList.Text = "vin lista";
             this.UsersWineList.UseVisualStyleBackColor = true;
+            // 
+            // pbNoWine
+            // 
+            this.pbNoWine.Location = new System.Drawing.Point(82, 91);
+            this.pbNoWine.Name = "pbNoWine";
+            this.pbNoWine.Size = new System.Drawing.Size(648, 279);
+            this.pbNoWine.TabIndex = 11;
+            this.pbNoWine.TabStop = false;
+            this.pbNoWine.Visible = false;
             // 
             // label3
             // 
@@ -169,37 +209,46 @@
             this.Add.Padding = new System.Windows.Forms.Padding(3);
             this.Add.Size = new System.Drawing.Size(834, 459);
             this.Add.TabIndex = 1;
-            this.Add.Text = "lägg till";
+            this.Add.Text = "lägg till vin";
             this.Add.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
-            this.tabControl2.Controls.Add(this.AddBottleTab);
-            this.tabControl2.Controls.Add(this.AddShelfTab);
-            this.tabControl2.Controls.Add(this.AddVintageTab);
+            this.tabControl2.Controls.Add(this.AddExistWine);
+            this.tabControl2.Controls.Add(this.AddNewWine);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(3, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(828, 453);
             this.tabControl2.TabIndex = 0;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.tabControl2_SelectedIndexChanged);
             // 
-            // AddBottleTab
+            // AddExistWine
             // 
-            this.AddBottleTab.Controls.Add(this.pbNoWine2);
-            this.AddBottleTab.Controls.Add(this.label1);
-            this.AddBottleTab.Controls.Add(this.cbRegionAllWineList);
-            this.AddBottleTab.Controls.Add(this.cbCountryAllWineList);
-            this.AddBottleTab.Controls.Add(this.tbWineNameAllWineList);
-            this.AddBottleTab.Controls.Add(this.label4);
-            this.AddBottleTab.Controls.Add(this.flowLayoutPanel2);
-            this.AddBottleTab.Location = new System.Drawing.Point(4, 22);
-            this.AddBottleTab.Name = "AddBottleTab";
-            this.AddBottleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AddBottleTab.Size = new System.Drawing.Size(820, 427);
-            this.AddBottleTab.TabIndex = 0;
-            this.AddBottleTab.Text = "Flaska";
-            this.AddBottleTab.UseVisualStyleBackColor = true;
+            this.AddExistWine.Controls.Add(this.pbNoWine2);
+            this.AddExistWine.Controls.Add(this.label1);
+            this.AddExistWine.Controls.Add(this.cbRegionAllWineList);
+            this.AddExistWine.Controls.Add(this.cbCountryAllWineList);
+            this.AddExistWine.Controls.Add(this.tbWineNameAllWineList);
+            this.AddExistWine.Controls.Add(this.label4);
+            this.AddExistWine.Controls.Add(this.flowLayoutPanel2);
+            this.AddExistWine.Location = new System.Drawing.Point(4, 22);
+            this.AddExistWine.Name = "AddExistWine";
+            this.AddExistWine.Padding = new System.Windows.Forms.Padding(3);
+            this.AddExistWine.Size = new System.Drawing.Size(820, 427);
+            this.AddExistWine.TabIndex = 0;
+            this.AddExistWine.Text = "Befintligt";
+            this.AddExistWine.UseVisualStyleBackColor = true;
+            // 
+            // pbNoWine2
+            // 
+            this.pbNoWine2.Location = new System.Drawing.Point(86, 74);
+            this.pbNoWine2.Name = "pbNoWine2";
+            this.pbNoWine2.Size = new System.Drawing.Size(648, 279);
+            this.pbNoWine2.TabIndex = 17;
+            this.pbNoWine2.TabStop = false;
+            this.pbNoWine2.Visible = false;
             // 
             // label1
             // 
@@ -260,24 +309,313 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(814, 389);
             this.flowLayoutPanel2.TabIndex = 11;
             // 
-            // AddShelfTab
+            // AddNewWine
             // 
-            this.AddShelfTab.Location = new System.Drawing.Point(4, 22);
-            this.AddShelfTab.Name = "AddShelfTab";
-            this.AddShelfTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AddShelfTab.Size = new System.Drawing.Size(820, 427);
-            this.AddShelfTab.TabIndex = 1;
-            this.AddShelfTab.Text = "Hylla";
-            this.AddShelfTab.UseVisualStyleBackColor = true;
+            this.AddNewWine.Controls.Add(this.btnRemoveGrape);
+            this.AddNewWine.Controls.Add(this.btnAddGrape);
+            this.AddNewWine.Controls.Add(this.tbGrapePercent);
+            this.AddNewWine.Controls.Add(this.label14);
+            this.AddNewWine.Controls.Add(this.btnAddWine);
+            this.AddNewWine.Controls.Add(this.lbGrapes);
+            this.AddNewWine.Controls.Add(this.cbGrapes);
+            this.AddNewWine.Controls.Add(this.pbWineImage);
+            this.AddNewWine.Controls.Add(this.label13);
+            this.AddNewWine.Controls.Add(this.tbAlcohol);
+            this.AddNewWine.Controls.Add(this.label12);
+            this.AddNewWine.Controls.Add(this.btnAddCountry);
+            this.AddNewWine.Controls.Add(this.btnAddRegion);
+            this.AddNewWine.Controls.Add(this.btnAddDistrict);
+            this.AddNewWine.Controls.Add(this.label11);
+            this.AddNewWine.Controls.Add(this.tbNewDistrict);
+            this.AddNewWine.Controls.Add(this.tbNewRegion);
+            this.AddNewWine.Controls.Add(this.tbNewCountry);
+            this.AddNewWine.Controls.Add(this.cbOriginDistrict);
+            this.AddNewWine.Controls.Add(this.cbOriginRegion);
+            this.AddNewWine.Controls.Add(this.tbProducer);
+            this.AddNewWine.Controls.Add(this.label10);
+            this.AddNewWine.Controls.Add(this.tbWineName);
+            this.AddNewWine.Controls.Add(this.label9);
+            this.AddNewWine.Controls.Add(this.label8);
+            this.AddNewWine.Controls.Add(this.label7);
+            this.AddNewWine.Controls.Add(this.label6);
+            this.AddNewWine.Controls.Add(this.label5);
+            this.AddNewWine.Controls.Add(this.cbOriginCountry);
+            this.AddNewWine.Controls.Add(this.btnGetImage);
+            this.AddNewWine.Location = new System.Drawing.Point(4, 22);
+            this.AddNewWine.Name = "AddNewWine";
+            this.AddNewWine.Padding = new System.Windows.Forms.Padding(3);
+            this.AddNewWine.Size = new System.Drawing.Size(820, 427);
+            this.AddNewWine.TabIndex = 1;
+            this.AddNewWine.Text = "Nytt vin";
+            this.AddNewWine.UseVisualStyleBackColor = true;
             // 
-            // AddVintageTab
+            // btnRemoveGrape
             // 
-            this.AddVintageTab.Location = new System.Drawing.Point(4, 22);
-            this.AddVintageTab.Name = "AddVintageTab";
-            this.AddVintageTab.Size = new System.Drawing.Size(820, 427);
-            this.AddVintageTab.TabIndex = 2;
-            this.AddVintageTab.Text = "Årgång";
-            this.AddVintageTab.UseVisualStyleBackColor = true;
+            this.btnRemoveGrape.Location = new System.Drawing.Point(482, 291);
+            this.btnRemoveGrape.Name = "btnRemoveGrape";
+            this.btnRemoveGrape.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveGrape.TabIndex = 30;
+            this.btnRemoveGrape.Text = "ta bort";
+            this.btnRemoveGrape.UseVisualStyleBackColor = true;
+            this.btnRemoveGrape.Click += new System.EventHandler(this.btnRemoveGrape_Click);
+            // 
+            // btnAddGrape
+            // 
+            this.btnAddGrape.Location = new System.Drawing.Point(482, 257);
+            this.btnAddGrape.Name = "btnAddGrape";
+            this.btnAddGrape.Size = new System.Drawing.Size(75, 23);
+            this.btnAddGrape.TabIndex = 29;
+            this.btnAddGrape.Text = "lägg till";
+            this.btnAddGrape.UseVisualStyleBackColor = true;
+            this.btnAddGrape.Click += new System.EventHandler(this.btnAddGrape_Click);
+            // 
+            // tbGrapePercent
+            // 
+            this.tbGrapePercent.Location = new System.Drawing.Point(376, 259);
+            this.tbGrapePercent.Name = "tbGrapePercent";
+            this.tbGrapePercent.Size = new System.Drawing.Size(100, 20);
+            this.tbGrapePercent.TabIndex = 28;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(314, 262);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(43, 13);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "procent";
+            // 
+            // btnAddWine
+            // 
+            this.btnAddWine.Location = new System.Drawing.Point(712, 389);
+            this.btnAddWine.Name = "btnAddWine";
+            this.btnAddWine.Size = new System.Drawing.Size(75, 23);
+            this.btnAddWine.TabIndex = 26;
+            this.btnAddWine.Text = "lägg till vin";
+            this.btnAddWine.UseVisualStyleBackColor = true;
+            this.btnAddWine.Click += new System.EventHandler(this.btnAddWine_Click);
+            // 
+            // lbGrapes
+            // 
+            this.lbGrapes.FormattingEnabled = true;
+            this.lbGrapes.Location = new System.Drawing.Point(125, 291);
+            this.lbGrapes.Name = "lbGrapes";
+            this.lbGrapes.Size = new System.Drawing.Size(351, 121);
+            this.lbGrapes.TabIndex = 25;
+            // 
+            // cbGrapes
+            // 
+            this.cbGrapes.DisplayMember = "GrapeName";
+            this.cbGrapes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGrapes.FormattingEnabled = true;
+            this.cbGrapes.Location = new System.Drawing.Point(127, 264);
+            this.cbGrapes.Name = "cbGrapes";
+            this.cbGrapes.Size = new System.Drawing.Size(121, 21);
+            this.cbGrapes.TabIndex = 24;
+            this.cbGrapes.ValueMember = "GrapeId";
+            // 
+            // pbWineImage
+            // 
+            this.pbWineImage.Location = new System.Drawing.Point(625, 26);
+            this.pbWineImage.Name = "pbWineImage";
+            this.pbWineImage.Size = new System.Drawing.Size(162, 127);
+            this.pbWineImage.TabIndex = 23;
+            this.pbWineImage.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(45, 267);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 13);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "Druvor";
+            // 
+            // tbAlcohol
+            // 
+            this.tbAlcohol.Location = new System.Drawing.Point(127, 226);
+            this.tbAlcohol.Name = "tbAlcohol";
+            this.tbAlcohol.Size = new System.Drawing.Size(100, 20);
+            this.tbAlcohol.TabIndex = 20;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(45, 229);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(60, 13);
+            this.label12.TabIndex = 19;
+            this.label12.Text = "alkoholhallt";
+            // 
+            // btnAddCountry
+            // 
+            this.btnAddCountry.Location = new System.Drawing.Point(469, 130);
+            this.btnAddCountry.Name = "btnAddCountry";
+            this.btnAddCountry.Size = new System.Drawing.Size(75, 23);
+            this.btnAddCountry.TabIndex = 18;
+            this.btnAddCountry.Text = "lägg till";
+            this.btnAddCountry.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRegion
+            // 
+            this.btnAddRegion.Location = new System.Drawing.Point(469, 157);
+            this.btnAddRegion.Name = "btnAddRegion";
+            this.btnAddRegion.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRegion.TabIndex = 17;
+            this.btnAddRegion.Text = "lägg till";
+            this.btnAddRegion.UseVisualStyleBackColor = true;
+            // 
+            // btnAddDistrict
+            // 
+            this.btnAddDistrict.Location = new System.Drawing.Point(469, 184);
+            this.btnAddDistrict.Name = "btnAddDistrict";
+            this.btnAddDistrict.Size = new System.Drawing.Size(75, 23);
+            this.btnAddDistrict.TabIndex = 16;
+            this.btnAddDistrict.Text = "lägg till";
+            this.btnAddDistrict.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(287, 190);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "ny distrikt";
+            // 
+            // tbNewDistrict
+            // 
+            this.tbNewDistrict.Location = new System.Drawing.Point(351, 187);
+            this.tbNewDistrict.Name = "tbNewDistrict";
+            this.tbNewDistrict.Size = new System.Drawing.Size(100, 20);
+            this.tbNewDistrict.TabIndex = 14;
+            // 
+            // tbNewRegion
+            // 
+            this.tbNewRegion.Location = new System.Drawing.Point(351, 159);
+            this.tbNewRegion.Name = "tbNewRegion";
+            this.tbNewRegion.Size = new System.Drawing.Size(100, 20);
+            this.tbNewRegion.TabIndex = 13;
+            // 
+            // tbNewCountry
+            // 
+            this.tbNewCountry.Location = new System.Drawing.Point(351, 133);
+            this.tbNewCountry.Name = "tbNewCountry";
+            this.tbNewCountry.Size = new System.Drawing.Size(100, 20);
+            this.tbNewCountry.TabIndex = 12;
+            // 
+            // cbOriginDistrict
+            // 
+            this.cbOriginDistrict.DisplayMember = "DistrictName";
+            this.cbOriginDistrict.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOriginDistrict.FormattingEnabled = true;
+            this.cbOriginDistrict.Location = new System.Drawing.Point(125, 186);
+            this.cbOriginDistrict.Name = "cbOriginDistrict";
+            this.cbOriginDistrict.Size = new System.Drawing.Size(121, 21);
+            this.cbOriginDistrict.TabIndex = 11;
+            this.cbOriginDistrict.ValueMember = "DistrictId";
+            // 
+            // cbOriginRegion
+            // 
+            this.cbOriginRegion.DisplayMember = "RegionName";
+            this.cbOriginRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOriginRegion.FormattingEnabled = true;
+            this.cbOriginRegion.Location = new System.Drawing.Point(125, 159);
+            this.cbOriginRegion.Name = "cbOriginRegion";
+            this.cbOriginRegion.Size = new System.Drawing.Size(121, 21);
+            this.cbOriginRegion.TabIndex = 10;
+            this.cbOriginRegion.ValueMember = "RegionId";
+            this.cbOriginRegion.SelectedIndexChanged += new System.EventHandler(this.cbOriginRegion_SelectedIndexChanged);
+            // 
+            // tbProducer
+            // 
+            this.tbProducer.Location = new System.Drawing.Point(125, 96);
+            this.tbProducer.Name = "tbProducer";
+            this.tbProducer.Size = new System.Drawing.Size(100, 20);
+            this.tbProducer.TabIndex = 9;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(287, 135);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(47, 13);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "nytt land";
+            // 
+            // tbWineName
+            // 
+            this.tbWineName.Location = new System.Drawing.Point(125, 33);
+            this.tbWineName.Name = "tbWineName";
+            this.tbWineName.Size = new System.Drawing.Size(213, 20);
+            this.tbWineName.TabIndex = 7;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(45, 99);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(55, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "producent";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(45, 135);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "vin ursprung";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(287, 162);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(50, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "ny region";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(45, 66);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "vin bild";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(45, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "vin namnet";
+            // 
+            // cbOriginCountry
+            // 
+            this.cbOriginCountry.DisplayMember = "CountryName";
+            this.cbOriginCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbOriginCountry.FormattingEnabled = true;
+            this.cbOriginCountry.Location = new System.Drawing.Point(125, 132);
+            this.cbOriginCountry.Name = "cbOriginCountry";
+            this.cbOriginCountry.Size = new System.Drawing.Size(121, 21);
+            this.cbOriginCountry.TabIndex = 1;
+            this.cbOriginCountry.ValueMember = "CountryId";
+            this.cbOriginCountry.SelectedIndexChanged += new System.EventHandler(this.cbOriginCountry_SelectedIndexChanged);
+            // 
+            // btnGetImage
+            // 
+            this.btnGetImage.Location = new System.Drawing.Point(125, 61);
+            this.btnGetImage.Name = "btnGetImage";
+            this.btnGetImage.Size = new System.Drawing.Size(75, 23);
+            this.btnGetImage.TabIndex = 0;
+            this.btnGetImage.Text = "Hämta";
+            this.btnGetImage.UseVisualStyleBackColor = true;
+            this.btnGetImage.Click += new System.EventHandler(this.btnGetImage_Click);
             // 
             // myPages
             // 
@@ -310,27 +648,9 @@
             this.lblUserInfo.TabIndex = 0;
             this.lblUserInfo.Text = "label2";
             // 
-            // pbNoWine
-            // 
-            this.pbNoWine.Location = new System.Drawing.Point(82, 91);
-            this.pbNoWine.Name = "pbNoWine";
-            this.pbNoWine.Size = new System.Drawing.Size(648, 279);
-            this.pbNoWine.TabIndex = 11;
-            this.pbNoWine.TabStop = false;
-            this.pbNoWine.Visible = false;
-            // 
             // wineListResponseBindingSource
             // 
             this.wineListResponseBindingSource.DataSource = typeof(examensArbete.Models.ResponseModel.UserSectionResponse.WineListResponse);
-            // 
-            // pbNoWine2
-            // 
-            this.pbNoWine2.Location = new System.Drawing.Point(86, 74);
-            this.pbNoWine2.Name = "pbNoWine2";
-            this.pbNoWine2.Size = new System.Drawing.Size(648, 279);
-            this.pbNoWine2.TabIndex = 17;
-            this.pbNoWine2.TabStop = false;
-            this.pbNoWine2.Visible = false;
             // 
             // Wine_Application
             // 
@@ -347,15 +667,18 @@
             this.tabControl1.ResumeLayout(false);
             this.UsersWineList.ResumeLayout(false);
             this.UsersWineList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).EndInit();
             this.Add.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
-            this.AddBottleTab.ResumeLayout(false);
-            this.AddBottleTab.PerformLayout();
+            this.AddExistWine.ResumeLayout(false);
+            this.AddExistWine.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine2)).EndInit();
+            this.AddNewWine.ResumeLayout(false);
+            this.AddNewWine.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWineImage)).EndInit();
             this.myPages.ResumeLayout(false);
             this.myPages.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wineListResponseBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbNoWine2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -430,9 +753,8 @@
         private System.Windows.Forms.TabPage UsersWineList;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage AddBottleTab;
-        private System.Windows.Forms.TabPage AddShelfTab;
-        private System.Windows.Forms.TabPage AddVintageTab;
+        private System.Windows.Forms.TabPage AddExistWine;
+        private System.Windows.Forms.TabPage AddNewWine;
         private System.Windows.Forms.TabPage myPages;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Label lblUserInfo;
@@ -449,5 +771,35 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.PictureBox pbNoWine;
         private System.Windows.Forms.PictureBox pbNoWine2;
+        private System.Windows.Forms.TextBox tbNewDistrict;
+        private System.Windows.Forms.TextBox tbNewRegion;
+        private System.Windows.Forms.TextBox tbNewCountry;
+        private System.Windows.Forms.ComboBox cbOriginDistrict;
+        private System.Windows.Forms.ComboBox cbOriginRegion;
+        private System.Windows.Forms.TextBox tbProducer;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbWineName;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbOriginCountry;
+        private System.Windows.Forms.Button btnGetImage;
+        private System.Windows.Forms.PictureBox pbWineImage;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbAlcohol;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnAddCountry;
+        private System.Windows.Forms.Button btnAddRegion;
+        private System.Windows.Forms.Button btnAddDistrict;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbGrapes;
+        private System.Windows.Forms.ListBox lbGrapes;
+        private System.Windows.Forms.Button btnAddWine;
+        private System.Windows.Forms.TextBox tbGrapePercent;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnRemoveGrape;
+        private System.Windows.Forms.Button btnAddGrape;
     }
 }
