@@ -60,6 +60,7 @@
             this.picWinePic.Size = new System.Drawing.Size(98, 82);
             this.picWinePic.TabIndex = 0;
             this.picWinePic.TabStop = false;
+            this.picWinePic.Click += new System.EventHandler(this.picWinePic_Click);
             // 
             // lblWineName
             // 

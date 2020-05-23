@@ -163,7 +163,7 @@ namespace examensArbete
                 return;
             }
 
-            var updateWineResponse = await Infrastructure.UpdateWine(this.WineId, producer, alcohol, selectedDistrict.DistrictId);
+            var updateWineResponse = await Infrastructure.UpdateWine(this.WineId, producer, alcohol, selectedDistrict.DistrictId,picWinePic.Image);
             if (updateWineResponse.ErrorCode)
             {
                 var updatedWine = (WineResponse)updateWineResponse.Object;
@@ -254,6 +254,20 @@ namespace examensArbete
             cbCountries.SelectedIndex = cbCountries.FindStringExact(Country);
             cbRegions.SelectedIndex = cbRegions.FindStringExact(Region);
             cbDistricts.SelectedIndex = cbDistricts.FindStringExact(District);
+        }
+
+        private void picWinePic_Click(object sender, EventArgs e)
+        {
+
+            var getImage = Infrastructure.GetImageFromDisk();
+            if (getImage.ErrorCode)
+            {
+                picWinePic.ImageLocation = (string)getImage.Object;
+
+            }
+            else if (!string.IsNullOrEmpty(getImage.Message))
+                MessageBox.Show(getImage.Message, "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
     }
 }

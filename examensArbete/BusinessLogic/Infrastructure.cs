@@ -684,7 +684,7 @@ namespace examensArbete.BusinessLogic
 
 
 
-        public static async Task<ErrorModel> UpdateWine(long wineId, string producer, double alcohol, long districtId)
+        public static async Task<ErrorModel> UpdateWine(long wineId, string producer, double alcohol, long districtId, Image image)
         {
             var url = Links.baseLink + Links.wines;
             var payload = new UpdateWine
@@ -692,7 +692,8 @@ namespace examensArbete.BusinessLogic
                 WineId = wineId,
                 Producer = producer,
                 Alcohol = alcohol,
-                DistrictId = districtId
+                DistrictId = districtId,
+                Image = imageToByteArray(image)
             };
             var token = await GetToken();
             var responseBody = await RestVerbs.Put(url, payload, token);
@@ -707,6 +708,28 @@ namespace examensArbete.BusinessLogic
             catch (Exception error)
             {
                 return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+        }
+
+
+        public static ErrorModel GetImageFromDisk()
+        {
+            string imageLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "jpg files(*.jpg)|*.jpg|png files(*.png)|*.png";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    imageLocation = dialog.FileName;
+                return new ErrorModel { ErrorCode = true, Message = null, Object = imageLocation };
+
+
+            }
+            catch (Exception error)
+            {
+
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+
             }
         }
     }

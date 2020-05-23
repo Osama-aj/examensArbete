@@ -1,4 +1,6 @@
-﻿using System;
+﻿using examensArbete.BusinessLogic;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,8 +14,8 @@ namespace examensArbete.Models.PostModels.Wines
         [Required] public long? WineId { get; set; }
         // public string Name { get; set; }
 
-        //[JsonConverter(typeof(Base64FileJsonConverter))]
-        //public byte[] Image { get; set; }
+        [JsonConverter(typeof(Base64FileJsonConverter))]
+        public byte[] Image { get; set; }
         public string Producer { get; set; }
 
         public long DistrictId { get; set; }

@@ -329,19 +329,14 @@ namespace examensArbete
 
         private void btnGetImage_Click(object sender, EventArgs e)
         {
-            string imageLocation = "";
-            try
+            var getImage = Infrastructure.GetImageFromDisk();
+            if (getImage.ErrorCode)
             {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "jpg files(*.jpg)|*.jpg|png files(*.png)|*.png";
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    imageLocation = dialog.FileName;
-                pbWineImage.ImageLocation = imageLocation;
+                pbWineImage.ImageLocation = (string)getImage.Object;
+
             }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message, "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            else if (!string.IsNullOrEmpty(getImage.Message))
+                MessageBox.Show(getImage.Message, "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
