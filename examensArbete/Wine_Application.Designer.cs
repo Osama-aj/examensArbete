@@ -81,15 +81,15 @@
             this.cbOriginCountry = new System.Windows.Forms.ComboBox();
             this.btnGetImage = new System.Windows.Forms.Button();
             this.myPages = new System.Windows.Forms.TabPage();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblUserEmail = new System.Windows.Forms.Label();
+            this.lblUserPhoneNumber = new System.Windows.Forms.Label();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.lblUserName = new System.Windows.Forms.Label();
-            this.lblUserPhoneNumber = new System.Windows.Forms.Label();
-            this.lblUserEmail = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.wineListResponseBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnChangePassword = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.UsersWineList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbNoWine)).BeginInit();
@@ -462,6 +462,7 @@
             this.btnAddCountry.TabIndex = 18;
             this.btnAddCountry.Text = "lägg till";
             this.btnAddCountry.UseVisualStyleBackColor = true;
+            this.btnAddCountry.Click += new System.EventHandler(this.btnAddCountry_Click);
             // 
             // btnAddRegion
             // 
@@ -471,6 +472,7 @@
             this.btnAddRegion.TabIndex = 17;
             this.btnAddRegion.Text = "lägg till";
             this.btnAddRegion.UseVisualStyleBackColor = true;
+            this.btnAddRegion.Click += new System.EventHandler(this.btnAddRegion_Click);
             // 
             // btnAddDistrict
             // 
@@ -480,15 +482,16 @@
             this.btnAddDistrict.TabIndex = 16;
             this.btnAddDistrict.Text = "lägg till";
             this.btnAddDistrict.UseVisualStyleBackColor = true;
+            this.btnAddDistrict.Click += new System.EventHandler(this.btnAddDistrict_Click);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(287, 190);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 15;
-            this.label11.Text = "ny distrikt";
+            this.label11.Text = "nytt distrikt";
             // 
             // tbNewDistrict
             // 
@@ -642,6 +645,61 @@
             this.myPages.Text = "mina sidor";
             this.myPages.UseVisualStyleBackColor = true;
             // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Location = new System.Drawing.Point(50, 177);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(140, 23);
+            this.btnChangePassword.TabIndex = 7;
+            this.btnChangePassword.Text = "byta lösenordet";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(47, 126);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(72, 13);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Mobil nummer";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(47, 86);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(68, 13);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "E-postadress";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(47, 48);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(35, 13);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Namn";
+            // 
+            // lblUserEmail
+            // 
+            this.lblUserEmail.AutoSize = true;
+            this.lblUserEmail.Location = new System.Drawing.Point(155, 86);
+            this.lblUserEmail.Name = "lblUserEmail";
+            this.lblUserEmail.Size = new System.Drawing.Size(68, 13);
+            this.lblUserEmail.TabIndex = 3;
+            this.lblUserEmail.Text = "E-postadress";
+            // 
+            // lblUserPhoneNumber
+            // 
+            this.lblUserPhoneNumber.AutoSize = true;
+            this.lblUserPhoneNumber.Location = new System.Drawing.Point(155, 126);
+            this.lblUserPhoneNumber.Name = "lblUserPhoneNumber";
+            this.lblUserPhoneNumber.Size = new System.Drawing.Size(72, 13);
+            this.lblUserPhoneNumber.TabIndex = 2;
+            this.lblUserPhoneNumber.Text = "Mobil nummer";
+            // 
             // btnLogOut
             // 
             this.btnLogOut.Location = new System.Drawing.Point(50, 305);
@@ -661,64 +719,9 @@
             this.lblUserName.TabIndex = 0;
             this.lblUserName.Text = "Namn";
             // 
-            // lblUserPhoneNumber
-            // 
-            this.lblUserPhoneNumber.AutoSize = true;
-            this.lblUserPhoneNumber.Location = new System.Drawing.Point(155, 126);
-            this.lblUserPhoneNumber.Name = "lblUserPhoneNumber";
-            this.lblUserPhoneNumber.Size = new System.Drawing.Size(72, 13);
-            this.lblUserPhoneNumber.TabIndex = 2;
-            this.lblUserPhoneNumber.Text = "Mobil nummer";
-            // 
-            // lblUserEmail
-            // 
-            this.lblUserEmail.AutoSize = true;
-            this.lblUserEmail.Location = new System.Drawing.Point(155, 86);
-            this.lblUserEmail.Name = "lblUserEmail";
-            this.lblUserEmail.Size = new System.Drawing.Size(68, 13);
-            this.lblUserEmail.TabIndex = 3;
-            this.lblUserEmail.Text = "E-postadress";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(47, 48);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(35, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Namn";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(47, 86);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(68, 13);
-            this.label16.TabIndex = 5;
-            this.label16.Text = "E-postadress";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(47, 126);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(72, 13);
-            this.label17.TabIndex = 6;
-            this.label17.Text = "Mobil nummer";
-            // 
             // wineListResponseBindingSource
             // 
             this.wineListResponseBindingSource.DataSource = typeof(examensArbete.Models.ResponseModel.UserSectionResponse.WineListResponse);
-            // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.Location = new System.Drawing.Point(50, 177);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(140, 23);
-            this.btnChangePassword.TabIndex = 7;
-            this.btnChangePassword.Text = "byta lösenordet";
-            this.btnChangePassword.UseVisualStyleBackColor = true;
-            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // Wine_Application
             // 

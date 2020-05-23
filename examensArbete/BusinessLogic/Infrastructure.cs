@@ -1,5 +1,6 @@
 ﻿using examensArbete.Models;
 using examensArbete.Models.PostModels.Inventories;
+using examensArbete.Models.PostModels.Metadata;
 using examensArbete.Models.PostModels.Shelves;
 using examensArbete.Models.PostModels.Vintages;
 using examensArbete.Models.PostModels.Wines;
@@ -317,6 +318,7 @@ namespace examensArbete.BusinessLogic
                 ShelfId = shelfId,
                 Amount = amount
             };
+
             var token = await GetToken();
             var responseBody = await RestVerbs.Post(url, payload, token);
             if (string.IsNullOrEmpty(responseBody))
@@ -539,10 +541,10 @@ namespace examensArbete.BusinessLogic
                     inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
 
                 string origin = wine.Country.CountryName;
-               // if (wine.Region.RegionName != "Okänt region")
-                    origin += " >> \r\n" + wine.Region.RegionName;
-              //  if (wine.District.DistrictName != "Okänt distrikt")
-                    origin += " >> \r\n" + wine.District.DistrictName;
+                // if (wine.Region.RegionName != "Okänt region")
+                origin += " >> \r\n" + wine.Region.RegionName;
+                //  if (wine.District.DistrictName != "Okänt distrikt")
+                origin += " >> \r\n" + wine.District.DistrictName;
 
                 string grapes = "";
                 foreach (var grape in wine.WineGrapes)
@@ -568,7 +570,7 @@ namespace examensArbete.BusinessLogic
         private static async Task<string> GetToken()
         {
             _auth = await _auth.GetFreshAuthAsync();
-           // Console.WriteLine("Token : {0}", _auth.FirebaseToken);
+            // Console.WriteLine("Token : {0}", _auth.FirebaseToken);
             return _auth.FirebaseToken;
 
         }
@@ -589,5 +591,79 @@ namespace examensArbete.BusinessLogic
         }
 
 
+
+
+        public static async Task<ErrorModel> AddCountry(string countryName)
+        {
+            var url = Links.baseLink + Links.metadata +'/'+ Links.countries;
+            var payload = new AddCountryModel
+            {
+                CountryName = countryName
+            };
+            var token = await GetToken();
+
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = false, Message = "Landet har inte lagts till", Object = new CountryResponse { CountryId = 0, CountryName = "" } };
+
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<CountryResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+
+        }
+        public static async Task<ErrorModel> AddRegion(string regionName, long countryId)
+        {
+            var url = Links.baseLink + Links.metadata + '/' + Links.regions;
+            var payload = new AddRegionModel
+            {
+                RegionName = regionName,
+                CountryId = countryId
+            };
+            var token = await GetToken();
+
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = false, Message = "Regionen har inte lagts till", Object = new RegionResponse { CountryId = 0, RegionName = "", RegionId = 0 } };
+
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<RegionResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+        }
+        public static async Task<ErrorModel> AddDistrict(string districtName, long regionId)
+        {
+            var url = Links.baseLink + Links.metadata + '/' + Links.districts;
+            var payload = new AddDistrictModel
+            {
+                DistrictName = districtName,
+                RegionId = regionId
+            };
+            var token = await GetToken();
+
+            var responseBody = await RestVerbs.Post(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = false, Message = "Distrikten har inte lagts till", Object = new DistrictResponse { DistrictId = 0, DistrictName = "", RegionId = 0 } };
+
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<DistrictResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+        }
     }
 }

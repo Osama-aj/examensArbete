@@ -64,9 +64,9 @@
             // 
             this.btnAddInventory.Location = new System.Drawing.Point(194, 126);
             this.btnAddInventory.Name = "btnAddInventory";
-            this.btnAddInventory.Size = new System.Drawing.Size(75, 23);
+            this.btnAddInventory.Size = new System.Drawing.Size(121, 23);
             this.btnAddInventory.TabIndex = 1;
-            this.btnAddInventory.Text = "Lägg till";
+            this.btnAddInventory.Text = "Lägg till och klar";
             this.btnAddInventory.UseVisualStyleBackColor = true;
             this.btnAddInventory.Click += new System.EventHandler(this.btnAddInventory_Click);
             // 
@@ -115,7 +115,7 @@
             // 
             // tbAmount
             // 
-            this.tbAmount.Location = new System.Drawing.Point(41, 129);
+            this.tbAmount.Location = new System.Drawing.Point(41, 128);
             this.tbAmount.Name = "tbAmount";
             this.tbAmount.Size = new System.Drawing.Size(100, 20);
             this.tbAmount.TabIndex = 13;

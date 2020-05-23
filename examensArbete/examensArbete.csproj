@@ -391,6 +391,9 @@
     <Compile Include="Models\PostModels\Grades\UpdateGrade.cs" />
     <Compile Include="Models\PostModels\Inventories\AddInventoryModel.cs" />
     <Compile Include="Models\PostModels\Inventories\UpdateInventoryModel.cs" />
+    <Compile Include="Models\PostModels\Metadata\AddCountryModel.cs" />
+    <Compile Include="Models\PostModels\Metadata\AddDistrictModel.cs" />
+    <Compile Include="Models\PostModels\Metadata\AddRegionModel.cs" />
     <Compile Include="Models\PostModels\Shelves\AddShelfModel.cs" />
     <Compile Include="Models\PostModels\Shelves\UpdateShelfModel.cs" />
     <Compile Include="Models\PostModels\Users\AddUserModel.cs" />

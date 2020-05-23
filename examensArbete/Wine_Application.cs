@@ -353,7 +353,7 @@ namespace examensArbete
         }
 
         //add new wine tab load 
-        
+
 
 
         private void btnAddGrape_Click(object sender, EventArgs e)
@@ -408,10 +408,63 @@ namespace examensArbete
 
 
 
+        private async void btnAddCountry_Click(object sender, EventArgs e)
+        {
+            var addCountryResponse = await Infrastructure.AddCountry(tbNewCountry.Text);
+            if (addCountryResponse.ErrorCode)
+            {
+                var metadetaErrorModel = await Infrastructure.GetMetadata();
+                MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
+                Metadata = metadata;
+
+                ShowCountriesAddNewWine();
+                cbOriginCountry.SelectedIndex = cbOriginCountry.FindStringExact(tbNewCountry.Text);
+            }
+            else if (!string.IsNullOrEmpty(addCountryResponse.Message))
+                MessageBox.Show(addCountryResponse.Message, "Fel");
+        }
 
 
+        private async void btnAddRegion_Click(object sender, EventArgs e)
+        {
+            var selectedCountry = (CountryResponse)cbOriginCountry.SelectedItem;
+            var addRegionResponse = await Infrastructure.AddRegion(tbNewRegion.Text, selectedCountry.CountryId);
+            if (addRegionResponse.ErrorCode)
+            {
+                var metadetaErrorModel = await Infrastructure.GetMetadata();
+                MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
+                Metadata = metadata;
+
+                ShowCountriesAddNewWine();
+                cbOriginCountry.SelectedIndex = cbOriginCountry.FindStringExact(selectedCountry.CountryName);
+                cbOriginRegion.SelectedIndex = cbOriginRegion.FindStringExact(tbNewRegion.Text);
+            }
+            else if (!string.IsNullOrEmpty(addRegionResponse.Message))
+                MessageBox.Show(addRegionResponse.Message, "Fel");
+        }
+
+        private async void btnAddDistrict_Click(object sender, EventArgs e)
+        {
+            var selectedCountry = (CountryResponse)cbOriginCountry.SelectedItem;
+
+            var selectedRegion = (RegionResponse)cbOriginRegion.SelectedItem;
 
 
+            var addCountryResponse = await Infrastructure.AddDistrict(tbNewDistrict.Text, selectedRegion.RegionId);
+            if (addCountryResponse.ErrorCode)
+            {
+                var metadetaErrorModel = await Infrastructure.GetMetadata();
+                MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
+                Metadata = metadata;
+
+                ShowCountriesAddNewWine();
+                cbOriginCountry.SelectedIndex = cbOriginCountry.FindStringExact(selectedCountry.CountryName);
+                cbOriginRegion.SelectedIndex = cbOriginRegion.FindStringExact(selectedRegion.RegionName);
+                cbOriginDistrict.SelectedIndex = cbOriginDistrict.FindStringExact(tbNewDistrict.Text);
+            }
+            else if (!string.IsNullOrEmpty(addCountryResponse.Message))
+                MessageBox.Show(addCountryResponse.Message, "Fel");
+        }
 
 
 
@@ -434,11 +487,18 @@ namespace examensArbete
         }
         private void ShowRegionsAddNewWine(long selectedCountryId)
         {
-            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
             cbOriginRegion.Items.Clear();
-            if (selectedCountry != null)
+
+            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
+            if (selectedCountry != null && selectedCountry.Regions.Count() > 0)
+            {
                 cbOriginRegion.Items.AddRange(selectedCountry.Regions.ToArray());
-            cbOriginRegion.SelectedIndex = 0;
+                cbOriginRegion.SelectedIndex = 0;
+            }
+            else
+            {
+                ShowDistrictAddNewWine(0, 0);
+            }
         }
         private void cbOriginRegion_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -447,13 +507,20 @@ namespace examensArbete
         }
         private void ShowDistrictAddNewWine(long selectedCountryId, long selectedRegionId)
         {
-            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
-            RegionResponse selectedRegion = selectedCountry.Regions.First(r => r.RegionId == selectedRegionId);
             cbOriginDistrict.Items.Clear();
 
-            if (selectedRegion != null)
+            CountryResponse selectedCountry = Metadata.Countries.FirstOrDefault(r => r.CountryId == selectedCountryId);
+            if (selectedCountry == null)
+                return;
+            RegionResponse selectedRegion = selectedCountry.Regions.First(r => r.RegionId == selectedRegionId);
+            if (selectedRegion == null)
+                return;
+
+            if (selectedRegion != null && selectedRegion.Districts.Count() > 0)
+            {
                 cbOriginDistrict.Items.AddRange(selectedRegion.Districts.ToArray());
-            cbOriginDistrict.SelectedIndex = 0;
+                cbOriginDistrict.SelectedIndex = 0;
+            }
         }
         private void ShowGrapes()
         {
@@ -513,6 +580,8 @@ namespace examensArbete
                 ShowGrapes();
             }
         }
+
+
     }
 }
 
