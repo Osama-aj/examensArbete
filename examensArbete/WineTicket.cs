@@ -129,6 +129,7 @@ namespace examensArbete
         private async void btnAddThings_Click(object sender, EventArgs e)
         {
             AddShelfVintageInventory addDialog = new AddShelfVintageInventory(this.WineId);
+            addDialog.StartPosition = FormStartPosition.CenterParent;
             addDialog.ShowDialog();
 
             var oneWineResponse = await Infrastructure.GetOneWine(_wineId);

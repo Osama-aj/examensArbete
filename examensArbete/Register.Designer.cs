@@ -48,7 +48,7 @@
             this.tbRepeatPasswordSignUp.Name = "tbRepeatPasswordSignUp";
             this.tbRepeatPasswordSignUp.PasswordChar = '*';
             this.tbRepeatPasswordSignUp.Size = new System.Drawing.Size(100, 20);
-            this.tbRepeatPasswordSignUp.TabIndex = 21;
+            this.tbRepeatPasswordSignUp.TabIndex = 4;
             // 
             // label4
             // 
@@ -64,7 +64,7 @@
             this.btnSignup.Location = new System.Drawing.Point(79, 168);
             this.btnSignup.Name = "btnSignup";
             this.btnSignup.Size = new System.Drawing.Size(75, 23);
-            this.btnSignup.TabIndex = 19;
+            this.btnSignup.TabIndex = 5;
             this.btnSignup.Text = "Bli Medlem";
             this.btnSignup.UseVisualStyleBackColor = true;
             this.btnSignup.Click += new System.EventHandler(this.btnSignup_Click);
@@ -75,14 +75,14 @@
             this.tbPasswordSignUp.Name = "tbPasswordSignUp";
             this.tbPasswordSignUp.PasswordChar = '*';
             this.tbPasswordSignUp.Size = new System.Drawing.Size(100, 20);
-            this.tbPasswordSignUp.TabIndex = 18;
+            this.tbPasswordSignUp.TabIndex = 3;
             // 
             // tbEmailSignup
             // 
             this.tbEmailSignup.Location = new System.Drawing.Point(114, 23);
             this.tbEmailSignup.Name = "tbEmailSignup";
             this.tbEmailSignup.Size = new System.Drawing.Size(100, 20);
-            this.tbEmailSignup.TabIndex = 17;
+            this.tbEmailSignup.TabIndex = 1;
             // 
             // label2
             // 
@@ -107,7 +107,7 @@
             this.btnLoginInRegister.Location = new System.Drawing.Point(79, 213);
             this.btnLoginInRegister.Name = "btnLoginInRegister";
             this.btnLoginInRegister.Size = new System.Drawing.Size(75, 23);
-            this.btnLoginInRegister.TabIndex = 22;
+            this.btnLoginInRegister.TabIndex = 6;
             this.btnLoginInRegister.Text = "Logga in";
             this.btnLoginInRegister.UseVisualStyleBackColor = true;
             this.btnLoginInRegister.Click += new System.EventHandler(this.btnLoginInRegister_Click);
@@ -135,7 +135,7 @@
             this.tbDisplayName.Location = new System.Drawing.Point(114, 59);
             this.tbDisplayName.Name = "tbDisplayName";
             this.tbDisplayName.Size = new System.Drawing.Size(100, 20);
-            this.tbDisplayName.TabIndex = 24;
+            this.tbDisplayName.TabIndex = 2;
             // 
             // label3
             // 
@@ -148,6 +148,7 @@
             // 
             // Register
             // 
+            this.AcceptButton = this.btnSignup;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 357);

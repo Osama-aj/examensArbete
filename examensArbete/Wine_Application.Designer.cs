@@ -459,9 +459,9 @@
             // 
             this.btnAddCountry.Location = new System.Drawing.Point(469, 130);
             this.btnAddCountry.Name = "btnAddCountry";
-            this.btnAddCountry.Size = new System.Drawing.Size(75, 23);
+            this.btnAddCountry.Size = new System.Drawing.Size(88, 23);
             this.btnAddCountry.TabIndex = 18;
-            this.btnAddCountry.Text = "lägg till";
+            this.btnAddCountry.Text = "lägg till land";
             this.btnAddCountry.UseVisualStyleBackColor = true;
             this.btnAddCountry.Click += new System.EventHandler(this.btnAddCountry_Click);
             // 
@@ -469,9 +469,9 @@
             // 
             this.btnAddRegion.Location = new System.Drawing.Point(469, 157);
             this.btnAddRegion.Name = "btnAddRegion";
-            this.btnAddRegion.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRegion.Size = new System.Drawing.Size(88, 23);
             this.btnAddRegion.TabIndex = 17;
-            this.btnAddRegion.Text = "lägg till";
+            this.btnAddRegion.Text = "lägg till region";
             this.btnAddRegion.UseVisualStyleBackColor = true;
             this.btnAddRegion.Click += new System.EventHandler(this.btnAddRegion_Click);
             // 
@@ -479,9 +479,9 @@
             // 
             this.btnAddDistrict.Location = new System.Drawing.Point(469, 184);
             this.btnAddDistrict.Name = "btnAddDistrict";
-            this.btnAddDistrict.Size = new System.Drawing.Size(75, 23);
+            this.btnAddDistrict.Size = new System.Drawing.Size(88, 23);
             this.btnAddDistrict.TabIndex = 16;
-            this.btnAddDistrict.Text = "lägg till";
+            this.btnAddDistrict.Text = "lägg till distrikt";
             this.btnAddDistrict.UseVisualStyleBackColor = true;
             this.btnAddDistrict.Click += new System.EventHandler(this.btnAddDistrict_Click);
             // 

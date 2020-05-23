@@ -54,9 +54,9 @@
             // 
             this.btnAddShelf.Location = new System.Drawing.Point(148, 45);
             this.btnAddShelf.Name = "btnAddShelf";
-            this.btnAddShelf.Size = new System.Drawing.Size(75, 23);
+            this.btnAddShelf.Size = new System.Drawing.Size(94, 23);
             this.btnAddShelf.TabIndex = 0;
-            this.btnAddShelf.Text = "Lägg till";
+            this.btnAddShelf.Text = "Lägg till hylla";
             this.btnAddShelf.UseVisualStyleBackColor = true;
             this.btnAddShelf.Click += new System.EventHandler(this.btnAddShelf_Click);
             // 
@@ -202,9 +202,9 @@
             // 
             this.btnAddVintage.Location = new System.Drawing.Point(148, 45);
             this.btnAddVintage.Name = "btnAddVintage";
-            this.btnAddVintage.Size = new System.Drawing.Size(75, 23);
+            this.btnAddVintage.Size = new System.Drawing.Size(94, 23);
             this.btnAddVintage.TabIndex = 0;
-            this.btnAddVintage.Text = "Lägg till";
+            this.btnAddVintage.Text = "Lägg till årgång";
             this.btnAddVintage.UseVisualStyleBackColor = true;
             this.btnAddVintage.Click += new System.EventHandler(this.btnAddVintage_Click);
             // 
@@ -220,18 +220,20 @@
             // 
             // AddShelfVintageInventory
             // 
+            this.AcceptButton = this.btnAddInventory;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.CancelButton = this.btnOk;
             this.ClientSize = new System.Drawing.Size(383, 427);
             this.ControlBox = false;
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AddShelfVintageInventory";
-            this.Text = "AddShelfVintageInventory";
+            this.Text = "Lägg till";
             this.Load += new System.EventHandler(this.AddShelfVintageInventory_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
