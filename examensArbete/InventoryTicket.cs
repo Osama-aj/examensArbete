@@ -47,6 +47,7 @@ namespace examensArbete
                 tbamount.Enabled = false;
             }
         }
+        #region variabels
         private long _inventoryId;
         private long _shelfId;
         private long _vintageId;
@@ -109,6 +110,8 @@ namespace examensArbete
             get { return _shelf; }
             set { _shelf = value; lblShelf.Text = value; }
         }
+        #endregion
+
 
         private async void AddOneBottleButton_Click(object sender, EventArgs e)
         {

@@ -12,6 +12,7 @@ namespace examensArbete.Models.ResponseModel.GeneralSectionResponse
         public string Name { get; set; }
         public string ImageOriginal { get; set; }
         public string ImageThumbnail { get; set; }
+        public string Producer { get; set; }
         public double Alcohol { get; set; }
         public DistrictResponse District { get; set; }
         public ICollection<WineGrapeResponse> WineGrapes { get; set; }

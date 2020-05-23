@@ -14,6 +14,7 @@ using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Crypto.Engines;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -540,11 +541,11 @@ namespace examensArbete.BusinessLogic
                 else
                     inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
 
-                string origin = wine.Country.CountryName;
-                // if (wine.Region.RegionName != "Okänt region")
-                origin += " >> \r\n" + wine.Region.RegionName;
-                //  if (wine.District.DistrictName != "Okänt distrikt")
-                origin += " >> \r\n" + wine.District.DistrictName;
+                //string origin = wine.Country.CountryName;
+                //// if (wine.Region.RegionName != "Okänt region")
+                //origin += " >> \r\n" + wine.Region.RegionName;
+                ////  if (wine.District.DistrictName != "Okänt distrikt")
+                //origin += " >> \r\n" + wine.District.DistrictName;
 
                 string grapes = "";
                 foreach (var grape in wine.WineGrapes)
@@ -555,9 +556,11 @@ namespace examensArbete.BusinessLogic
                 {
                     WineId = wine.WineId,
                     WineName = wine.WineName,
-                    Alcohol = wine.Alcohol.ToString() + "%",
+                    Alcohol = wine.Alcohol.ToString()+'%' ,
                     Bottles = inves,
-                    Origin = origin,
+                    Country = wine.Country.CountryName,
+                    Region = wine.Region.RegionName,
+                    District = wine.District.DistrictName,
                     Producer = wine.Producer,
                     Grapes = grapes,
                     WinePic = wine.ImageThumbnail
@@ -595,7 +598,7 @@ namespace examensArbete.BusinessLogic
 
         public static async Task<ErrorModel> AddCountry(string countryName)
         {
-            var url = Links.baseLink + Links.metadata +'/'+ Links.countries;
+            var url = Links.baseLink + Links.metadata + '/' + Links.countries;
             var payload = new AddCountryModel
             {
                 CountryName = countryName
@@ -658,6 +661,39 @@ namespace examensArbete.BusinessLogic
             try
             {
                 var responseBodyJson = JsonConvert.DeserializeObject<DistrictResponse>(responseBody);
+                return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
+            }
+            catch (Exception error)
+            {
+                return new ErrorModel { ErrorCode = false, Message = error.Message, Object = null };
+            }
+
+        }
+
+
+
+
+
+
+
+        public static async Task<ErrorModel> UpdateWine(long wineId, string producer, double alcohol, long districtId)
+        {
+            var url = Links.baseLink + Links.wines;
+            var payload = new UpdateWine
+            {
+                WineId = wineId,
+                Producer = producer,
+                Alcohol = alcohol,
+                DistrictId = districtId
+            };
+            var token = await GetToken();
+            var responseBody = await RestVerbs.Put(url, payload, token);
+            if (string.IsNullOrEmpty(responseBody))
+                return new ErrorModel { ErrorCode = false, Message = "Vinet har inte ändrats!", Object = null };
+
+            try
+            {
+                var responseBodyJson = JsonConvert.DeserializeObject<WineResponse>(responseBody);
                 return new ErrorModel { ErrorCode = true, Message = null, Object = responseBodyJson };
             }
             catch (Exception error)

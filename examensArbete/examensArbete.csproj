@@ -401,6 +401,7 @@
     <Compile Include="Models\PostModels\Vintages\AddVintageModel.cs" />
     <Compile Include="Models\PostModels\Vintages\UpdateVintageModel.cs" />
     <Compile Include="Models\PostModels\Wines\AddWine.cs" />
+    <Compile Include="Models\PostModels\Wines\UpdateWine.cs" />
     <Compile Include="Models\ResponseModel\GeneralSectionResponse\CountryResponse.cs" />
     <Compile Include="Models\ResponseModel\GeneralSectionResponse\DistrictResponse.cs" />
     <Compile Include="Models\ResponseModel\GeneralSectionResponse\GradeResponse.cs" />

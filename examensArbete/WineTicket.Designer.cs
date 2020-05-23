@@ -30,8 +30,6 @@
         {
             this.picWinePic = new System.Windows.Forms.PictureBox();
             this.lblWineName = new System.Windows.Forms.Label();
-            this.lblOrigin = new System.Windows.Forms.Label();
-            this.lblAlcohol = new System.Windows.Forms.Label();
             this.lblGrapes = new System.Windows.Forms.Label();
             this.lblWineId = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,11 +38,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lblProducer = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnAddThings = new System.Windows.Forms.Button();
+            this.tbAlcohol = new System.Windows.Forms.TextBox();
+            this.tbProducer = new System.Windows.Forms.TextBox();
+            this.btnUpdateWine = new System.Windows.Forms.Button();
+            this.cbCountries = new System.Windows.Forms.ComboBox();
+            this.cbRegions = new System.Windows.Forms.ComboBox();
+            this.cbDistricts = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.picWinePic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +55,7 @@
             // 
             this.picWinePic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picWinePic.ImageLocation = "";
-            this.picWinePic.Location = new System.Drawing.Point(12, 12);
+            this.picWinePic.Location = new System.Drawing.Point(12, 3);
             this.picWinePic.Name = "picWinePic";
             this.picWinePic.Size = new System.Drawing.Size(98, 82);
             this.picWinePic.TabIndex = 0;
@@ -68,31 +71,11 @@
             this.lblWineName.TabIndex = 1;
             this.lblWineName.Text = "Put here wine name";
             // 
-            // lblOrigin
-            // 
-            this.lblOrigin.AutoSize = true;
-            this.lblOrigin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOrigin.Location = new System.Drawing.Point(9, 97);
-            this.lblOrigin.Name = "lblOrigin";
-            this.lblOrigin.Size = new System.Drawing.Size(101, 17);
-            this.lblOrigin.TabIndex = 2;
-            this.lblOrigin.Text = "Put here origin";
-            // 
-            // lblAlcohol
-            // 
-            this.lblAlcohol.AutoSize = true;
-            this.lblAlcohol.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlcohol.Location = new System.Drawing.Point(103, 153);
-            this.lblAlcohol.Name = "lblAlcohol";
-            this.lblAlcohol.Size = new System.Drawing.Size(44, 17);
-            this.lblAlcohol.TabIndex = 4;
-            this.lblAlcohol.Text = "100%";
-            // 
             // lblGrapes
             // 
             this.lblGrapes.AutoSize = true;
             this.lblGrapes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGrapes.Location = new System.Drawing.Point(21, 239);
+            this.lblGrapes.Location = new System.Drawing.Point(21, 260);
             this.lblGrapes.Name = "lblGrapes";
             this.lblGrapes.Size = new System.Drawing.Size(70, 34);
             this.lblGrapes.TabIndex = 5;
@@ -164,21 +147,11 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Betyg";
             // 
-            // lblProducer
-            // 
-            this.lblProducer.AutoSize = true;
-            this.lblProducer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProducer.Location = new System.Drawing.Point(21, 196);
-            this.lblProducer.Name = "lblProducer";
-            this.lblProducer.Size = new System.Drawing.Size(65, 17);
-            this.lblProducer.TabIndex = 16;
-            this.lblProducer.Text = "producer";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 179);
+            this.label6.Location = new System.Drawing.Point(9, 200);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 17);
             this.label6.TabIndex = 17;
@@ -188,7 +161,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(9, 222);
+            this.label7.Location = new System.Drawing.Point(9, 243);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 17);
             this.label7.TabIndex = 18;
@@ -198,7 +171,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(9, 153);
+            this.label8.Location = new System.Drawing.Point(9, 174);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(88, 17);
             this.label8.TabIndex = 19;
@@ -214,17 +187,81 @@
             this.btnAddThings.UseVisualStyleBackColor = true;
             this.btnAddThings.Click += new System.EventHandler(this.btnAddThings_Click);
             // 
+            // tbAlcohol
+            // 
+            this.tbAlcohol.Location = new System.Drawing.Point(103, 177);
+            this.tbAlcohol.Name = "tbAlcohol";
+            this.tbAlcohol.Size = new System.Drawing.Size(67, 20);
+            this.tbAlcohol.TabIndex = 21;
+            // 
+            // tbProducer
+            // 
+            this.tbProducer.Location = new System.Drawing.Point(24, 220);
+            this.tbProducer.Name = "tbProducer";
+            this.tbProducer.Size = new System.Drawing.Size(146, 20);
+            this.tbProducer.TabIndex = 22;
+            // 
+            // btnUpdateWine
+            // 
+            this.btnUpdateWine.Location = new System.Drawing.Point(604, 288);
+            this.btnUpdateWine.Name = "btnUpdateWine";
+            this.btnUpdateWine.Size = new System.Drawing.Size(88, 23);
+            this.btnUpdateWine.TabIndex = 23;
+            this.btnUpdateWine.Text = "Redigera vinet";
+            this.btnUpdateWine.UseVisualStyleBackColor = true;
+            this.btnUpdateWine.Click += new System.EventHandler(this.btnUpdateWine_Click);
+            // 
+            // cbCountries
+            // 
+            this.cbCountries.DisplayMember = "CountryName";
+            this.cbCountries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCountries.FormattingEnabled = true;
+            this.cbCountries.Location = new System.Drawing.Point(12, 96);
+            this.cbCountries.Name = "cbCountries";
+            this.cbCountries.Size = new System.Drawing.Size(121, 21);
+            this.cbCountries.TabIndex = 24;
+            this.cbCountries.ValueMember = "CountryId";
+            this.cbCountries.SelectedIndexChanged += new System.EventHandler(this.cbCountries_SelectedIndexChanged);
+            // 
+            // cbRegions
+            // 
+            this.cbRegions.DisplayMember = "RegionName";
+            this.cbRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRegions.FormattingEnabled = true;
+            this.cbRegions.Location = new System.Drawing.Point(12, 123);
+            this.cbRegions.Name = "cbRegions";
+            this.cbRegions.Size = new System.Drawing.Size(121, 21);
+            this.cbRegions.TabIndex = 25;
+            this.cbRegions.ValueMember = "RegionId";
+            this.cbRegions.SelectedIndexChanged += new System.EventHandler(this.cbRegions_SelectedIndexChanged);
+            // 
+            // cbDistricts
+            // 
+            this.cbDistricts.DisplayMember = "DistrictName";
+            this.cbDistricts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDistricts.FormattingEnabled = true;
+            this.cbDistricts.Location = new System.Drawing.Point(12, 150);
+            this.cbDistricts.Name = "cbDistricts";
+            this.cbDistricts.Size = new System.Drawing.Size(121, 21);
+            this.cbDistricts.TabIndex = 26;
+            this.cbDistricts.ValueMember = "DistrictId";
+            // 
             // WineTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Controls.Add(this.cbRegions);
+            this.Controls.Add(this.cbDistricts);
+            this.Controls.Add(this.cbCountries);
+            this.Controls.Add(this.btnUpdateWine);
+            this.Controls.Add(this.tbProducer);
+            this.Controls.Add(this.tbAlcohol);
             this.Controls.Add(this.btnAddThings);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblProducer);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -232,13 +269,12 @@
             this.Controls.Add(this.BottlesPanel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblGrapes);
-            this.Controls.Add(this.lblAlcohol);
             this.Controls.Add(this.lblWineName);
             this.Controls.Add(this.picWinePic);
             this.Controls.Add(this.lblWineId);
-            this.Controls.Add(this.lblOrigin);
             this.Name = "WineTicket";
             this.Size = new System.Drawing.Size(800, 315);
+            this.Load += new System.EventHandler(this.WineTicket_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picWinePic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,8 +285,6 @@
 
         private System.Windows.Forms.PictureBox picWinePic;
         private System.Windows.Forms.Label lblWineName;
-        private System.Windows.Forms.Label lblOrigin;
-        private System.Windows.Forms.Label lblAlcohol;
         private System.Windows.Forms.Label lblGrapes;
         private System.Windows.Forms.Label lblWineId;
         private System.Windows.Forms.Label label1;
@@ -259,10 +293,15 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblProducer;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnAddThings;
+        private System.Windows.Forms.TextBox tbAlcohol;
+        private System.Windows.Forms.TextBox tbProducer;
+        private System.Windows.Forms.Button btnUpdateWine;
+        private System.Windows.Forms.ComboBox cbCountries;
+        private System.Windows.Forms.ComboBox cbRegions;
+        private System.Windows.Forms.ComboBox cbDistricts;
     }
 }
