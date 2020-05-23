@@ -329,7 +329,19 @@ namespace examensArbete
 
         private void btnGetImage_Click(object sender, EventArgs e)
         {
-
+            string imageLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "jpg files(*.jpg)|*.jpg|png files(*.png)|*.png";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    imageLocation = dialog.FileName;
+                pbWineImage.ImageLocation = imageLocation;
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -346,7 +358,7 @@ namespace examensArbete
                 return;
             }
 
-            var addWineResponse = await Infrastructure.AddWine(winName, producer, selectedDistrict.DistrictId, alcohol, AddedGrapes);
+            var addWineResponse = await Infrastructure.AddWine(winName, producer, selectedDistrict.DistrictId, alcohol, AddedGrapes, pbWineImage.Image);
 
             if (!addWineResponse.ErrorCode && !string.IsNullOrEmpty(addWineResponse.Message))
                 MessageBox.Show(addWineResponse.Message, "Fel");

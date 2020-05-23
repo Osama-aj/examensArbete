@@ -14,6 +14,7 @@ using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Crypto.Engines;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -438,8 +439,13 @@ namespace examensArbete.BusinessLogic
             return null;
 
         }
-
-        public static async Task<ErrorModel> AddWine(string winName, string producer, long districtId, string alcohol, List<WineGrape> AddedGrapes)
+        private static byte[] imageToByteArray(System.Drawing.Image imageIn)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, imageIn.RawFormat);
+            return ms.ToArray();
+        }
+        public static async Task<ErrorModel> AddWine(string winName, string producer, long districtId, string alcohol, List<WineGrape> AddedGrapes, Image image)
         {
             double alcoholDouble = 0;
             if (!string.IsNullOrEmpty(alcohol))
@@ -453,14 +459,16 @@ namespace examensArbete.BusinessLogic
             var url = Links.baseLink + Links.wines;
             for (int i = 0; i < AddedGrapes.Count(); i++)
                 AddedGrapes[i].Grape = null;
-
+            //var imageToByteArray(image)
             var payload = new AddWine
             {
                 Name = winName,
                 DistrictId = districtId,
                 Producer = producer,
                 Alcohol = alcoholDouble,
-                WineGrapes = AddedGrapes
+                WineGrapes = AddedGrapes,
+                Image = imageToByteArray(image)
+
             };
             var token = await GetToken();
 
@@ -556,7 +564,7 @@ namespace examensArbete.BusinessLogic
                 {
                     WineId = wine.WineId,
                     WineName = wine.WineName,
-                    Alcohol = wine.Alcohol.ToString()+'%' ,
+                    Alcohol = wine.Alcohol.ToString() + '%',
                     Bottles = inves,
                     Country = wine.Country.CountryName,
                     Region = wine.Region.RegionName,

@@ -155,7 +155,7 @@ namespace examensArbete
             var selectedDistrict = (DistrictResponse)cbDistricts.SelectedItem;
             var producer = tbProducer.Text;
             if (tbAlcohol.Text.EndsWith("%"))
-                tbAlcohol.Text = tbAlcohol.Text.Remove(tbAlcohol.Text.Count() - 1, 1);
+                tbAlcohol.Text = tbAlcohol.Text.Remove(tbAlcohol.Text.Count() - 1);
             double.TryParse(tbAlcohol.Text, out double alcohol);
             if (selectedDistrict == null)
             {

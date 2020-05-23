@@ -365,6 +365,7 @@
     <Compile Include="AddShelfVintageInventory.Designer.cs">
       <DependentUpon>AddShelfVintageInventory.cs</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLogic\Base64FileJsonConverter.cs" />
     <Compile Include="BusinessLogic\Infrastructure.cs" />
     <Compile Include="BusinessLogic\RestVerbs.cs" />
     <Compile Include="frmWaitForm.cs" />
@@ -480,10 +481,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\noWine.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\noWInes.jpg" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

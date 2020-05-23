@@ -423,9 +423,10 @@
             // 
             // pbWineImage
             // 
-            this.pbWineImage.Location = new System.Drawing.Point(625, 26);
+            this.pbWineImage.Location = new System.Drawing.Point(614, 22);
             this.pbWineImage.Name = "pbWineImage";
-            this.pbWineImage.Size = new System.Drawing.Size(162, 127);
+            this.pbWineImage.Size = new System.Drawing.Size(200, 181);
+            this.pbWineImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbWineImage.TabIndex = 23;
             this.pbWineImage.TabStop = false;
             // 
