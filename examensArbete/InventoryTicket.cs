@@ -20,13 +20,11 @@ namespace examensArbete
     public partial class InventoryTicket : UserControl
     {
         private readonly List<ShelfResponse> Shelves = new List<ShelfResponse>();
-        private readonly List<VintageResponse> Vintages = new List<VintageResponse>();
         bool firstShelfIndexChange = true;
 
-        public InventoryTicket(List<ShelfResponse> _shelves, List<VintageResponse> _vintages)
+        public InventoryTicket(List<ShelfResponse> _shelves)
         {
             Shelves = _shelves;
-            Vintages = _vintages;
             InitializeComponent();
         }
         private void InventoryTicket_Load(object sender, EventArgs e)

@@ -41,7 +41,10 @@ namespace examensArbete.BusinessLogic
         private static char separator = Path.DirectorySeparatorChar;
         private static string userDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + separator + "vinAppData";
         private static string userDataFile = userDataDirectory + separator + "data.txt";
+
         #endregion
+
+       
 
         #region login,out and signup
         public static UserRecord GetUserInfo()
@@ -497,7 +500,8 @@ namespace examensArbete.BusinessLogic
         private static async Task<ErrorModel> GetWineList(string url, string startsWith, long countryId, long regionId)
         {
             var shelves = await GetUsersShelves();
-
+            var metadetaErrorModel = await Infrastructure.GetMetadata();
+            MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
 
             if (!string.IsNullOrEmpty(startsWith))
                 url = url.Replace("startswith=", "startswith=" + startsWith);
@@ -528,14 +532,14 @@ namespace examensArbete.BusinessLogic
             foreach (var wine in responseBodyJson)
             {
 
-                List<VintageResponse> vintages = await GetVintages(wine.WineId);
+                //List<VintageResponse> vintages = await GetVintages(wine.WineId);
 
                 List<InventoryTicket> inves = new List<InventoryTicket>();
                 if (wine.Vintages != null)
                 {
                     foreach (var inv in wine.Vintages)
                     {
-                        inves.Add(new InventoryTicket(shelves, vintages)
+                        inves.Add(new InventoryTicket(shelves)
                         {
                             Year = inv != null ? inv.Year : "",
                             CurrentAmount = inv != null ? inv.Amount.ToString() : "",
@@ -549,7 +553,7 @@ namespace examensArbete.BusinessLogic
                     }
                 }
                 else
-                    inves.Add(new InventoryTicket(shelves, vintages) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
+                    inves.Add(new InventoryTicket(shelves) { CurrentAmount = "-", Year = "-", Grade = "--", Shelf = "-" });
 
                 //string origin = wine.Country.CountryName;
                 //// if (wine.Region.RegionName != "Okänt region")
@@ -562,7 +566,7 @@ namespace examensArbete.BusinessLogic
                 {
                     grapes += grape.GrapeName + ((grape.Percent > 0) ? " " + grape.Percent + "%" + "\r\n" : "\r\n");
                 }
-                wineTickets.Add(new WineTicket
+                wineTickets.Add(new WineTicket(metadata)
                 {
                     WineId = wine.WineId,
                     WineName = wine.WineName,

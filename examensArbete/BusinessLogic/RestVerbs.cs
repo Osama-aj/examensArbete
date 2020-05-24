@@ -17,7 +17,7 @@ namespace examensArbete.BusinessLogic
 
         public static async Task<ErrorModel> Get(string url, string accessToken)
         {
-
+            Console.WriteLine("GET: "+url);
             var responseBody = "";
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);

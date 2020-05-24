@@ -15,16 +15,13 @@ namespace examensArbete
 {
     public partial class WineTicket : UserControl
     {
-        public WineTicket()
+        public WineTicket(MetaDataResponse _metadata)
         {
             InitializeComponent();
+            Metadata = _metadata;
         }
-        private async void WineTicket_Load(object sender, EventArgs e)
+        private void WineTicket_Load(object sender, EventArgs e)
         {
-            var metadetaErrorModel = await Infrastructure.GetMetadata();
-            MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
-            Metadata = metadata;
-
             ShowAndSelectOrigin();
 
         }
@@ -164,7 +161,7 @@ namespace examensArbete
                 return;
             }
 
-            var updateWineResponse = await Infrastructure.UpdateWine(this.WineId, producer, alcohol, selectedDistrict.DistrictId,picWinePic.Image);
+            var updateWineResponse = await Infrastructure.UpdateWine(this.WineId, producer, alcohol, selectedDistrict.DistrictId, picWinePic.Image);
             if (updateWineResponse.ErrorCode)
             {
                 var updatedWine = (WineResponse)updateWineResponse.Object;

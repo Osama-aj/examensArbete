@@ -37,18 +37,15 @@ namespace examensArbete
 
 
 
-        public Wine_Application()
+        public Wine_Application(MetaDataResponse _metadata)
         {
             InitializeComponent();
+            Metadata = _metadata;
         }
 
 
-        private async void Wine_Application_Load(object sender, EventArgs e)
+        private void Wine_Application_Load(object sender, EventArgs e)
         {
-            var metadetaErrorModel = await Infrastructure.GetMetadata();
-            MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
-            Metadata = metadata;
-
             ShowCountriesWinelist();
             ShowCountriesAllWinelist();
             ShowUsersWinelist();

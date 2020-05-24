@@ -1,5 +1,6 @@
 ﻿using examensArbete.BusinessLogic;
 using examensArbete.Models;
+using examensArbete.Models.ResponseModel.GeneralSectionResponse;
 using Firebase.Auth;
 using FirebaseAdmin;
 using FirebaseAdmin.Auth;
@@ -45,7 +46,11 @@ namespace examensArbete
 
             if (isLoggedIn.ErrorCode)
             {
-                Wine_Application wineApp = new Wine_Application();
+                var metadetaErrorModel = await Infrastructure.GetMetadata();
+                MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
+                
+
+                Wine_Application wineApp = new Wine_Application(metadata);
                 wineApp.Show();
                 this.Hide();
             }
@@ -71,7 +76,9 @@ namespace examensArbete
 
             if (loggedInSuccessfully.ErrorCode)
             {
-                Wine_Application wineApp = new Wine_Application();
+                var metadetaErrorModel = await Infrastructure.GetMetadata();
+                MetaDataResponse metadata = (MetaDataResponse)metadetaErrorModel.Object;
+                Wine_Application wineApp = new Wine_Application(metadata);
                 wineApp.Show();
                 this.Hide();
 
