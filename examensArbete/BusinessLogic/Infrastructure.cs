@@ -180,10 +180,10 @@ namespace examensArbete.BusinessLogic
                 var message = "{" + ex.Message.Substring(from, to - from + 1).Replace("Response", "\"Response\"") + "}";
                 var exceptionMessage = JsonConvert.DeserializeObject<ExceptionFirebase>(message);
 
-                System.IO.File.WriteAllText(userDataFile, ex.ToString());
+                //System.IO.File.WriteAllText(userDataFile, ex.ToString());
                 //MessageBox.Show(exceptionMessage.Response.Error.Message, "Fel");
 
-                return new ErrorModel { ErrorCode = false, Message = "exceptionMessage.Response.Error.Message" };
+                return new ErrorModel { ErrorCode = false, Message = exceptionMessage.Response.Error.Message };
             }
             return new ErrorModel { ErrorCode = true, Message = null };
 
@@ -417,7 +417,9 @@ namespace examensArbete.BusinessLogic
                 return responseBodyJson;
             }
             else if (!string.IsNullOrEmpty(responseErrorModel.Message))
+            {
                 MessageBox.Show(responseErrorModel.Message, "Fel");
+            }
 
             return null;
 
