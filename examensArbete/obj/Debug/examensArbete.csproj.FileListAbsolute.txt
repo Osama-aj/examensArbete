@@ -131,3 +131,7 @@ C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.frmWaitForm.resources
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.InventoryTicket.resources
 C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.AddShelfVintageInventory.resources
+C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\examensArbete.exe.manifest
+C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\bin\Debug\examensArbete.application
+C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.exe.manifest
+C:\Users\usama\Desktop\LIA2\examensArbete\examensArbete\obj\Debug\examensArbete.application

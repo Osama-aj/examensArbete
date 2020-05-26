@@ -19,7 +19,7 @@ namespace examensArbete
         {
             FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromFile(Path.Combine(Environment.CurrentDirectory, @"privateKey.json"))
+                Credential = GoogleCredential.FromFile(Path.Combine(Environment.CurrentDirectory, @"UsDA1QA.dll"))
             });
 
 
