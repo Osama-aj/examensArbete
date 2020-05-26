@@ -44,7 +44,7 @@ namespace examensArbete.BusinessLogic
 
         #endregion
 
-       
+
 
         #region login,out and signup
         public static UserRecord GetUserInfo()
@@ -726,8 +726,15 @@ namespace examensArbete.BusinessLogic
                 OpenFileDialog dialog = new OpenFileDialog();
                 dialog.Filter = "jpg files(*.jpg)|*.jpg|png files(*.png)|*.png";
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
                     imageLocation = dialog.FileName;
-                return new ErrorModel { ErrorCode = true, Message = null, Object = imageLocation };
+                    return new ErrorModel { ErrorCode = true, Message = null, Object = imageLocation };
+                }
+                else
+                {
+                    return new ErrorModel { ErrorCode = false, Message = null, Object = null };
+
+                }
 
 
             }
